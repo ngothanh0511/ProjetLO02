@@ -5,8 +5,10 @@ import projet.cartes.StockCarte;
 public class Partie {
 
 	private Partie partie;
-	private int nbrJoueurs;
 	private int tours;
+	static Scanner scan = new Scanner(System.in);
+	static Scanner nom = new Scanner(System.in);
+	private static int nbrJoueurs;
 	
 	
 	private Partie partie(){
@@ -20,6 +22,22 @@ public class Partie {
 	
 	public boolean estTermine(){
 		return true;
+	}
+	
+	public static String setNom(){
+		System.out.println("Mettez votre nom : ");
+		return nom.nextLine();
+		
+	}
+	
+	public static int setNbrJoueurs(){
+		
+		int a=7;
+		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
+			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
+			a = scan.nextInt();
+		}
+		return a;
 	}
 	
 //	public JV creerJV(){
@@ -45,6 +63,25 @@ public class Partie {
 		while (j1.laMain.getListeCartesMain().size() >0){
 			j1.choisirCarte();
 		}
+		
+		Scanner reponse = new Scanner(System.in);
+		System.out.println("Vous voulez commencer le jeu (O/N)? ");
+		String rep=reponse.nextLine();
+		if(rep.equals("O")){
+			nbrJoueurs=setNbrJoueurs();
+			System.out.println("Bonjour, "+ setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à jouer avec.");
+			System.out.print("Votre Divinité est ");
+			Joueur.piocheDivinite();
+			System.out.println("Lancement du dé...");
+			System.out.print("Resultat du lancement: " + DeCosmogonie.resultatLancement());
+			
+			String resLance= DeCosmogonie.resultatLancement();
+			
+		}
+		else{
+			System.out.print("Lancer le jeu");
+		}
+
 		
 	}
 
