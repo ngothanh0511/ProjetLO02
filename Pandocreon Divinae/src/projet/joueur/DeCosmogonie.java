@@ -17,7 +17,7 @@ public class DeCosmogonie {
 	}
 	
 	public void donnePtActionJour(){
-		
+		System.out.println("Hello");
 		
 	}
 	
