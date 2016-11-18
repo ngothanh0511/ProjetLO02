@@ -8,13 +8,31 @@ public class JoueurPhysique extends Joueur{
 	static Scanner nom = new Scanner(System.in);
 	private static int nbrJoueurs;
 	
-	public void lancerDeCosmogonie(){
-		
-	}
 	
-public void piocheDivinite(){
+	private String originDivin;//nouveau attribut
+	
+	public void piocheDivinite(){
+		divinite resDiv;
+		int Div = new Random().nextInt(divinite.values().length);
+		resDiv=divinite.values()[Div];//pour aggreger le nom du variable utilis√©
 		
-	}
+		if(resDiv.equals("Yarstur")&& resDiv.equals("Drinded")&&resDiv.equals("Brewalen")){
+			originDivin="Jour";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		if(resDiv.equals("PuiTara")&& resDiv.equals("Llewella")){
+			originDivin="Nuit";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		if(resDiv.equals("Gorpa")&& resDiv.equals("Romtec")){
+			originDivin="Crepuscule";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		else{
+			originDivin="Aube";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+	};
 	
 	public void commencerJeu(){
 		
@@ -57,13 +75,13 @@ public void piocheDivinite(){
 	   }
 	public void choisirCarte(){
 		int id;
-		System.out.println("Mettez l'id de la carte ‡ jouer: ");
+		System.out.println("Mettez l'id de la carte √† jouer: ");
 		id = scan.nextInt();
 		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
 			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 				laMain.getListeCartesMain().get(i).calculerPtAction(this);
 				if (laMain.getListeCartesMain().get(i).utilisee()==true){
-					System.out.println("Vous avez jouÈ la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					System.out.println("Vous avez jou√© la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
 					laMain.getListeCartesMain().remove(i);
 				}
 				else {
@@ -75,16 +93,6 @@ public void piocheDivinite(){
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		
-		
-		nbrJoueurs=setNbrJoueurs();
-		
-		System.out.println("Bonjour, "+ setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  ‡ jouer avec.");
-		System.out.print("Votre DivinitÈ est ");
-		DeCosmogonie.resultatLancement();
-		
-		ArrayList<JoueurVirtuel> players = new ArrayList<JoueurVirtuel>();
 		
 		
 	}
