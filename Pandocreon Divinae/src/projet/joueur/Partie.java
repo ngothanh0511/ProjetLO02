@@ -7,7 +7,6 @@ public class Partie {
 	private Partie partie;
 	private int tours;
 	static Scanner scan = new Scanner(System.in);
-	static Scanner nom = new Scanner(System.in);
 	private static int nbrJoueurs;
 	
 	
@@ -24,11 +23,6 @@ public class Partie {
 		return true;
 	}
 	
-	public static String setNom(){
-		System.out.println("Mettez votre nom : ");
-		return nom.nextLine();
-		
-	}
 	
 	public static int setNbrJoueurs(){
 		
@@ -64,14 +58,15 @@ public class Partie {
 			j1.choisirCarte();
 		}
 		
+		JoueurPhysique phy = new JoueurPhysique();
 		Scanner reponse = new Scanner(System.in);
 		System.out.println("Vous voulez commencer le jeu (O/N)? ");
 		String rep=reponse.nextLine();
 		if(rep.equals("O")){
 			nbrJoueurs=setNbrJoueurs();
-			System.out.println("Bonjour, "+ setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à jouer avec.");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à jouer avec.");
 			System.out.print("Votre Divinité est ");
-			Joueur.piocheDivinite();
+			phy.piocheDivinite();
 			System.out.println("Lancement du dé...");
 			System.out.print("Resultat du lancement: " + DeCosmogonie.resultatLancement());
 			
