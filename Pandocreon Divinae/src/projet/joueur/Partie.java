@@ -71,6 +71,31 @@ public class Partie {
 			System.out.print("Resultat du lancement: " + DeCosmogonie.resultatLancement());
 			
 			String resLance= DeCosmogonie.resultatLancement();
+			if(resLance.equals("Jour")){
+				if(phy.getOriginDivin().equals("Jour")){
+					phy.setPtActionJour(2);
+				}
+				if(phy.getOriginDivin().equals("Aube")){
+					phy.setPtActionJour(1);
+				}
+				System.out.println("Vous avez maintenait " + phy.getPtActionJour()+ " points jour ");
+			}
+			if(resLance.equals("Nuit")){
+				if(phy.getOriginDivin().equals("Nuit")){
+					phy.setPtActionNuit(2);
+				}
+				if(phy.getOriginDivin().equals("Crepuscule")){
+					phy.setPtActionNuit(1);
+				}
+				System.out.println("Vous avez maintenait " + phy.getPtActionNuit()+ " points nuit");
+			}
+			if(resLance.equals("Neant")){
+				if(phy.getOriginDivin().equals("Aube")&&phy.getOriginDivin().equals("Crepuscule")){
+					phy.setPtActionNeant(1);
+					System.out.println("Vous avez maintenait " + phy.getPtActionNeant()+ " points neant");
+				}
+
+			}
 			
 		}
 		else{
