@@ -20,23 +20,27 @@ public class JoueurVirtuel extends Joueur{
 	}
 	
 	public void piocheDivinite(){
-		divinite resDiv;
+		String resDiv;
 		int Div = new Random().nextInt(divinite.values().length);
-		resDiv=divinite.values()[Div];//pour aggreger le nom du variable utilisé
+		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisé
 		
-		if(resDiv.equals("Yarstur")&& resDiv.equals("Drinded")&&resDiv.equals("Brewalen")){
+		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
 			originDivin="Jour";
 			System.out.println(resDiv + " d'origine " + originDivin);
 		}
-		if(resDiv.equals("PuiTara")&& resDiv.equals("Llewella")){
+		if(resDiv=="PuiTara" || resDiv=="Llewella" || resDiv=="Killinstred"){
 			originDivin="Nuit";
+			System.out.println(resDiv + " d'origine " + originDivin);
 		}
-		if(resDiv.equals("Gorpa")&& resDiv.equals("Romtec")){
+		if(resDiv=="Gorpa" || resDiv=="Romtec"){
 			originDivin="Crepuscule";
+			System.out.println(resDiv + " d'origine " + originDivin);
 		}
-		else{
+		if(resDiv=="Shingua" || resDiv=="Gwengbelen"){
 			originDivin="Aube";
+			System.out.println(resDiv + " d'origine " + originDivin);
 		}
+		
 	};
 	
 	public static void main(String[] args) {
