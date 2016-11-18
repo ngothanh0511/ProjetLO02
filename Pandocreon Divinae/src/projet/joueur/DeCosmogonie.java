@@ -6,7 +6,7 @@ public class DeCosmogonie {
 	static int faceAleatoire = new Random().nextInt(face.values().length); //ça va nous donner la face du dé aléatoirement
 	
 	public enum face{//donne les valeurs aux joueurs 
-		JOUR,NUIT,NEANT
+		Jour,Nuit,Neant
 	}
 
 	public static void resultatLancement(){
