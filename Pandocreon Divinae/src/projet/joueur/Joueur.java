@@ -10,7 +10,7 @@ public  abstract class Joueur {
 	private int id;
 	private String nom;
 	public enum divinite {
-		JOUR,AUBE,NUIT,CRESPUSCULE
+		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
 	}
 	private int ptActionJour=3;
 	private int ptActionNuit=0;
