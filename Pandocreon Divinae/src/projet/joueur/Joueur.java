@@ -12,7 +12,7 @@ public  abstract class Joueur {
 	public enum divinite {
 		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
 	}
-	private int ptActionJour=3;
+	private int ptActionJour=0;//j'ai enlevé le 3 
 	private int ptActionNuit=0;
 	private int ptActionNeant=0;
 	private int ptPriere=0;
@@ -20,27 +20,30 @@ public  abstract class Joueur {
 	private boolean disponibiliteCapacite;
 	protected Main laMain;
 	
-	public void setPtActionJour(int PtActionJour){
-		ptActionJour = PtActionJour;
-	}
-	
-	public int getPtActionJour(){
+	public int getPtActionJour() {
 		return ptActionJour;
 	}
-	
-	public void setPtActionNuit(int PtActionNuit){
-		ptActionNuit = PtActionNuit;
+
+	public void setPtActionJour(int ptActionJour) {
+		this.ptActionJour = ptActionJour;
 	}
-	public int getPtActionNuit(){
+	
+	public int getPtActionNuit() {
 		return ptActionNuit;
 	}
-	public void setPtActionNeant(int PtActionNeant){
-		ptActionNeant = PtActionNeant;
-	}
-	public int getPtActionNeant(){
-		return ptActionNeant;
+
+	public void setPtActionNuit(int ptActionNuit) {
+		this.ptActionNuit = ptActionNuit;
 	}
 	
+	public int getPtActionNeant() {
+		return ptActionNeant;
+	}
+
+	public void setPtActionNeant(int ptActionNeant) {
+		this.ptActionNeant = ptActionNeant;
+	}
+
 	
 	public abstract void lancerDeCosmogonie();
 	
