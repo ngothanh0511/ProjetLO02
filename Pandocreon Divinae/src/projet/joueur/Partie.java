@@ -10,7 +10,8 @@ public class Partie {
 	private Partie partie;
 	static Scanner scan = new Scanner(System.in);
 	private static int nbrJoueurs;
-	private int tours;
+	private static int tours=1;
+	private static int tot=0;
 	
 	
 	private Partie partie(){
@@ -26,7 +27,7 @@ public class Partie {
 		return true;
 	}
 	
-public static int setNbrJoueurs(){
+	public static int setNbrJoueurs(){
 		
 		int a=7;
 		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
@@ -56,37 +57,47 @@ public static int setNbrJoueurs(){
 		String rep=reponse.nextLine();
 		if(rep.equals("O")){
 			nbrJoueurs=setNbrJoueurs();
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à  jouer avec.");
-			System.out.print("Votre Divinité est ");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  Ã Â  jouer avec.");
+			System.out.print("Votre DivinitÃ© est ");
 			phy.piocheDivinite();
-			System.out.println("Lancement du dé de Cosmogonie...");
-			System.out.println("Resultat du lancement: " + DeCosmogonie.resultatLancement());
-			
-			face resLance= DeCosmogonie.resultatLancement();
-			if(resLance.equals(face.Jour)){		//J'ai changé le type de l'attribue reslance à face afin de débugger le bug
-				if(phy.getOriginDivin().equals("Jour")){
-					phy.setPtActionJour(2);
+			while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
+				DeCosmogonie dice=new DeCosmogonie();
+				System.out.println("Tour " + tours);
+				System.out.println("Lancement le"+ tours +" ieme dÃ©...");
+				System.out.println("Resultat du lancement: face " + dice.resultatLancement());
+				String resLance= dice.resultatLancement();
+				if(resLance.equals("Jour")){
+					if(phy.getOriginDivin().equals("Jour")){
+						
+						tot=tot+2;
+						phy.setPtActionJour(tot);
+					}
+					if(phy.getOriginDivin().equals("Aube")){
+						tot=tot+1;
+						phy.setPtActionJour(tot);
+						
+					}
+					System.out.println("Vous avez maintenait " + phy.getPtActionJour()+ " points jour ");
 				}
-				if(phy.getOriginDivin().equals("Aube")){
-					phy.setPtActionJour(1);
+				if(resLance.equals("Nuit")){
+					if(phy.getOriginDivin().equals("Nuit")){
+						tot=tot+2;
+						phy.setPtActionNuit(tot);
+					}
+					if(phy.getOriginDivin().equals("Crepuscule")){
+						tot=tot+1;
+						phy.setPtActionNuit(tot);
+					}
+					System.out.println("Vous avez maintenait " + phy.getPtActionNuit()+ " points nuit");
 				}
-				System.out.println("Vous avez maintenantt " + phy.getPtActionJour()+ " points jour ");
-			}
-			if(resLance.equals(face.Nuit)){
-				if(phy.getOriginDivin().equals("Nuit")){
-					phy.setPtActionNuit(2);
+				if(resLance.equals("Neant")){
+					if(phy.getOriginDivin().equals("Aube")||phy.getOriginDivin().equals("Crepuscule")){
+						tot=tot+1;
+						phy.setPtActionNeant(tot);
+					}
+					System.out.println("Vous avez maintenait " + phy.getPtActionNeant()+ " points neant");
 				}
-				if(phy.getOriginDivin().equals("Crepuscule")){
-					phy.setPtActionNuit(1);
-				}
-				System.out.println("Vous avez maintenantt " + phy.getPtActionNuit()+ " points nuit");
-			}
-			if(resLance.equals(face.Neant)){
-				if(phy.getOriginDivin().equals("Aube")&&phy.getOriginDivin().equals("Crepuscule")){
-					phy.setPtActionNeant(1);
-					System.out.println("Vous avez maintenantt " + phy.getPtActionNeant()+ " points neant");
-				}
-
+				tours++;
 			}
 			
 		}
