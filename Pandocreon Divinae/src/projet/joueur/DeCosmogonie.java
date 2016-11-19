@@ -3,21 +3,21 @@ import java.util.Random;
 public class DeCosmogonie {
 	
 	static face resFace;
-	static int faceAleatoire = new Random().nextInt(face.values().length); //ça va nous donner la face du dé aléatoirement
+	static int faceAleatoire = new Random().nextInt(face.values().length); //Ã§a va nous donner la face du dÃ© alÃ©atoirement
 	
 	public enum face{//donne les valeurs aux joueurs 
-		JOUR,NUIT,NEANT
+		Jour,Nuit,Neant
 	}
 
 	public static void resultatLancement(){
 		
-		resFace=face.values()[faceAleatoire];//pour aggreger le nom du variable utilisé
+		resFace=face.values()[faceAleatoire];//pour aggreger le nom du variable utilisÃ©
 		System.out.println( resFace);
 		
 	}
 	
 	public void donnePtActionJour(){
-		
+		System.out.println("Hello");
 		
 	}
 	
@@ -31,9 +31,9 @@ public class DeCosmogonie {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-			    
+			   
 		/**if(resFace==face.JOUR){
-			
+			 jjj
 		}
 		
 		if(resFace==face.NUIT){

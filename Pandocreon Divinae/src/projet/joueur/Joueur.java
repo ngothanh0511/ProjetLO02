@@ -6,7 +6,7 @@ public  abstract class Joueur {
 	private int id;
 	private String nom;
 	public enum divinite {
-		JOUR,AUBE,NUIT,CRESPUSCULE
+		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
 	}
 	private int ptActionJour=0;
 	private int ptActionNuit=0;
@@ -16,29 +16,28 @@ public  abstract class Joueur {
 	private boolean disponibiliteCapacite;
 	protected Main laMain;
 	
-	public void setPtActionJour(int PtActionJour){
-		ptActionJour = PtActionJour;
-	}
-	
-	public Main getLaMain(){
-		return laMain;
-	}
-	
-	public int getPtActionJour(){
+	public int getPtActionJour() {
 		return ptActionJour;
 	}
-	
-	public void setPtActionNuit(int PtActionNuit){
-		ptActionNuit = PtActionNuit;
+
+	public void setPtActionJour(int ptActionJour) {
+		this.ptActionJour = ptActionJour;
 	}
-	public int getPtActionNuit(){
+	
+	public int getPtActionNuit() {
 		return ptActionNuit;
 	}
-	public void setPtActionNeant(int PtActionNeant){
-		ptActionNeant = PtActionNeant;
+
+	public void setPtActionNuit(int ptActionNuit) {
+		this.ptActionNuit = ptActionNuit;
 	}
-	public int getPtActionNeant(){
+	
+	public int getPtActionNeant() {
 		return ptActionNeant;
+	}
+
+	public void setPtActionNeant(int ptActionNeant) {
+		this.ptActionNeant = ptActionNeant;
 	}
 	
 	

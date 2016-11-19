@@ -10,12 +10,38 @@ public class JoueurPhysique extends Joueur{
 	static Scanner nom = new Scanner(System.in);
 	private static int nbrJoueurs;
 	
-	public void lancerDeCosmogonie(){
-		
-	}
+	private String originDivin;//nouveau attribut
 	
-public void piocheDivinite(){
+	public void piocheDivinite(){
+		String resDiv;
+		int Div = new Random().nextInt(divinite.values().length);
+		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃ©
 		
+		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
+			originDivin="Jour";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		if(resDiv=="PuiTara" || resDiv=="Llewella" || resDiv=="Killinstred"){
+			originDivin="Nuit";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		if(resDiv=="Gorpa" || resDiv=="Romtec"){
+			originDivin="Crepuscule";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		if(resDiv=="Shingua" || resDiv=="Gwengbelen"){
+			originDivin="Aube";
+			System.out.println(resDiv + " d'origine " + originDivin);
+		}
+		
+	};
+	
+	public void setOriginDivin(String originDivin) {
+	       this.originDivin = originDivin;
+	    }
+
+	public String getOriginDivin() {
+	       return originDivin;
 	}
 	
 	public void commencerJeu(){
@@ -85,13 +111,6 @@ public void piocheDivinite(){
 		
 		
 		
-		nbrJoueurs=setNbrJoueurs();
-		
-		System.out.println("Bonjour, "+ setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à jouer avec.");
-		System.out.print("Votre Divinité est ");
-		DeCosmogonie.resultatLancement();
-		
-		ArrayList<JoueurVirtuel> players = new ArrayList<JoueurVirtuel>();
 		
 		
 	}

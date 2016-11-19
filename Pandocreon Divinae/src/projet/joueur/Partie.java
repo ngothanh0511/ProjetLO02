@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class Partie {
 
 	private Partie partie;
+	static Scanner scan = new Scanner(System.in);
 	private int nbrJoueurs;
 	private int tours;
 	
@@ -23,6 +24,15 @@ public class Partie {
 		return true;
 	}
 	
+public static int setNbrJoueurs(){
+		
+		int a=7;
+		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
+			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
+			a = scan.nextInt();
+		}
+		return a;
+	}
 //	public JV creerJV(){
 		
 //	}
@@ -38,13 +48,56 @@ public class Partie {
 	public static void main(String[] args) {
 	
 		StockCarte s = new StockCarte();
-		JoueurPhysique j1 = new JoueurPhysique();
+		JoueurPhysique phy = new JoueurPhysique();
+		Scanner reponse = new Scanner(System.in);
+		System.out.println("Vous voulez commencer le jeu (O/N)? ");
+		String rep=reponse.nextLine();
+		if(rep.equals("O")){
+			nbrJoueurs=setNbrJoueurs();
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  Ã  jouer avec.");
+			System.out.print("Votre Divinité est ");
+			phy.piocheDivinite();
+			System.out.println("Lancement du dé de Cosmogonie...");
+			System.out.print("Resultat du lancement: " + DeCosmogonie.resultatLancement());
+			
+			String resLance= DeCosmogonie.resultatLancement();
+			if(resLance.equals("Jour")){
+				if(phy.getOriginDivin().equals("Jour")){
+					phy.setPtActionJour(2);
+				}
+				if(phy.getOriginDivin().equals("Aube")){
+					phy.setPtActionJour(1);
+				}
+				System.out.println("Vous avez maintenait " + phy.getPtActionJour()+ " points jour ");
+			}
+			if(resLance.equals("Nuit")){
+				if(phy.getOriginDivin().equals("Nuit")){
+					phy.setPtActionNuit(2);
+				}
+				if(phy.getOriginDivin().equals("Crepuscule")){
+					phy.setPtActionNuit(1);
+				}
+				System.out.println("Vous avez maintenait " + phy.getPtActionNuit()+ " points nuit");
+			}
+			if(resLance.equals("Neant")){
+				if(phy.getOriginDivin().equals("Aube")&&phy.getOriginDivin().equals("Crepuscule")){
+					phy.setPtActionNeant(1);
+					System.out.println("Vous avez maintenait " + phy.getPtActionNeant()+ " points neant");
+				}
+
+			}
+			
+		}
+		else{
+			System.out.print("Lancer le jeu");
+		}
+		
 		Main m1 = new Main();
-		j1.setLaMain(m1);
+		phy.setLaMain(m1);
 		s.distribuerCartes(m1);
-		while (j1.laMain.getListeCartesMain().size() >0){
-			j1.MontrerLaMain();
-			j1.choisirCarte();
+		while (phy.laMain.getListeCartesMain().size() >0){
+			phy.MontrerLaMain();
+			phy.choisirCarte();
 		}
 		
 		
