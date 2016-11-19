@@ -1,4 +1,7 @@
 package projet.cartes;
+
+import projet.joueur.Joueur;
+
 /**
  * La classe DeusEx représente les cartes Deus Ex dans le jeu
  * @author Tung NGO
@@ -21,6 +24,11 @@ public class DeusEx extends Carte {
 		this.origine = origine;
 		this.capaciteSpeciale = capacitespeciale;
 	}
+	
+	public void activerFonctionCarte(Joueur joueur){
+		
+	}
+	
 	public String afficherCarte(){
 		return ("c_"+idCarte+": "+"Carte "+type+" "+nom+" d'origine "+origine+", capacité "+capaciteSpeciale);
 	}	

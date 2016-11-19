@@ -1,9 +1,5 @@
 package projet.joueur;
 
-import java.util.ArrayList;
-
-import projet.cartes.*;
-
 
 public  abstract class Joueur {
 
@@ -12,7 +8,7 @@ public  abstract class Joueur {
 	public enum divinite {
 		JOUR,AUBE,NUIT,CRESPUSCULE
 	}
-	private int ptActionJour=3;
+	private int ptActionJour=0;
 	private int ptActionNuit=0;
 	private int ptActionNeant=0;
 	private int ptPriere=0;
@@ -22,6 +18,10 @@ public  abstract class Joueur {
 	
 	public void setPtActionJour(int PtActionJour){
 		ptActionJour = PtActionJour;
+	}
+	
+	public Main getLaMain(){
+		return laMain;
 	}
 	
 	public int getPtActionJour(){

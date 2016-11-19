@@ -10,9 +10,14 @@ public class Tapis {
 	/**
 	 * La liste des cartes Croyants déposés au centre du tapis
 	 */
-	private ArrayList <CarteCroyants> ListeCartesCroyants = new ArrayList <CarteCroyants> ();
-	public void recevoirCartes(CarteCroyants c){
+	protected static ArrayList <CarteCroyants> ListeCartesCroyants = new ArrayList <CarteCroyants> ();
+	public static void recevoirCartes(CarteCroyants c){
 		ListeCartesCroyants.add(c);
+		System.out.println("Les cartes Croyants en commun au centre de la table sont:");
+		for (int i=0; i< ListeCartesCroyants.size();i++){
+			System.out.println(ListeCartesCroyants.get(i).afficherCarte());
+		}
+		System.out.println();
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

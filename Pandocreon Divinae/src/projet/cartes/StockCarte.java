@@ -191,7 +191,7 @@ public class StockCarte {
 	public void distribuerCartes(Main laMain){
 		Collections.shuffle(this.getStock());
 		
-		for (int i=1; i< (7- laMain.getNbrCartes()); i++ ){
+		for (int i=1; i< (8- laMain.getNbrCartes()); i++ ){
 			laMain.getListeCartesMain().add(stock.get(0));
 			stock.remove(0);
 			

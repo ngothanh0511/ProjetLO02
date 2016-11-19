@@ -1,6 +1,7 @@
 package projet.joueur;
 
 import projet.cartes.StockCarte;
+import java.util.Scanner;
 
 public class Partie {
 
@@ -41,10 +42,11 @@ public class Partie {
 		Main m1 = new Main();
 		j1.setLaMain(m1);
 		s.distribuerCartes(m1);
-		j1.getLaMain();
 		while (j1.laMain.getListeCartesMain().size() >0){
+			j1.MontrerLaMain();
 			j1.choisirCarte();
 		}
+		
 		
 	}
 

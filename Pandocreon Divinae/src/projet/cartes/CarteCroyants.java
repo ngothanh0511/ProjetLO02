@@ -1,5 +1,7 @@
 package projet.cartes;
 
+import projet.joueur.Joueur;
+
 /**
  * La classe CarteCroyants représente les cartes Croyants dans le jeu
  * @author Tung NGO
@@ -7,11 +9,16 @@ package projet.cartes;
  */
 public class CarteCroyants extends Carte {
 	private Integer nbrCroyants;
-	private String [] dogmes= new String[3];
+	protected String [] dogmes= new String[3];
 	public String afficherCarte(){
 		return ("c_"+idCarte+" : "+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:"+dogmes[0]+","+
 				dogmes[1]+","+dogmes[2]+", capacité"+capaciteSpeciale+" et contient "+nbrCroyants+" Croyants");
 	}	
+	
+	public void activerFonctionCarte(Joueur joueur){
+		Tapis.recevoirCartes(this);
+		this.calculerPtAction(joueur);
+	}
 	/**
 	 * Constructeur par défaut d'une carte Croyants
 	 * @param nom : nom de la carte

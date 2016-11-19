@@ -1,4 +1,7 @@
 package projet.cartes;
+
+import projet.joueur.Joueur;
+
 /**
  * La classe Apocalypse représente les Cartes Apocalypse dans le jeu
  * @author Tung NGO
@@ -19,6 +22,10 @@ public class Apocalypse extends Carte {
 		this.type = type;
 		this.origine = origine;
 		this.capaciteSpeciale = capacitespeciale;
+	}
+	
+	public void activerFonctionCarte(Joueur joueur){
+		
 	}
 	
 	public String afficherCarte(){

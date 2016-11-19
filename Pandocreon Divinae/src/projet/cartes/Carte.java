@@ -27,11 +27,14 @@ public abstract class   Carte {
 	public int getIdCarte(){
 		return idCarte;
 	}
+	public TypeCarte getType(){
+		return type;
+	}
 	/**
-	 * Recalculer les points Action du joueur quand il joue une carte
+	 * Voir si la carte est jouable ou pas
 	 * @param joueur
 	 */
-	public void calculerPtAction(Joueur joueur){
+	public void getUtilisable(Joueur joueur){
 		switch(origine) {
 		case None:
 			estUtilisable = true;
@@ -42,7 +45,6 @@ public abstract class   Carte {
 			}
 			else {
 				estUtilisable = true;
-				joueur.setPtActionJour(joueur.getPtActionJour()-1);
 			}
 			break;
 		case Nuit:
@@ -51,7 +53,6 @@ public abstract class   Carte {
 			}
 			else {
 				estUtilisable = true;
-				joueur.setPtActionNuit(joueur.getPtActionNuit()-1);
 			}
 			break;
 		case Neant:
@@ -62,27 +63,55 @@ public abstract class   Carte {
 					}
 					else {
 						estUtilisable = true;
-						joueur.setPtActionNuit(joueur.getPtActionNuit()-2);
 					}
 				}
 				else {
 					estUtilisable = true;
-					joueur.setPtActionJour(joueur.getPtActionJour()-2);
 					}
 					
 				}
 			else {
 				estUtilisable = true;
-				joueur.setPtActionNeant(joueur.getPtActionNeant()-1);
 			}
 		
 			break;
 		}
+	
+}
+	
+public void calculerPtAction(Joueur joueur){
+	if (estUtilisable = true){
+		switch(origine) {
+		case None:
+			break;
+		case Jour:
+			joueur.setPtActionJour(joueur.getPtActionJour()-1);
+			break;
+		case Nuit:
+			joueur.setPtActionNuit(joueur.getPtActionNuit()-1);
+			break;
+		case Neant:
+			if (joueur.getPtActionNeant()<1){
+				if (joueur.getPtActionJour()<2) {
+					joueur.setPtActionNuit(joueur.getPtActionNuit()-2);
+					}
+				
+				else {
+					joueur.setPtActionJour(joueur.getPtActionJour()-2);
+					}
+					
+				}
+			else {
+				joueur.setPtActionNeant(joueur.getPtActionNeant()-1);
+			}
+			break;
+		}
 	}
 }
+public abstract void activerFonctionCarte(Joueur joueur);
+}
 
-
- enum TypeCarte {
+  enum TypeCarte {
 	Croyant, GuideSpirituel, DeusEx, Apocalypse
 }
  enum Origine {
