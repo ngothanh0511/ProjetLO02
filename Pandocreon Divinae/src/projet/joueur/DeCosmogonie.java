@@ -9,10 +9,10 @@ public class DeCosmogonie {
 		Jour,Nuit,Neant
 	}
 
-	public static void resultatLancement(){
+	public static face resultatLancement(){
 		
 		resFace=face.values()[faceAleatoire];//pour aggreger le nom du variable utilisé
-		System.out.println( resFace);
+		return  resFace;
 		
 	}
 	

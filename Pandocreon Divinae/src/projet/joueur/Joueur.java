@@ -41,7 +41,6 @@ public  abstract class Joueur {
 	}
 	
 	
-	public abstract void lancerDeCosmogonie();
 	
 	public abstract void piocheDivinite();
 	
@@ -72,6 +71,10 @@ public  abstract class Joueur {
     
     public void passerTour(){
 		
+	}
+    
+    public Main getLaMain(){
+		return laMain;
 	}
     
    public void setLaMain(Main laMain){

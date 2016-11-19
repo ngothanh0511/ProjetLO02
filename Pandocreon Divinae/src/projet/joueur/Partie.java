@@ -1,13 +1,15 @@
 package projet.joueur;
 
 import projet.cartes.StockCarte;
+import projet.joueur.DeCosmogonie.face;
+
 import java.util.Scanner;
 
 public class Partie {
 
 	private Partie partie;
 	static Scanner scan = new Scanner(System.in);
-	private int nbrJoueurs;
+	private static int nbrJoueurs;
 	private int tours;
 	
 	
@@ -54,35 +56,35 @@ public static int setNbrJoueurs(){
 		String rep=reponse.nextLine();
 		if(rep.equals("O")){
 			nbrJoueurs=setNbrJoueurs();
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  Ã  jouer avec.");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  à  jouer avec.");
 			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
 			System.out.println("Lancement du dé de Cosmogonie...");
-			System.out.print("Resultat du lancement: " + DeCosmogonie.resultatLancement());
+			System.out.println("Resultat du lancement: " + DeCosmogonie.resultatLancement());
 			
-			String resLance= DeCosmogonie.resultatLancement();
-			if(resLance.equals("Jour")){
+			face resLance= DeCosmogonie.resultatLancement();
+			if(resLance.equals(face.Jour)){		//J'ai changé le type de l'attribue reslance à face afin de débugger le bug
 				if(phy.getOriginDivin().equals("Jour")){
 					phy.setPtActionJour(2);
 				}
 				if(phy.getOriginDivin().equals("Aube")){
 					phy.setPtActionJour(1);
 				}
-				System.out.println("Vous avez maintenait " + phy.getPtActionJour()+ " points jour ");
+				System.out.println("Vous avez maintenantt " + phy.getPtActionJour()+ " points jour ");
 			}
-			if(resLance.equals("Nuit")){
+			if(resLance.equals(face.Nuit)){
 				if(phy.getOriginDivin().equals("Nuit")){
 					phy.setPtActionNuit(2);
 				}
 				if(phy.getOriginDivin().equals("Crepuscule")){
 					phy.setPtActionNuit(1);
 				}
-				System.out.println("Vous avez maintenait " + phy.getPtActionNuit()+ " points nuit");
+				System.out.println("Vous avez maintenantt " + phy.getPtActionNuit()+ " points nuit");
 			}
-			if(resLance.equals("Neant")){
+			if(resLance.equals(face.Neant)){
 				if(phy.getOriginDivin().equals("Aube")&&phy.getOriginDivin().equals("Crepuscule")){
 					phy.setPtActionNeant(1);
-					System.out.println("Vous avez maintenait " + phy.getPtActionNeant()+ " points neant");
+					System.out.println("Vous avez maintenantt " + phy.getPtActionNeant()+ " points neant");
 				}
 
 			}

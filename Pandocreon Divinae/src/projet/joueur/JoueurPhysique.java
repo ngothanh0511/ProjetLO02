@@ -1,8 +1,8 @@
 package projet.joueur;
-import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
-import projet.cartes.Carte;
+
 
 public class JoueurPhysique extends Joueur{
 
@@ -61,6 +61,8 @@ public class JoueurPhysique extends Joueur{
 		return nom.nextLine();
 		
 	}
+	
+	
 	
 	public static int setNbrJoueurs(){
 		
