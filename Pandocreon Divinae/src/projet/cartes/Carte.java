@@ -27,6 +27,10 @@ public abstract class   Carte {
 	public int getIdCarte(){
 		return idCarte;
 	}
+	
+	public int getNbrCroyants(){	
+		return 0;
+	}
 	public TypeCarte getType(){
 		return type;
 	}

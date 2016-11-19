@@ -14,6 +14,9 @@ public class CarteCroyants extends Carte {
 		return ("c_"+idCarte+" : "+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:"+dogmes[0]+","+
 				dogmes[1]+","+dogmes[2]+", capacité"+capaciteSpeciale+" et contient "+nbrCroyants+" Croyants");
 	}	
+	 public int getNbrCroyants(){
+		 return nbrCroyants;
+	 }
 	
 	public void activerFonctionCarte(Joueur joueur){
 		Tapis.recevoirCartes(this);

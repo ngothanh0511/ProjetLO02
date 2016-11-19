@@ -98,7 +98,10 @@ public class JoueurPhysique extends Joueur{
 					System.out.println("Vous avez joué la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
 					laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
 					laMain.getListeCartesMain().get(i).calculerPtAction(this);
-					laMain.getListeCartesMain().remove(i);
+					if (laMain.getListeCartesMain().get(i).utilisee()== true){
+						laMain.getListeCartesMain().remove(i);
+					}
+					
 				}
 				else {
 					System.out.println("La carte que vous choissiez n'est pas utilisable!");

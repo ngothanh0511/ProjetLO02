@@ -14,7 +14,7 @@ import projet.joueur.Joueur;
  */
 public class GuideSpirituel extends Carte {
 	static Scanner scan = new Scanner(System.in);
-	private Integer nbrCartesCroyantsRattaches; // le nombre de cartes Croyants qu'elle rattache en ce moment
+	private Integer nbrCartesCroyantsRattaches =0; // le nombre de cartes Croyants qu'elle rattache en ce moment
 	private String [] dogmes= new String[2];
 	private Integer nbrCartesCroyants;
 	/**
@@ -46,7 +46,7 @@ public class GuideSpirituel extends Carte {
 			int i;
 			i = scan.nextInt();
 			if (i==0){
-				estUtilisable = false;
+				break;
 			}
 			else{
 				for (int j =0; j< Tapis.ListeCartesCroyants.size(); j++){
@@ -54,8 +54,13 @@ public class GuideSpirituel extends Carte {
 						if ((Arrays.asList(Tapis.ListeCartesCroyants.get(j).dogmes).contains(this.dogmes[0]))
 								|| (Arrays.asList(Tapis.ListeCartesCroyants.get(j).dogmes).contains(this.dogmes[1]))){
 							PairGuideVsCroyants.add(Tapis.ListeCartesCroyants.get(j));
+							System.out.println("Vous venez de rattacher la carte Croyants c_"
+									+ Tapis.ListeCartesCroyants.get(j).getIdCarte());
 							Tapis.ListeCartesCroyants.remove(j);
 							joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
+							nbrCartesCroyantsRattaches +=1;
+							joueur.calculerPtPrieres();
+							System.out.println("Vous avez " + joueur.getPtPriere() +" points Prières");
 							
 						}
 					
@@ -66,6 +71,9 @@ public class GuideSpirituel extends Carte {
 				}
 				}
 			}
+		}
+		if (nbrCartesCroyantsRattaches == 0){
+			estUtilisable = false;
 		}
 	}
 	
