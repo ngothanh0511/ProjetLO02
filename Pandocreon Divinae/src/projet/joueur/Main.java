@@ -9,6 +9,10 @@ public class Main {
 	    	private int nbrCartes=0;
 	    	private ArrayList <Carte> listeCartesMain = new ArrayList <Carte> ();
 	    	private ArrayList<ArrayList<Carte>> listePaireGuideVsCroyants = new ArrayList<ArrayList<Carte>>();
+	    	
+	    	public void setNbrCartes(){
+	    		nbrCartes = listeCartesMain.size();
+	    	}
 	    	public int getNbrCartes(){
 	    		return nbrCartes;
 	    	}

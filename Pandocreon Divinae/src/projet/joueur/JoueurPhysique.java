@@ -2,6 +2,7 @@ package projet.joueur;
 import java.util.Random;
 import java.util.Scanner;
 
+import projet.cartes.StockCarte;
 import projet.cartes.Tapis;
 
 
@@ -64,7 +65,26 @@ public class JoueurPhysique extends Joueur{
 		
 	}
 	
-	
+	public void defausserCarte(){
+		int i;
+		while (laMain.getListeCartesMain().size()>0){
+			MontrerLaMain();
+			System.out.println("Mettez ID de la carte que vous voulez défausser! Tapez 0 si vous ne voulez pas défausser votre cartes!");
+			i= scan.nextInt();
+			if (i==0){
+				break;
+			}
+			else{
+				for(int k=0;k<laMain.getListeCartesMain().size();k++){
+					if (i==laMain.getListeCartesMain().get(k).getIdCarte()){
+						StockCarte.getStock().add(laMain.getListeCartesMain().get(k));
+						laMain.getListeCartesMain().remove(k);
+					}
+				}
+			}
+		}
+		
+	}
 	
 	public static int setNbrJoueurs(){
 		
@@ -80,7 +100,7 @@ public class JoueurPhysique extends Joueur{
 		
 	}
 	public  void MontrerLaMain(){
-		   System.out.println("Vous avez les cartes suivantes:");
+		   System.out.println("Vous avez dans la main les cartes suivantes:");
 		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 		  // 	for (Iterator<Carte> it = laMain.getListeCartesMain().iterator(); it.hashNext();)
 		   			

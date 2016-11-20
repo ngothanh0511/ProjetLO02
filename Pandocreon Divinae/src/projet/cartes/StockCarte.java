@@ -3,14 +3,13 @@ import projet.joueur.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import projet.joueur.Joueur;
 /**
  * La classe StockCarte représente une collection de toutes les cartes d'Action dans le jeu
  * @author Tung NGO
  *
  */
 public class StockCarte {
-	protected ArrayList <Carte> stock = new ArrayList <Carte>();
+	protected static ArrayList <Carte> stock = new ArrayList <Carte>();
 	/**
 	 * Constructeur par défaut de la classe StockCarte
 	 * A la construction, le stock Carte contient 80 cartes d'Action
@@ -182,15 +181,15 @@ public class StockCarte {
 	 * 
 	 * @return : return la liste des cartes dans le stock actuellement
 	 */
-	public ArrayList<Carte> getStock(){ 
+	public static ArrayList<Carte> getStock(){ 
 		return stock;
 	}
 	/**
 	 * Compléter la main de joueur à 7 cartes
 	 */
-	public void distribuerCartes(Main laMain){
-		Collections.shuffle(this.getStock());
-		
+	public  void  distribuerCartes(Main laMain){
+		Collections.shuffle(getStock());
+		laMain.setNbrCartes();
 		for (int i=1; i< (8- laMain.getNbrCartes()); i++ ){
 			laMain.getListeCartesMain().add(stock.get(0));
 			stock.remove(0);
@@ -198,10 +197,7 @@ public class StockCarte {
 		}
 		
 	}
-	public static void main (String[] args){
-		
-		
-	}
+	
 	
 
 }

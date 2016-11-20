@@ -54,9 +54,6 @@ public  abstract class Joueur {
 		
 	}
 	
-	public void utiliserCarte(){
-		
-	}
 	
     public int getPtPriere(){
 		return ptPriere;

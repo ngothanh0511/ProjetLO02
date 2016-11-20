@@ -2,15 +2,15 @@ package projet.joueur;
 import java.util.Random;
 public class DeCosmogonie {
 	
-	private face resFace;
-	private int faceAleatoire = new Random().nextInt(face.values().length); //√ßa va nous donner la face du d√© al√©atoirement
+	private static face resFace;
+	private static int faceAleatoire = new Random().nextInt(face.values().length); //√ßa va nous donner la face du d√© al√©atoirement
 	
 	public enum face{//donne les valeurs aux joueurs 
 		Jour,Nuit,Neant
 	}
 	
 
-	public String resultatLancement(){
+	public static String resultatLancement(){  // j'ai changÈ cette mÈthode ‡ static afin de dÈbugger un bug
 		
 		resFace=face.values()[faceAleatoire];//pour aggreger le nom du variable utilis√©
 		//System.out.println( resFace);

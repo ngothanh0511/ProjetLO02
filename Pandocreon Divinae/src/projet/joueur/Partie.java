@@ -49,23 +49,23 @@ public class Partie {
 	}
 	
 	public static void main(String[] args) {
-	
 		StockCarte s = new StockCarte();
 		JoueurPhysique phy = new JoueurPhysique();
-		Scanner reponse = new Scanner(System.in);
-		System.out.println("Vous voulez commencer le jeu (O/N)? ");
-		String rep=reponse.nextLine();
-		if(rep.equals("O")){
+//		Scanner reponse = new Scanner(System.in);
+	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
+	//	String rep=reponse.nextLine();
+	//	if(rep.equals("O")){
 			nbrJoueurs=setNbrJoueurs();
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels  Ã Â  jouer avec.");
-			System.out.print("Votre DivinitÃ© est ");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
+			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
-			while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
-				DeCosmogonie dice=new DeCosmogonie();
+			Main m1 = new Main();
+			phy.setLaMain(m1);
+		//	while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
 				System.out.println("Tour " + tours);
-				System.out.println("Lancement le"+ tours +" ieme dÃ©...");
-				System.out.println("Resultat du lancement: face " + dice.resultatLancement());
-				String resLance= dice.resultatLancement();
+				System.out.println("Lancement le"+ tours +" ieme dé de Cosmogonie...");
+				System.out.println("Resultat du lancement: face " + DeCosmogonie.resultatLancement());
+				String resLance= DeCosmogonie.resultatLancement();
 				if(resLance.equals("Jour")){
 					if(phy.getOriginDivin().equals("Jour")){
 						
@@ -77,7 +77,7 @@ public class Partie {
 						phy.setPtActionJour(tot);
 						
 					}
-					System.out.println("Vous avez maintenait " + phy.getPtActionJour()+ " points jour ");
+					System.out.println("Vous avez maintenant " + phy.getPtActionJour()+ " points jour ");
 				}
 				if(resLance.equals("Nuit")){
 					if(phy.getOriginDivin().equals("Nuit")){
@@ -88,29 +88,31 @@ public class Partie {
 						tot=tot+1;
 						phy.setPtActionNuit(tot);
 					}
-					System.out.println("Vous avez maintenait " + phy.getPtActionNuit()+ " points nuit");
+					System.out.println("Vous avez maintenant " + phy.getPtActionNuit()+ " points nuit");
 				}
 				if(resLance.equals("Neant")){
 					if(phy.getOriginDivin().equals("Aube")||phy.getOriginDivin().equals("Crepuscule")){
 						tot=tot+1;
 						phy.setPtActionNeant(tot);
 					}
-					System.out.println("Vous avez maintenait " + phy.getPtActionNeant()+ " points neant");
+					System.out.println("Vous avez maintenant " + phy.getPtActionNeant()+ " points neant");
 				}
-				tours++;
+				s.distribuerCartes(m1);
+				phy.defausserCarte();
+				s.distribuerCartes(m1);
+				phy.choisirCarte();
+			//	tours++;
 			}
 			
-		}
-		else{
-			System.out.print("Lancer le jeu");
-		}
+	//	}
+	//	else{
+		//	System.out.print("Lancer le jeu");
+	//	}
 		
-		Main m1 = new Main();
-		phy.setLaMain(m1);
-		s.distribuerCartes(m1);
-		phy.choisirCarte();
 		
-	}
+		
+		
+//	}
 		
 
 }
