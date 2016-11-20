@@ -10,18 +10,22 @@ public class Tapis {
 	/**
 	 * La liste des cartes Croyants déposés au centre du tapis
 	 */
-	protected static ArrayList <CarteCroyants> ListeCartesCroyants = new ArrayList <CarteCroyants> ();
+	private static ArrayList <CarteCroyants> ListeCartesCroyants = new ArrayList <CarteCroyants> ();
+	private static ArrayList <CarteCroyants> ListeCartesCroyantsIndisponible = new ArrayList <CarteCroyants> (); 
 	public static void recevoirCartes(CarteCroyants c){
-		ListeCartesCroyants.add(c);
-		System.out.println("Les cartes Croyants en commun au centre de la table sont:");
-		for (int i=0; i< ListeCartesCroyants.size();i++){
-			System.out.println(ListeCartesCroyants.get(i).afficherCarte());
-		}
-		System.out.println();
+		ListeCartesCroyantsIndisponible.add(c);
+		System.out.println("La carte c_ "+ c.getIdCarte() +"est bien ajouté au centre de la table!");
+	}
+	public static ArrayList <CarteCroyants> getListeCartesCroyants(){
+		return ListeCartesCroyants;
+	}
+	
+	public static ArrayList <CarteCroyants> getListeCartesCroyantsIndisponible(){
+		return ListeCartesCroyantsIndisponible;
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Tapis t = new Tapis();
+		
 		
 	}
 

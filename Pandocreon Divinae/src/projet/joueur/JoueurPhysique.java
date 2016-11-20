@@ -2,6 +2,8 @@ package projet.joueur;
 import java.util.Random;
 import java.util.Scanner;
 
+import projet.cartes.Tapis;
+
 
 
 public class JoueurPhysique extends Joueur{
@@ -89,25 +91,38 @@ public class JoueurPhysique extends Joueur{
 	
 	public void choisirCarte(){
 		int id;
-		System.out.println("Mettez l'id de la carte à jouer: ");
+		while (laMain.getListeCartesMain().size() >0){
+			MontrerLaMain();
+		System.out.println("Mettez l'id de la carte à jouer! Tapez 0 si vous voulez terminer votre tour! ");
 		id = scan.nextInt();
-		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
-			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
-				laMain.getListeCartesMain().get(i).getUtilisable(this);
-				if (laMain.getListeCartesMain().get(i).utilisee()==true){
-					System.out.println("Vous avez joué la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
-					laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
-					laMain.getListeCartesMain().get(i).calculerPtAction(this);
-					if (laMain.getListeCartesMain().get(i).utilisee()== true){
-						laMain.getListeCartesMain().remove(i);
+		if (id == 0){
+			for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
+				Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
+				Tapis.getListeCartesCroyantsIndisponible().remove(i);
+			}
+			break;
+		}
+		else{
+			for (int i=0; i<laMain.getListeCartesMain().size(); i++){
+				if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
+					laMain.getListeCartesMain().get(i).getUtilisable(this);
+					if (laMain.getListeCartesMain().get(i).utilisee()==true){
+						System.out.println("Vous avez joué la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+						laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
+						laMain.getListeCartesMain().get(i).calculerPtAction(this);
+						if (laMain.getListeCartesMain().get(i).utilisee()== true){
+							laMain.getListeCartesMain().remove(i);
+						}
+						
 					}
-					
-				}
-				else {
-					System.out.println("La carte que vous choissiez n'est pas utilisable!");
+					else {
+						System.out.println("La carte que vous choissiez n'est pas utilisable!");
+					}
 				}
 			}
 		}
+		}
+		
 	}
 	
 	

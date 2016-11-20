@@ -39,7 +39,10 @@ public class GuideSpirituel extends Carte {
 	public void activerFonctionCarte(Joueur joueur){
 		ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
 		PairGuideVsCroyants.add(this);
-		
+		System.out.println("Les cartes Croyants disponible à récupérer sont:");
+		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
+			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
+		}
 		for (int k = 1;k<nbrCartesCroyants;k++){
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
 					+ " Si vous ne voulez pas rattacher une autre carte Croyants, tapez 0!");
@@ -49,14 +52,14 @@ public class GuideSpirituel extends Carte {
 				break;
 			}
 			else{
-				for (int j =0; j< Tapis.ListeCartesCroyants.size(); j++){
-					if (i== Tapis.ListeCartesCroyants.get(j).getIdCarte()){ 
-						if ((Arrays.asList(Tapis.ListeCartesCroyants.get(j).dogmes).contains(this.dogmes[0]))
-								|| (Arrays.asList(Tapis.ListeCartesCroyants.get(j).dogmes).contains(this.dogmes[1]))){
-							PairGuideVsCroyants.add(Tapis.ListeCartesCroyants.get(j));
+				for (int j =0; j< Tapis.getListeCartesCroyants().size(); j++){
+					if (i== Tapis.getListeCartesCroyants().get(j).getIdCarte()){ 
+						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
+								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
+							PairGuideVsCroyants.add(Tapis.getListeCartesCroyants().get(j));
 							System.out.println("Vous venez de rattacher la carte Croyants c_"
-									+ Tapis.ListeCartesCroyants.get(j).getIdCarte());
-							Tapis.ListeCartesCroyants.remove(j);
+									+ Tapis.getListeCartesCroyants().get(j).getIdCarte());
+							Tapis.getListeCartesCroyants().remove(j);
 							joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
 							nbrCartesCroyantsRattaches +=1;
 							joueur.calculerPtPrieres();

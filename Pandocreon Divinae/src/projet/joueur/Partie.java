@@ -108,12 +108,9 @@ public class Partie {
 		Main m1 = new Main();
 		phy.setLaMain(m1);
 		s.distribuerCartes(m1);
-		while (phy.laMain.getListeCartesMain().size() >0){
-			phy.MontrerLaMain();
-			phy.choisirCarte();
-		}
-		
+		phy.choisirCarte();
 		
 	}
+		
 
 }
