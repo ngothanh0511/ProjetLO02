@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class JoueurVirtuel extends Joueur{
 
 	static Scanner nom = new Scanner(System.in);
-	private String originDivin;
+	
 	
 	public void lancerDeCosmogonie(){
 		//if(lancerDeCosmogonie()=='DIVIN_joueur_appartient')
@@ -37,7 +37,7 @@ public class JoueurVirtuel extends Joueur{
 			System.out.println(resDiv + " d'origine " + originDivin);
 		}
 		if(resDiv=="Shingua" || resDiv=="Gwengbelen"){
-			originDivin="Aube";
+			originDivin="Aube"; 
 			System.out.println(resDiv + " d'origine " + originDivin);
 		}
 		

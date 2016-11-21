@@ -16,12 +16,12 @@ public class Apocalypse extends Carte {
 	 * @param origine: origine de la carte
 	 * @param capacitespeciale: capacité de la carte
 	 */
-	public Apocalypse(String nom, Integer idCarte, TypeCarte type, Origine origine, CapaciteSpeciale capacitespeciale){
+	public Apocalypse(String nom, Integer idCarte, TypeCarte type, Origine origine, FamilleCapaciteSpeciale familleCapacitespeciale){
 		this.nom= nom;
 		this.idCarte = idCarte;
 		this.type = type;
 		this.origine = origine;
-		this.capaciteSpeciale = capacitespeciale;
+		this.familleCapaciteSpeciale = familleCapacitespeciale;
 	}
 	
 	public void activerFonctionCarte(Joueur joueur){
@@ -31,7 +31,10 @@ public class Apocalypse extends Carte {
 	public String afficherCarte(){
 		return ("c_"+idCarte+" :"+"Carte "+type+" "+nom+" d'origine "+origine);
 	}	
-	public static void main(String[] args) {
+	
+
+	@Override
+	public void activerCapaciteSpeciale(Joueur joueur) {
 		// TODO Auto-generated method stub
 		
 	}

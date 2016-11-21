@@ -8,14 +8,26 @@ public  abstract class Joueur {
 	public enum divinite {
 		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
 	}
+	protected String originDivin;
+	protected String [] dogmesDivin= new String[3];
 	private int ptActionJour=0;
 	private int ptActionNuit=0;
 	private int ptActionNeant=0;
 	private int ptPriere=0;
 	private enum capaciteSpeciale{}
 	private boolean disponibiliteCapacite;
+	private boolean peutSacrifier;
 	protected Main laMain;
 	
+	public String[] getDogmesDivin(){
+		return dogmesDivin;
+	}
+	
+	public void setPeutSacrifier(boolean values){
+		peutSacrifier = values;
+			
+		
+	}
 	public int getPtActionJour() {
 		return ptActionJour;
 	}

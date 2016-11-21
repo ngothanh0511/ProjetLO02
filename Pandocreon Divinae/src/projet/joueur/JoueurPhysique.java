@@ -13,7 +13,6 @@ public class JoueurPhysique extends Joueur{
 	static Scanner nom = new Scanner(System.in);
 	private static int nbrJoueurs;
 	
-	private String originDivin;//nouveau attribut
 	
 	public void piocheDivinite(){
 		String resDiv;

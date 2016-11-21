@@ -17,12 +17,12 @@ public class DeusEx extends Carte {
 	 * @param capacitespeciale : capacité spéciale de la carte
 	 */
 	
-	public DeusEx (String nom, Integer idCarte, TypeCarte type, Origine origine, CapaciteSpeciale capacitespeciale){
+	public DeusEx (String nom, Integer idCarte, TypeCarte type, Origine origine, FamilleCapaciteSpeciale familleCapacitespeciale){
 		this.nom= nom;
 		this.idCarte = idCarte;
 		this.type = type;
 		this.origine = origine;
-		this.capaciteSpeciale = capacitespeciale;
+		this.familleCapaciteSpeciale = familleCapacitespeciale;
 	}
 	
 	public void activerFonctionCarte(Joueur joueur){
@@ -30,11 +30,12 @@ public class DeusEx extends Carte {
 	}
 	
 	public String afficherCarte(){
-		return ("c_"+idCarte+": "+"Carte "+type+" "+nom+" d'origine "+origine+", capacité "+capaciteSpeciale);
+		return ("c_"+idCarte+": "+"Carte "+type+" "+nom+" d'origine "+origine+", capacité "+familleCapaciteSpeciale);
 	}	
-	public static void main(String[] args) {
+	
+	@Override
+	public void activerCapaciteSpeciale(Joueur joueur) {
 		// TODO Auto-generated method stub
-		
 		
 	}
 

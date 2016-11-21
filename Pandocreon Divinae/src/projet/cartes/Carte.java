@@ -13,7 +13,7 @@ public abstract class   Carte {
 	protected Integer idCarte; // Id de la Carte
 	protected TypeCarte type; // Le type (Carte Croyants, Guide Spirituel, Deus Ex, Apocalypse) de la Carte
 	protected Origine origine; // L'orgine (Jour, Nuit, Neant) de la Carte
-	protected CapaciteSpeciale capaciteSpeciale; // La capacité spéciale de la Carte
+	protected FamilleCapaciteSpeciale familleCapaciteSpeciale; // La capacité spéciale de la Carte
 	protected boolean estUtilisable;
 	public abstract String afficherCarte();
 	public boolean utilisee(){
@@ -113,6 +113,8 @@ public void calculerPtAction(Joueur joueur){
 	}
 }
 public abstract void activerFonctionCarte(Joueur joueur);
+
+public abstract void activerCapaciteSpeciale(Joueur joueur);
 }
 
   enum TypeCarte {
@@ -121,10 +123,8 @@ public abstract void activerFonctionCarte(Joueur joueur);
  enum Origine {
 	Jour, Nuit, Neant, None 
 }
- enum CapaciteSpeciale {
-	Cap_1, Cap_2, Cap_3, Cap_4, Cap_5, Cap_6, Cap_7, Cap_8, Cap_9, Cap_10,
-	Cap_11, Cap_12, Cap_13, Cap_14, Cap_15, Cap_16, Cap_17, Cap_18, Cap_19, 
-	Cap_20, Cap_21, Cap_22, Cap_23, Cap_24, Cap_25, Cap_26, Cap_27, Cap_28, 
-	Cap_29, Cap_30, Cap_31, Cap_32, Cap_33, Cap_34, Cap_35, Cap_36, Cap_37,
-	Cap_38, Cap_39, Cap_40, Cap_41, Cap_42
+ enum FamilleCapaciteSpeciale {
+	F_1, F_2, F_3, F_4, F_5, F_6, F_7, F_8, F_9, F_10,
+	F_11, F_12, F_13, F_14, F_15, F_16, F_17, F_18, F_19, 
+	F_20, F_21, F_22, F_23, F_24, F_25, F_26, F_27, F_28, F_29
 }
