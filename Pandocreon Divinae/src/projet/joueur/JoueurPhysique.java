@@ -1,10 +1,9 @@
 package projet.joueur;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
-
-import projet.cartes.StockCarte;
-import projet.cartes.Tapis;
-
+import projet.cartes.*;
 
 
 public class JoueurPhysique extends Joueur{
@@ -144,6 +143,103 @@ public class JoueurPhysique extends Joueur{
 		
 	}
 	
+	public void sacrifierCarteCroyants(CarteCroyants carte){
+		if (carte.getFamilleCapaciteSpeciale()== "F_1") {
+			if (carte.getOrigine() =="Jour"){
+				ptActionJour += 1;
+			}
+			else if (carte.getOrigine() =="Nuit"){
+				ptActionNuit += 1;
+			}
+			else {
+				ptActionNeant +=1;
+			}
+		
+		}
+		else if (carte.getFamilleCapaciteSpeciale() == "F_2"){
+			int a;
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					if ((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[0]) == false) &&
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == false)) &&
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == false))){
+						for (int j =0; j< Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().size();j++){
+							for (int k =0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++ ){
+								for (int h=1; h<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).size();h++){
+									Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(h).setSacrifiable(false);
+								}
+								
+							}
+						}
+					}
+				}
+			}
+			
+		}
+		else if (carte.getFamilleCapaciteSpeciale() == "F_3"){
+			int a;
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					if ((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[0]) == false) &&
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == false)) &&
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == false))){
+						for (int j =0; j< Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().size();j++){
+							if (Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(j).getType() == "GuideSpirituel"){
+								Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(j).setSacrifiable(false);
+							}
+							for (int k =0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++ ){
+									Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0).setSacrifiable(false);
+							}
+						}
+					}
+				}
+			}
+		}
+		else if (carte.getFamilleCapaciteSpeciale() == "F_4"){
+			int a;
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					Collections.shuffle(Partie.listeJoueur.get(i).getLaMain().getListeCartesMain());
+					laMain.getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(0));
+					laMain.getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(1));
+					Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().remove(0);
+					Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().remove(0);
+				}
+			}
+		}
+		 
+		}
+	
+	public void sacrifierGuideSpirituel(GuideSpirituel carte){
+		if (carte.getFamilleCapaciteSpeciale()== "F_3"){
+			int a;
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					if ((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[0]) == true) ||
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == true)) ||
+							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == true))){
+						GuideSpirituel carteSacrifie;
+						for (int k =0; k< Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++){
+							if(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).size()>
+									Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k+1).size()){
+								Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().add(k+2,Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k));
+								Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().remove(k);
+							}
+						}
+						Partie.listeJoueur.get(i).sacrifierGuideSpirituel((GuideSpirituel) Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0));
+					}
+				}
+			}
+		}
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

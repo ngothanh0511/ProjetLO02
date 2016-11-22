@@ -11,10 +11,11 @@ public abstract class   Carte {
 	
 	protected String nom ; // nom de la Carte
 	protected Integer idCarte; // Id de la Carte
-	protected TypeCarte type; // Le type (Carte Croyants, Guide Spirituel, Deus Ex, Apocalypse) de la Carte
-	protected Origine origine; // L'orgine (Jour, Nuit, Neant) de la Carte
-	protected FamilleCapaciteSpeciale familleCapaciteSpeciale; // La capacité spéciale de la Carte
+	protected String type; // Le type (Carte Croyants, Guide Spirituel, Deus Ex, Apocalypse) de la Carte
+	protected String origine; // L'orgine (Jour, Nuit, Neant) de la Carte
+	protected String familleCapaciteSpeciale; // La capacité spéciale de la Carte
 	protected boolean estUtilisable;
+	protected boolean estSacrifiable;
 	public abstract String afficherCarte();
 	public boolean utilisee(){
 		if (estUtilisable == true){
@@ -28,11 +29,27 @@ public abstract class   Carte {
 		return idCarte;
 	}
 	
+	public boolean getSacrifiable(){
+		return estSacrifiable;
+	}
+	
+	public void setSacrifiable(boolean values){
+		estSacrifiable = values;
+	}
+	
 	public int getNbrCroyants(){	
 		return 0;
 	}
-	public TypeCarte getType(){
+	public String getType(){
 		return type;
+	}
+	
+	public String getOrigine(){
+		return origine;
+	}
+	
+	public String getFamilleCapaciteSpeciale(){
+		return familleCapaciteSpeciale;
 	}
 	/**
 	 * Voir si la carte est jouable ou pas
@@ -40,10 +57,10 @@ public abstract class   Carte {
 	 */
 	public void getUtilisable(Joueur joueur){
 		switch(origine) {
-		case None:
+		case "None":
 			estUtilisable = true;
 			break;
-		case Jour:
+		case "Jour":
 			if (joueur.getPtActionJour()<1){
 				estUtilisable = false;
 			}
@@ -51,7 +68,7 @@ public abstract class   Carte {
 				estUtilisable = true;
 			}
 			break;
-		case Nuit:
+		case "Nuit":
 			if (joueur.getPtActionNuit()<1){
 				estUtilisable = false;
 			}
@@ -59,7 +76,7 @@ public abstract class   Carte {
 				estUtilisable = true;
 			}
 			break;
-		case Neant:
+		case "Neant":
 			if (joueur.getPtActionNeant()<1){
 				if (joueur.getPtActionJour()<2) {
 					if(joueur.getPtActionNuit()<2){
@@ -86,15 +103,15 @@ public abstract class   Carte {
 public void calculerPtAction(Joueur joueur){
 	if (estUtilisable = true){
 		switch(origine) {
-		case None:
+		case "None":
 			break;
-		case Jour:
+		case "Jour":
 			joueur.setPtActionJour(joueur.getPtActionJour()-1);
 			break;
-		case Nuit:
+		case "Nuit":
 			joueur.setPtActionNuit(joueur.getPtActionNuit()-1);
 			break;
-		case Neant:
+		case "Neant":
 			if (joueur.getPtActionNeant()<1){
 				if (joueur.getPtActionJour()<2) {
 					joueur.setPtActionNuit(joueur.getPtActionNuit()-2);
@@ -114,9 +131,7 @@ public void calculerPtAction(Joueur joueur){
 }
 public abstract void activerFonctionCarte(Joueur joueur);
 
-public abstract void activerCapaciteSpeciale(Joueur joueur);
 }
-
   enum TypeCarte {
 	Croyant, GuideSpirituel, DeusEx, Apocalypse
 }

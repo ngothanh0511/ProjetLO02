@@ -1,8 +1,10 @@
 package projet.joueur;
 
+import projet.cartes.Carte;
 import projet.cartes.StockCarte;
 import projet.joueur.DeCosmogonie.face;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Partie {
@@ -12,6 +14,7 @@ public class Partie {
 	private static int nbrJoueurs;
 	private static int tours=1;
 	private static int tot=0;
+	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
 	
 	
 	private Partie partie(){
@@ -27,6 +30,9 @@ public class Partie {
 		return true;
 	}
 	
+	public static ArrayList<Joueur> getListeJoueur(){
+		return listeJoueur;
+	}
 	public static int setNbrJoueurs(){
 		
 		int a=7;
@@ -51,6 +57,7 @@ public class Partie {
 	public static void main(String[] args) {
 		StockCarte s = new StockCarte();
 		JoueurPhysique phy = new JoueurPhysique();
+		listeJoueur.add(phy);
 //		Scanner reponse = new Scanner(System.in);
 	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
 	//	String rep=reponse.nextLine();

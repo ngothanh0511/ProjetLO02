@@ -1,5 +1,6 @@
 package projet.joueur;
 
+import projet.cartes.GuideSpirituel;
 
 public  abstract class Joueur {
 
@@ -10,23 +11,21 @@ public  abstract class Joueur {
 	}
 	protected String originDivin;
 	protected String [] dogmesDivin= new String[3];
-	private int ptActionJour=0;
-	private int ptActionNuit=0;
-	private int ptActionNeant=0;
+	protected int ptActionJour=0;
+	protected int ptActionNuit=0;
+	protected int ptActionNeant=0;
 	private int ptPriere=0;
 	private enum capaciteSpeciale{}
 	private boolean disponibiliteCapacite;
-	private boolean peutSacrifier;
 	protected Main laMain;
 	
 	public String[] getDogmesDivin(){
 		return dogmesDivin;
 	}
 	
-	public void setPeutSacrifier(boolean values){
-		peutSacrifier = values;
-			
-		
+	
+	public int getIdJoueur(){
+		return id;
 	}
 	public int getPtActionJour() {
 		return ptActionJour;
@@ -96,6 +95,7 @@ public  abstract class Joueur {
 	   this.laMain = laMain;
    }
     
+   public abstract void sacrifierGuideSpirituel(GuideSpirituel carte);
    
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

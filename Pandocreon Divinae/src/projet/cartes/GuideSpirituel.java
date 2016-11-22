@@ -27,10 +27,10 @@ public class GuideSpirituel extends Carte {
 	 * @param nbrCartesCroyants : nombre maximal de cartes Croyants que la carte Guide Spirituel peut rattacher
 	 * @param capaciteSpeciale : capacité spéciale de la carte
 	 */
-	public GuideSpirituel (String nom, Integer idCarte, TypeCarte type, Origine origine, String [] dogmes, Integer nbrCartesCroyants, FamilleCapaciteSpeciale familleCapaciteSpeciale ){
+	public GuideSpirituel (String nom, Integer idCarte, String type, String origine, String [] dogmes, Integer nbrCartesCroyants, String familleCapaciteSpeciale ){
 		this.nom = nom;
 		this.idCarte = idCarte;
-		this.type = TypeCarte.GuideSpirituel;
+		this.type = "GuideSpirituel";
 		this.origine = origine;
 		this.dogmes = dogmes;
 		this.nbrCartesCroyants = nbrCartesCroyants;
@@ -84,12 +84,11 @@ public class GuideSpirituel extends Carte {
 	public String afficherCarte(){
 		return ("c_"+idCarte+" :"+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:"+dogmes[0]+","+
 				dogmes[1]+", capacité"+familleCapaciteSpeciale+" et peut rattacher "+nbrCartesCroyants+" cartes Croyants");
+	}
+	public String [] getDogmes() {
+		return dogmes;
 	}	
 	
-	@Override
-	public void activerCapaciteSpeciale(Joueur joueur) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

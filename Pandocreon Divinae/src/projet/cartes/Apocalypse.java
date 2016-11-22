@@ -16,7 +16,7 @@ public class Apocalypse extends Carte {
 	 * @param origine: origine de la carte
 	 * @param capacitespeciale: capacité de la carte
 	 */
-	public Apocalypse(String nom, Integer idCarte, TypeCarte type, Origine origine, FamilleCapaciteSpeciale familleCapacitespeciale){
+	public Apocalypse(String nom, Integer idCarte, String type, String origine, String familleCapacitespeciale){
 		this.nom= nom;
 		this.idCarte = idCarte;
 		this.type = type;
@@ -33,10 +33,7 @@ public class Apocalypse extends Carte {
 	}	
 	
 
-	@Override
-	public void activerCapaciteSpeciale(Joueur joueur) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 
 }

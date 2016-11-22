@@ -2,6 +2,8 @@ package projet.joueur;
 import java.util.Random;
 import java.util.Scanner;
 
+import projet.cartes.GuideSpirituel;
+
 public class JoueurVirtuel extends Joueur{
 
 	static Scanner nom = new Scanner(System.in);
@@ -42,6 +44,10 @@ public class JoueurVirtuel extends Joueur{
 		}
 		
 	};
+	
+	public void sacrifierGuideSpirituel(GuideSpirituel carte){
+		
+	}
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
