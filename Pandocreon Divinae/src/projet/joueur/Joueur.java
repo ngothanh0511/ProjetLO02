@@ -1,10 +1,13 @@
 package projet.joueur;
 
+import projet.cartes.Carte;
+import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
+import projet.cartes.StockCarte;
 
 public  abstract class Joueur {
 
-	private int id;
+	protected int id;
 	private String nom;
 	public enum divinite {
 		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
@@ -14,7 +17,7 @@ public  abstract class Joueur {
 	protected int ptActionJour=0;
 	protected int ptActionNuit=0;
 	protected int ptActionNeant=0;
-	private int ptPriere=0;
+	protected int ptPriere=0;
 	private enum capaciteSpeciale{}
 	private boolean disponibiliteCapacite;
 	protected Main laMain;
@@ -23,6 +26,13 @@ public  abstract class Joueur {
 		return dogmesDivin;
 	}
 	
+	public void setOriginDivin(String originDivin) {
+	       this.originDivin = originDivin;
+	    }
+
+	public String getOriginDivin() {
+	       return originDivin;
+	}
 	
 	public int getIdJoueur(){
 		return id;
@@ -61,8 +71,9 @@ public  abstract class Joueur {
 	
 	public abstract void piocheDivinite();
 	
-	public void defausserCarte(){
-		
+	public void defausserCarte(Carte c){
+		StockCarte.getStock().add(c);
+		laMain.getListeCartesMain().remove(c);
 	}
 	
 	
@@ -94,7 +105,19 @@ public  abstract class Joueur {
    public void setLaMain(Main laMain){
 	   this.laMain = laMain;
    }
+   
+   public void afficherListePairGuideVsCroyants(){
+	   for (int i =0; i<laMain.getlistePaireGuideVsCroyants().size();i++){
+		   System.out.println("Paire "+i+" :");
+		   for (int j =0; j<laMain.getlistePaireGuideVsCroyants().get(i).size();j++){
+			   System.out.println(laMain.getlistePaireGuideVsCroyants().get(i).get(j).afficherCarte());
+		   }
+	   }
+   }
     
+   public abstract GuideSpirituel choisirGuideSpirituelASacrifier();
+   public abstract CarteCroyants choisirCarteCroyantsASacrifier();
+   public abstract void sacrifierCarteCroyants(CarteCroyants carte);
    public abstract void sacrifierGuideSpirituel(GuideSpirituel carte);
    
 	public static void main(String[] args) {

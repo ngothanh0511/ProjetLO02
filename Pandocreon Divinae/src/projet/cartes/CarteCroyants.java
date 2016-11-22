@@ -25,7 +25,6 @@ public class CarteCroyants extends Carte {
 	 }
 	public void activerFonctionCarte(Joueur joueur){
 		Tapis.recevoirCartes(this);
-		this.calculerPtAction(joueur);
 	}
 	/**
 	 * Constructeur par défaut d'une carte Croyants

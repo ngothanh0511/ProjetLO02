@@ -13,7 +13,6 @@ public class Partie {
 	static Scanner scan = new Scanner(System.in);
 	private static int nbrJoueurs;
 	private static int tours=1;
-	private static int tot=0;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
 	
 	
@@ -56,6 +55,7 @@ public class Partie {
 	
 	public static void main(String[] args) {
 		StockCarte s = new StockCarte();
+		DeCosmogonie de= new DeCosmogonie();
 		JoueurPhysique phy = new JoueurPhysique();
 		listeJoueur.add(phy);
 //		Scanner reponse = new Scanner(System.in);
@@ -70,42 +70,28 @@ public class Partie {
 			phy.setLaMain(m1);
 		//	while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
 				System.out.println("Tour " + tours);
-				System.out.println("Lancement le"+ tours +" ieme dé de Cosmogonie...");
-				System.out.println("Resultat du lancement: face " + DeCosmogonie.resultatLancement());
-				String resLance= DeCosmogonie.resultatLancement();
-				if(resLance.equals("Jour")){
-					if(phy.getOriginDivin().equals("Jour")){
-						
-						tot=tot+2;
-						phy.setPtActionJour(tot);
-					}
-					if(phy.getOriginDivin().equals("Aube")){
-						tot=tot+1;
-						phy.setPtActionJour(tot);
-						
-					}
-					System.out.println("Vous avez maintenant " + phy.getPtActionJour()+ " points jour ");
-				}
-				if(resLance.equals("Nuit")){
-					if(phy.getOriginDivin().equals("Nuit")){
-						tot=tot+2;
-						phy.setPtActionNuit(tot);
-					}
-					if(phy.getOriginDivin().equals("Crepuscule")){
-						tot=tot+1;
-						phy.setPtActionNuit(tot);
-					}
-					System.out.println("Vous avez maintenant " + phy.getPtActionNuit()+ " points nuit");
-				}
-				if(resLance.equals("Neant")){
-					if(phy.getOriginDivin().equals("Aube")||phy.getOriginDivin().equals("Crepuscule")){
-						tot=tot+1;
-						phy.setPtActionNeant(tot);
-					}
-					System.out.println("Vous avez maintenant " + phy.getPtActionNeant()+ " points neant");
+				System.out.println("Lancement le dé de Cosmogonie...");
+				for (int i=0;i<listeJoueur.size();i++){
+					de.donnerPtAction(listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
 				}
 				s.distribuerCartes(m1);
-				phy.defausserCarte();
+				int id;
+				while (phy.getLaMain().getListeCartesMain().size()>0){
+					phy.informer();
+					System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
+					id = scan.nextInt();
+				if (id==0){
+					break;
+				}
+				else {
+					for(int i =0;i<phy.getLaMain().getListeCartesMain().size();i++){
+						if (id==phy.getLaMain().getListeCartesMain().get(i).getIdCarte()){
+							phy.defausserCarte(phy.getLaMain().getListeCartesMain().get(i));
+							break;
+						}
+					}
+				}
+				}
 				s.distribuerCartes(m1);
 				phy.choisirCarte();
 			//	tours++;

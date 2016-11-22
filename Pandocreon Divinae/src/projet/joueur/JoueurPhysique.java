@@ -37,13 +37,7 @@ public class JoueurPhysique extends Joueur{
 		
 	};
 	
-	public void setOriginDivin(String originDivin) {
-	       this.originDivin = originDivin;
-	    }
-
-	public String getOriginDivin() {
-	       return originDivin;
-	}
+	
 	
 	public void commencerJeu(){
 		
@@ -63,25 +57,16 @@ public class JoueurPhysique extends Joueur{
 		
 	}
 	
-	public void defausserCarte(){
-		int i;
-		while (laMain.getListeCartesMain().size()>0){
-			MontrerLaMain();
-			System.out.println("Mettez ID de la carte que vous voulez défausser! Tapez 0 si vous ne voulez pas défausser votre cartes!");
-			i= scan.nextInt();
-			if (i==0){
-				break;
-			}
-			else{
-				for(int k=0;k<laMain.getListeCartesMain().size();k++){
-					if (i==laMain.getListeCartesMain().get(k).getIdCarte()){
-						StockCarte.getStock().add(laMain.getListeCartesMain().get(k));
-						laMain.getListeCartesMain().remove(k);
-					}
-				}
-			}
-		}
-		
+	public void informer(){
+		System.out.println("Vous avez: ");
+		System.out.println(ptActionJour + " points Action Jour");
+		System.out.println(ptActionNuit + " points Action Nuit");
+		System.out.println(ptActionNeant + " points Action Neant");
+		System.out.println("Vous avez gagné: " + ptPriere+" points Prières");
+		System.out.println("Vous avez dans la main les cartes suivantes:");
+		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
+		   }
 	}
 	
 	public static int setNbrJoueurs(){
@@ -97,20 +82,40 @@ public class JoueurPhysique extends Joueur{
 	public void sauvegarderJeu(){
 		
 	}
-	public  void MontrerLaMain(){
-		   System.out.println("Vous avez dans la main les cartes suivantes:");
-		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
-		  // 	for (Iterator<Carte> it = laMain.getListeCartesMain().iterator(); it.hashNext();)
-		   			
-			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
-		   }
-	   }
 	
+	
+	public GuideSpirituel choisirGuideSpirituelASacrifier(){
+		int a;
+		GuideSpirituel carte = null;
+		System.out.println("Mettez l'ID de la carte à sacrifier:");
+		a = scan.nextInt();
+		for (int i=0; i< laMain.getListeCartesMain().size();i++){
+			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
+				carte= (GuideSpirituel) laMain.getListeCartesMain().get(i);
+				break;
+			}
+		}
+		return carte;
+	}
+	
+	public CarteCroyants choisirCarteCroyantsASacrifier(){
+		int a;
+		CarteCroyants carte = null;
+		System.out.println("Mettez l'ID de la carte à sacrifier:");
+		a = scan.nextInt();
+		for (int i=0; i< laMain.getListeCartesMain().size();i++){
+			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
+				carte= (CarteCroyants) laMain.getListeCartesMain().get(i);
+				break;
+			}
+		}
+		return carte; 
+	}
 	
 	public void choisirCarte(){
 		int id;
 		while (laMain.getListeCartesMain().size() >0){
-			MontrerLaMain();
+			informer();
 		System.out.println("Mettez l'id de la carte à jouer! Tapez 0 si vous voulez terminer votre tour! ");
 		id = scan.nextInt();
 		if (id == 0){
@@ -165,15 +170,15 @@ public class JoueurPhysique extends Joueur{
 					if ((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[0]) == false) &&
 							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == false)) &&
 							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == false))){
-						for (int j =0; j< Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().size();j++){
 							for (int k =0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++ ){
 								for (int h=1; h<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).size();h++){
 									Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(h).setSacrifiable(false);
 								}
 								
 							}
-						}
+						
 					}
+					break;
 				}
 			}
 			
@@ -196,6 +201,7 @@ public class JoueurPhysique extends Joueur{
 							}
 						}
 					}
+					break;
 				}
 			}
 		}
@@ -210,10 +216,66 @@ public class JoueurPhysique extends Joueur{
 					laMain.getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(1));
 					Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().remove(0);
 					Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().remove(0);
+					break;
 				}
 			}
 		}
-		 
+		else if (carte.getFamilleCapaciteSpeciale() == "F_5"){
+			switch (carte.getOrigine()){
+			case "Jour":
+				int a;
+				System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+				a = scan.nextInt();
+				for (int i=0; i< Partie.listeJoueur.size();i++){
+					if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+						CarteCroyants carteSacrifier = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
+						Partie.listeJoueur.get(i).sacrifierCarteCroyants(carteSacrifier);
+						break;
+					}
+			}
+				break;
+			case "Neant":
+				for (int i=0; i< Partie.listeJoueur.size();i++){
+					if( Partie.listeJoueur.get(i).getIdJoueur()!= id){
+						CarteCroyants carteSacrifier = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
+						Partie.listeJoueur.get(i).sacrifierCarteCroyants(carteSacrifier);
+						break;
+					}
+			}
+				break;
+		}
+		}
+		else if (carte.getFamilleCapaciteSpeciale() == "F_6"){
+			int a;
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					Partie.listeJoueur.get(i).afficherListePairGuideVsCroyants();
+					System.out.println("Mettez l'ID de la carte Guide Spirituel qui contient les cartes Croyants seront défaussées:");
+					int b;
+					b = scan.nextInt();
+					for (int k=0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++){
+						if (b==Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0).getIdCarte()){
+							for (int h=1;h<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).size();h++){
+								Tapis.recevoirCartes((CarteCroyants) Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(h));
+								
+							}
+							switch (carte.getOrigine()){
+							case "Jour":
+								Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0));
+								break;
+							case "Nuit":
+								StockCarte.getStock().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0));
+								break;
+							}
+							Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().remove(k);
+							break;
+						}
+					}
+				}
+			}
+		}
 		}
 	
 	public void sacrifierGuideSpirituel(GuideSpirituel carte){
@@ -226,15 +288,8 @@ public class JoueurPhysique extends Joueur{
 					if ((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[0]) == true) ||
 							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == true)) ||
 							((Arrays.asList(carte.getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == true))){
-						GuideSpirituel carteSacrifie;
-						for (int k =0; k< Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++){
-							if(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).size()>
-									Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k+1).size()){
-								Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().add(k+2,Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k));
-								Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().remove(k);
-							}
-						}
-						Partie.listeJoueur.get(i).sacrifierGuideSpirituel((GuideSpirituel) Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0));
+						GuideSpirituel carteSacrifier = Partie.listeJoueur.get(i).choisirGuideSpirituelASacrifier();
+						Partie.listeJoueur.get(i).sacrifierGuideSpirituel(carteSacrifier);
 					}
 				}
 			}
