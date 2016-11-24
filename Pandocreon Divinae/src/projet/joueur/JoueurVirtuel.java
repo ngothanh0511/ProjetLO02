@@ -11,7 +11,6 @@ import projet.cartes.StockCarte;
 public class JoueurVirtuel extends Joueur{
 
 	static Scanner nom = new Scanner(System.in);
-	Random r = new Random();
 	static int k=2;
 	public void lancerDeCosmogonie(){
 		//if(lancerDeCosmogonie()=='DIVIN_joueur_appartient')
@@ -39,9 +38,6 @@ public class JoueurVirtuel extends Joueur{
 	
 	public void piocheDivinite(){
 		String resDiv;
-		//int choice = r.nextInt(divinite.size());
-		//int Div = new Random().nextInt(divinite.values().length);
-		//resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃ©
 		resDiv=divinite.get(k);
 		
 		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
