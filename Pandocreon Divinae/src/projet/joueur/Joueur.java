@@ -19,9 +19,11 @@ public  abstract class Joueur {
 	protected int ptActionNuit=0;
 	protected int ptActionNeant=0;
 	protected int ptPriere=0;
+	protected String typeJoueur;
 	private enum capaciteSpeciale{}
 	private boolean disponibiliteCapacite;
 	protected Main laMain;
+	protected boolean peutRecevoirPtAction = true;
 	
 	public String[] getDogmesDivin(){
 		return dogmesDivin;
@@ -43,7 +45,12 @@ public  abstract class Joueur {
 	}
 
 	public void setPtActionJour(int ptActionJour) {
+		if(peutRecevoirPtAction==true){
 		this.ptActionJour = ptActionJour;
+		}
+		else{
+			System.out.println("Joueur_"+id+" ne peut pas recevoir points Actions dans ce tour!");
+		}
 	}
 	
 	public int getPtActionNuit() {
@@ -51,7 +58,12 @@ public  abstract class Joueur {
 	}
 
 	public void setPtActionNuit(int ptActionNuit) {
-		this.ptActionNuit = ptActionNuit;
+		if(peutRecevoirPtAction==true){
+			this.ptActionNuit = ptActionNuit;
+			}
+			else{
+				System.out.println("Joueur_"+id+" ne peut pas recevoir points Actions dans ce tour!");
+			}
 	}
 	
 	public int getPtActionNeant() {
@@ -59,7 +71,12 @@ public  abstract class Joueur {
 	}
 
 	public void setPtActionNeant(int ptActionNeant) {
-		this.ptActionNeant = ptActionNeant;
+		if(peutRecevoirPtAction==true){
+			this.ptActionNeant = ptActionNeant;
+			}
+			else{
+				System.out.println("Joueur_"+id+" ne peut pas recevoir points Actions dans ce tour!");
+			}
 	}
 	
 	public void calculerPtPrieres(){
@@ -80,8 +97,8 @@ public  abstract class Joueur {
 	}
 	public abstract void piocheDivinite();
 	
-	public void defausserCarte(Carte c){
-		StockCarte.getStock().add(c);
+	public void defausserCarte(Carte c, StockCarte s){
+		s.getStock().add(c);
 		laMain.getListeCartesMain().remove(c);
 	}
 	
@@ -125,17 +142,17 @@ public  abstract class Joueur {
    }
    
    public abstract void jouerSonTour(StockCarte s);
-   public abstract void activerCapaciteSpeciale(Carte carte);
+   public abstract void activerCapaciteSpeciale(Carte carte, StockCarte s);
    
-   public void sacrifierCarte(Carte carte){
-	   activerCapaciteSpeciale(carte);
-	   StockCarte.getStock().add(carte);
+   public void sacrifierCarte(Carte carte, StockCarte s){
+	   activerCapaciteSpeciale(carte,s);
+	   s.getStock().add(carte);
 	   if (carte.getType()=="Croyant"){
 		   for (int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
 			   if((laMain.getlistePaireGuideVsCroyants().get(i)).contains(carte)==true){
 				   laMain.getlistePaireGuideVsCroyants().get(i).remove(carte);
 				   if (laMain.getlistePaireGuideVsCroyants().get(i).size()<2){
-					   StockCarte.getStock().add(laMain.getlistePaireGuideVsCroyants().get(i).get(0));
+					   s.getStock().add(laMain.getlistePaireGuideVsCroyants().get(i).get(0));
 					   laMain.getlistePaireGuideVsCroyants().get(i).remove(0);
 				   }
 				   break;

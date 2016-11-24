@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class Partie {
 
 	static Scanner scan = new Scanner(System.in);
-	private static int nbrJoueurs=1;
+	protected static int nbrJoueurs=1;
 	protected static int tours=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
 	
@@ -27,6 +27,25 @@ public class Partie {
 		return partie;
 	}
 	
+	public static Joueur getEliminant(){
+		Joueur eliminant = listeJoueur.get(0);
+		for (int i=1; i<listeJoueur.size();i++){
+			if (listeJoueur.get(i).ptPriere< eliminant.ptPriere){
+				eliminant = listeJoueur.get(i);
+			}
+		}
+		return eliminant;
+	}
+	
+	public static Joueur getGagnant(){
+		Joueur gagnant = listeJoueur.get(0);
+		for (int i=1; i<listeJoueur.size();i++){
+			if (listeJoueur.get(i).ptPriere> gagnant.ptPriere){
+				gagnant = listeJoueur.get(i);
+			}
+		}
+		return gagnant;
+	}
 	public boolean estTermine(){
 		return true;
 	}
@@ -76,6 +95,10 @@ public class Partie {
 		listeJoueur.add(listeJoueur.get(0));
 		listeJoueur.remove(0);
 		}
+		for(int i=0; i<nbrJoueurs;i++){
+			listeJoueur.get(i).peutRecevoirPtAction = true;
+		}
+		/// Réinitialiser Carte.estSacrifiable = true
 		tours+=1;
 		tourDeJeu(s);
 	}

@@ -8,7 +8,7 @@ import projet.cartes.*;
 
 public class JoueurPhysique extends Joueur{
 
-	public JoueurPhysique(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
+	public JoueurPhysique( Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
 		super(id, ptJour, ptNuit, ptNeant, ptPriere);
 		// TODO Auto-generated constructor stub
 		this.id = id;
@@ -16,6 +16,7 @@ public class JoueurPhysique extends Joueur{
 		this.ptActionNuit = ptNuit;
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
+		this.typeJoueur= "Joueur Physique";
 	}
 
 
@@ -144,7 +145,7 @@ public class JoueurPhysique extends Joueur{
 		else {
 			for(int i =0;i<laMain.getListeCartesMain().size();i++){
 				if (id==laMain.getListeCartesMain().get(i).getIdCarte()){
-					defausserCarte(laMain.getListeCartesMain().get(i));
+					defausserCarte(laMain.getListeCartesMain().get(i),s);
 					break;
 				}
 			}
@@ -190,8 +191,10 @@ public class JoueurPhysique extends Joueur{
 		
 	}
 	
-	public void activerCapaciteSpeciale(Carte carte){
-		if (carte.getFamilleCapaciteSpeciale()== "F_1") {
+	public void activerCapaciteSpeciale(Carte carte, StockCarte s){
+		int a;
+		switch (carte.getFamilleCapaciteSpeciale()){
+		case ("F_1") :
 			if (carte.getOrigine() =="Jour"){
 				ptActionJour += 1;
 			}
@@ -201,10 +204,10 @@ public class JoueurPhysique extends Joueur{
 			else {
 				ptActionNeant +=1;
 			}
+			break;
 		
-		}
-		else if (carte.getFamilleCapaciteSpeciale() == "F_2"){
-			int a;
+		case ("F_2"):
+			
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 			a = scan.nextInt();
 			for (int i=0; i< Partie.listeJoueur.size();i++){
@@ -222,11 +225,12 @@ public class JoueurPhysique extends Joueur{
 					}
 					break;
 				}
-			}
+			
 			
 		}
-		else if (carte.getFamilleCapaciteSpeciale() == "F_3"){
-			int a;
+			break;
+	case ("F_3"):
+			
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 			a = scan.nextInt();
 			for (int i=0; i< Partie.listeJoueur.size();i++){
@@ -246,9 +250,9 @@ public class JoueurPhysique extends Joueur{
 					break;
 				}
 			}
-		}
-		else if (carte.getFamilleCapaciteSpeciale() == "F_4"){
-			int a;
+		break;
+		case ("F_4"):
+			
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 			a = scan.nextInt();
 			for (int i=0; i< Partie.listeJoueur.size();i++){
@@ -265,17 +269,17 @@ public class JoueurPhysique extends Joueur{
 					break;
 				}
 			}
-		}
-		else if (carte.getFamilleCapaciteSpeciale() == "F_5"){
+		break;
+		case ("F_5"):
 			switch (carte.getOrigine()){
 			case "Jour":
-				int a;
+				
 				System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 				a = scan.nextInt();
 				for (int i=0; i< Partie.listeJoueur.size();i++){
 					if( a == Partie.listeJoueur.get(i).getIdJoueur()){
 						CarteCroyants carteSacrifier = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
-						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier);
+						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier,s);
 						break;
 					}
 			}
@@ -284,15 +288,15 @@ public class JoueurPhysique extends Joueur{
 				for (int i=0; i< Partie.listeJoueur.size();i++){
 					if( Partie.listeJoueur.get(i).getIdJoueur()!= id){
 						CarteCroyants carteSacrifier = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
-						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier);
+						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier,s);
 						break;
 					}
 			}
 				break;
 		}
-		}
-		else if (carte.getFamilleCapaciteSpeciale() == "F_6"){
-			int a;
+		break;
+		case ("F_6"):
+			
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 			a = scan.nextInt();
 			for (int i=0; i< Partie.listeJoueur.size();i++){
@@ -312,7 +316,7 @@ public class JoueurPhysique extends Joueur{
 								Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0));
 								break;
 							case "Nuit":
-								StockCarte.getStock().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0));
+								s.getStock().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(k).get(0));
 								break;
 							}
 							Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().remove(k);
@@ -321,9 +325,10 @@ public class JoueurPhysique extends Joueur{
 					}
 				}
 			}
-		}
-		else if (carte.getFamilleCapaciteSpeciale()== "F_30"){
-			int a;
+			break;
+		
+		case ("F_30"):
+			
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
 			a = scan.nextInt();
 			for (int i=0; i< Partie.listeJoueur.size();i++){
@@ -332,12 +337,12 @@ public class JoueurPhysique extends Joueur{
 							((Arrays.asList(((GuideSpirituel) carte).getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[1]) == true)) ||
 							((Arrays.asList(((GuideSpirituel) carte).getDogmes()).contains(Partie.listeJoueur.get(i).dogmesDivin[2]) == true))){
 						GuideSpirituel carteSacrifier = Partie.listeJoueur.get(i).choisirGuideSpirituelASacrifier();
-						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier);
+						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier,s);
 					}
 				}
 			}
-		}
-		else if (carte.getFamilleCapaciteSpeciale()== "F_7"){
+		break;
+		case ("F_7"):
 			DeCosmogonie de = new DeCosmogonie();
 			System.out.println("Lancement le dé de Cosmogonie...");
 			de.resultatLancement();
@@ -345,9 +350,133 @@ public class JoueurPhysique extends Joueur{
 			for (int i=0;i<Partie.listeJoueur.size();i++){
 				de.donnerPtAction(resLance, Partie.listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
 			}
-		}
-		else if (carte.getFamilleCapaciteSpeciale()== "F_8"){
+		break;
+		case ("F_8"):
 			
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i= (Partie.listeJoueur.indexOf(this))+1; i<Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					int ptJour = ptActionJour + Partie.listeJoueur.get(i).getPtActionJour();
+					setPtActionJour(ptJour);
+					Partie.listeJoueur.get(i).setPtActionJour(0);
+					int ptNuit = ptActionNuit + Partie.listeJoueur.get(i).getPtActionNuit();
+					setPtActionJour(ptNuit);
+					Partie.listeJoueur.get(i).setPtActionNuit(0);
+					int ptNeant = ptActionNeant + Partie.listeJoueur.get(i).getPtActionNeant();
+					setPtActionJour(ptNeant);
+					Partie.listeJoueur.get(i).setPtActionNeant(0);
+					break;
+				}
+			}
+		break;
+		case ("F_9"):
+			
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					System.out.println("Joueur_"+a+" possède les cartes Croyants suivant: ");
+					for (int j=0;j<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();j++){
+						for (int k=1; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).size();k++){
+					System.out.println(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(k).afficherCarte());
+						}
+					}
+					System.out.println("Mettez l'ID de la carte Croyants que vous voulez bénéficer sa capacité spéciale:");
+					int b;
+					b = scan.nextInt();
+					for (int j=0;j<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();j++){
+						for (int k=1; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).size();k++){
+							if(b==Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(k).getIdCarte()){
+								activerCapaciteSpeciale(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(k),s);
+								break;
+							}
+						}
+						
+					}	
+				}
+			}
+			break;
+		case "F_10":
+			for(int i=0; i< Partie.listeJoueur.size();i++){
+				Partie.listeJoueur.get(i).peutRecevoirPtAction= false;
+			}
+			break;
+		case "F_11":
+			if(Partie.nbrJoueurs>3){
+				if(Partie.getEliminant().typeJoueur=="Joueur Physique"){
+					System.out.println("Vous êtes éliminé car le joueur qui gagne le moins points de Prières");
+					Partie.listeJoueur.remove(Partie.getEliminant()); 
+					Partie.nbrJoueurs-=1;
+					System.exit(1);
+				}
+				else if(Partie.getEliminant().typeJoueur=="Joueur Virtuel"){
+					System.out.println("Le Joueur_"+Partie.getEliminant().id+" est éliminé car il est le joueur qui gagne le moins points de Prières");
+					Partie.listeJoueur.remove(Partie.getEliminant());
+					Partie.nbrJoueurs -=1;
+					for(int i =0; i< Partie.listeJoueur.indexOf(this);i++){
+						Partie.listeJoueur.set(Partie.listeJoueur.size()-1, Partie.listeJoueur.get(0));
+					}
+					Partie.tourDeJeu(s);
+				}
+				
+				
+			}
+			else if(Partie.nbrJoueurs<4){
+				if(Partie.getGagnant().typeJoueur=="Joueur Physique"){
+					System.out.println("Félicitation! Vous êtes gagné !");
+				}
+				else if(Partie.getGagnant().typeJoueur=="Joueur Virtuel"){
+					System.out.println("Joueur_"+Partie.getGagnant().id+" est gagné car il est le joueur qui gagne le plus points Prières.");
+				}
+				System.exit(1);
+			}
+			break;
+		case "F_12":
+			System.out.println("Choisir l'origine pour les points Action gagnés (Jour,Nuit,Neant):");
+			for(int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
+				if(laMain.getlistePaireGuideVsCroyants().get(i).contains(carte)){
+					Integer pt= laMain.getlistePaireGuideVsCroyants().get(i).size()-1;
+					String origine = scan.nextLine();
+					if(origine=="Jour"){
+						ptActionJour+= pt;
+					}
+					else if (origine=="Nuit"){
+						ptActionNuit+=pt;
+					}
+					else if(origine == "Neant"){
+						ptActionNeant += pt;
+					}
+					break;
+				
+			}
+			
+			}
+			break;
+		case "F_13":
+			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
+			a = scan.nextInt();
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
+					if(Arrays.asList(Partie.listeJoueur.get(i).getDogmesDivin()).contains("Humain")){
+						for(int j=0;j<Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().size();j++){
+							for(int k=1;k<Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().get(j).size();k++){
+								if(Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().get(j).get(k).getOrigine()=="Neant"){
+									Partie.listeJoueur.get(i).sacrifierCarte(Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().get(j).get(k),s);
+								}
+							}
+						}
+					}
+					break;
+				}
+			}
+			break;
+		case "F_14":
+			for (int i=0; i< Partie.listeJoueur.size();i++){
+				if(Arrays.asList(Partie.listeJoueur.get(i).getDogmesDivin()).contains("Chaos")== false){
+					
+				}
+			}
 		}
 		}
 	

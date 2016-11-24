@@ -18,6 +18,7 @@ public class JoueurVirtuel extends Joueur{
 		this.ptActionNuit= ptNuit;
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
+		this.typeJoueur = "Joueur Virtuel";
 	}
 	static Scanner nom = new Scanner(System.in);
 	Random r = new Random();
@@ -117,7 +118,7 @@ public class JoueurVirtuel extends Joueur{
 	}
 
 	@Override
-	public void activerCapaciteSpeciale(Carte carte) {
+	public void activerCapaciteSpeciale(Carte carte, StockCarte s) {
 		// TODO Auto-generated method stub
 		
 	}

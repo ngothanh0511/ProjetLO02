@@ -181,7 +181,7 @@ public class StockCarte {
 	 * 
 	 * @return : return la liste des cartes dans le stock actuellement
 	 */
-	public static ArrayList<Carte> getStock(){ 
+	public ArrayList<Carte> getStock(){ 
 		return stock;
 	}
 	/**
