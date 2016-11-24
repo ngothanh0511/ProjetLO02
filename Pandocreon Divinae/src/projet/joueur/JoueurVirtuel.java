@@ -1,4 +1,5 @@
 package projet.joueur;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -10,12 +11,24 @@ import projet.cartes.StockCarte;
 public class JoueurVirtuel extends Joueur{
 
 	static Scanner nom = new Scanner(System.in);
-	
-	
+	Random r = new Random();
+	static int k=2;
 	public void lancerDeCosmogonie(){
 		//if(lancerDeCosmogonie()=='DIVIN_joueur_appartient')
 		//donne pts d'actions correspondant
 		
+	}
+	
+	public void informer(){
+		System.out.println("JV a: ");
+		System.out.println(ptActionJour + " points Action Jour");
+		System.out.println(ptActionNuit + " points Action Nuit");
+		System.out.println(ptActionNeant + " points Action Neant");
+		System.out.println("JV a gagné: " + ptPriere+" points Prières");
+		System.out.println("JV a dans la main les cartes suivantes:");
+		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
+		   }
 	}
 	
 	public static String setNom(){
@@ -26,8 +39,10 @@ public class JoueurVirtuel extends Joueur{
 	
 	public void piocheDivinite(){
 		String resDiv;
-		int Div = new Random().nextInt(divinite.values().length);
-		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisé
+		//int choice = r.nextInt(divinite.size());
+		//int Div = new Random().nextInt(divinite.values().length);
+		//resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃ©
+		resDiv=divinite.get(k);
 		
 		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
 			originDivin="Jour";
@@ -84,7 +99,7 @@ public class JoueurVirtuel extends Joueur{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//recuperer pts d'actions (appel la méthode lancerDeCosmogonie)
+		//recuperer pts d'actions (appel la mÃ©thode lancerDeCosmogonie)
 		//mettre les pts d'action dans la variable ptActionJour/nuit/neant
 	}
 
