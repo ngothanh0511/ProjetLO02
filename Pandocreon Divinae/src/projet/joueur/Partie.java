@@ -5,6 +5,7 @@ import projet.cartes.StockCarte;
 import projet.joueur.DeCosmogonie.face;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Partie {
@@ -14,7 +15,6 @@ public class Partie {
 	private static int nbrJoueurs;
 	private static int tours=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
-	
 	
 	private Partie partie(){
 		return partie;
@@ -58,27 +58,45 @@ public class Partie {
 		DeCosmogonie de= new DeCosmogonie();
 		JoueurPhysique phy = new JoueurPhysique();
 		listeJoueur.add(phy);
+		Collections.shuffle(Joueur.divinite); //pour donner la divinitÃ© aleatoirement
 //		Scanner reponse = new Scanner(System.in);
-	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
+	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intÃ©rÃªt d'avoir ces Ã©tapes...
 	//	String rep=reponse.nextLine();
 	//	if(rep.equals("O")){
 			nbrJoueurs=setNbrJoueurs();
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
-			System.out.print("Votre Divinité est ");
+			for (int i=0;i<nbrJoueurs;i++){
+				listeJoueur.add(new JoueurVirtuel());
+			}
+			System.out.println("Bonjour, "+ phy.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels Ã  jouer avec.");
+	
+			System.out.print("Votre DivinitÃ© est ");
 			phy.piocheDivinite();
+			
+			for(int i=1;i<(nbrJoueurs+1);i++){
+				System.out.println("");
+				System.out.println("La divinitÃ© de Joueur_" + i);
+				listeJoueur.get(i).piocheDivinite();
+				System.out.println("");
+				JoueurVirtuel.k++; //pour eviter d'avoir meme divinite
+			}
 			Main m1 = new Main();
+			Main m2 = new Main();
 			phy.setLaMain(m1);
-		//	while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
+			listeJoueur.get(1).setLaMain(m2);//pour demonstrer le JV
+		//	while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner ÃƒÂ  chaque tour
 				System.out.println("Tour " + tours);
-				System.out.println("Lancement le dé de Cosmogonie...");
+				System.out.println("Lancement le dÃ© de Cosmogonie...");
+				System.out.println("Resultat du lancement: face " + de.resultatLancement());
 				for (int i=0;i<listeJoueur.size();i++){
-					de.donnerPtAction(listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
+					de.donnerPtAction(listeJoueur.get(i)); // J'ai changÃ© le placement de tes codes et les mis dans la mÃ©thode donnerPtAction afon de pourvoir appliquer Ã  tous les joueurs
 				}
 				s.distribuerCartes(m1);
+				s.distribuerCartes(m2);// c'est pour tester la fonctionnalite
 				int id;
 				while (phy.getLaMain().getListeCartesMain().size()>0){
 					phy.informer();
-					System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
+					listeJoueur.get(1).informer();
+					System.out.println("Mettez l'ID de la carte que vous voulez dÃ©fausser! Si vous ne vouslez pas dÃ©fausser plus de carte, tapez 0!");
 					id = scan.nextInt();
 				if (id==0){
 					break;
