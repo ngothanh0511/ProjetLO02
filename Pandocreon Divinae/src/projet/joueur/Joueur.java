@@ -4,18 +4,15 @@ import projet.cartes.Carte;
 import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
-
-import java.util.Arrays;
-import java.util.List;
+import projet.cartes.Tapis;
 
 public  abstract class Joueur {
 
 	protected int id;
-	protected static String nom;
-	//public enum divinite {
-		//Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
-	//}
-	protected static List<String> divinite = Arrays.asList("Romtec","Gorpa","Shingua","Gwengbelen","PuiTara","Llewella","Killinstred","Yarstur","Drinded","Brewalen");
+	private String nom;
+	public enum divinite {
+		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
+	}
 	protected String originDivin;
 	protected String [] dogmesDivin= new String[3];
 	protected int ptActionJour=0;
@@ -73,6 +70,14 @@ public  abstract class Joueur {
 		}
 	}
 	
+	public Joueur(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere){
+		this.id = id;
+		this.ptActionJour = ptJour;
+		this.ptActionNuit = ptNuit;
+		this.ptActionNeant = ptNeant;
+		this.ptPriere = ptPriere;
+		
+	}
 	public abstract void piocheDivinite();
 	
 	public void defausserCarte(Carte c){
@@ -118,21 +123,46 @@ public  abstract class Joueur {
 		   }
 	   }
    }
+   
+   public abstract void jouerSonTour(StockCarte s);
+   public abstract void activerCapaciteSpeciale(Carte carte);
+   
+   public void sacrifierCarte(Carte carte){
+	   activerCapaciteSpeciale(carte);
+	   StockCarte.getStock().add(carte);
+	   if (carte.getType()=="Croyant"){
+		   for (int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
+			   if((laMain.getlistePaireGuideVsCroyants().get(i)).contains(carte)==true){
+				   laMain.getlistePaireGuideVsCroyants().get(i).remove(carte);
+				   if (laMain.getlistePaireGuideVsCroyants().get(i).size()<2){
+					   StockCarte.getStock().add(laMain.getlistePaireGuideVsCroyants().get(i).get(0));
+					   laMain.getlistePaireGuideVsCroyants().get(i).remove(0);
+				   }
+				   break;
+			   }
+		   }
+		   
+	   }
+	   else if (carte.getType()=="GuideSpirituel"){
+		   for(int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
+			   if((laMain.getlistePaireGuideVsCroyants().get(i)).contains(carte)==true){
+				   for (int j=1;j<laMain.getlistePaireGuideVsCroyants().get(i).size();j++){
+					   Tapis.getListeCartesCroyants().add((CarteCroyants) laMain.getlistePaireGuideVsCroyants().get(i).get(j));
+				   }
+				   laMain.getlistePaireGuideVsCroyants().remove(i);
+				   break;
+			   }
+		   }
+	   }
+   }
     
    public abstract GuideSpirituel choisirGuideSpirituelASacrifier();
    public abstract CarteCroyants choisirCarteCroyantsASacrifier();
-   public abstract void sacrifierCarteCroyants(CarteCroyants carte);
-   public abstract void sacrifierGuideSpirituel(GuideSpirituel carte);
    
+  
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 	}
-
-	public abstract void informer();
-	
-	
-
-
 
 }

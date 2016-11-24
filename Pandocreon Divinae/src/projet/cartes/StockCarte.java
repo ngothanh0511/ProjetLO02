@@ -67,7 +67,7 @@ public class StockCarte {
 		GuideSpirituel c_50 = new GuideSpirituel("Anarchiste", 50, "GuideSpirituel", "Neant",new String[] {"Hunmain", "Chaos"}, 3,"F_14"); 
 		GuideSpirituel c_51 = new GuideSpirituel("Paladin", 51, "GuideSpirituel", "Jour",new String[] {"Hunmain", "Mystique"}, 3, "F_15"); 
 		GuideSpirituel c_52 = new GuideSpirituel("Ascète", 52, "GuideSpirituel", "Nuit",new String[] {"Hunmain", "Symboles"}, 1, "F_16"); 
-		GuideSpirituel c_53 = new GuideSpirituel("Devin", 53, "GuideSpirituel", "Neant",new String[] {"Mystique", "Nature"}, 1, "F_3"); 
+		GuideSpirituel c_53 = new GuideSpirituel("Devin", 53, "GuideSpirituel", "Neant",new String[] {"Mystique", "Nature"}, 1, "F_30"); 
 		GuideSpirituel c_54 = new GuideSpirituel("Exorciste", 54, "GuideSpirituel", "Jour",new String[] {"Chaos", "Mystique"}, 1, "F_17"); 
 		GuideSpirituel c_55 = new GuideSpirituel("Sorcier", 55, "GuideSpirituel", "Nuit",new String[] {"Mystique", "Symboles"}, 3, "F_18"); 
 		GuideSpirituel c_56 = new GuideSpirituel("Tyran", 56, "GuideSpirituel", "Neant",new String[] {"Chaos", "Symboles"}, 3, "F_19"); 

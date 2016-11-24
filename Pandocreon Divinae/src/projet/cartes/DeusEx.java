@@ -30,27 +30,16 @@ public class DeusEx extends Carte {
 		this.familleCapaciteSpeciale = familleCapacitespeciale;
 	}
 	
-	public void activerFonctionCarte(Joueur joueur){
-		if (familleCapaciteSpeciale == "F_4"){
-			int a;
-			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");
-			a = scan.nextInt();
-			for (int i=0; i< Partie.getListeJoueur().size();i++){
-				if( a == Partie.getListeJoueur().get(i).getIdJoueur()){
-					Collections.shuffle(Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain());
-					joueur.getLaMain().getListeCartesMain().add(Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().get(0));
-					joueur.getLaMain().getListeCartesMain().add(Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().get(1));
-					joueur.getLaMain().getListeCartesMain().add(Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().get(2));
-					Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().remove(0);
-					Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().remove(0);
-					Partie.getListeJoueur().get(i).getLaMain().getListeCartesMain().remove(0);
-				}
-			}
-		}
-	}
 	
 	public String afficherCarte(){
 		return ("c_"+idCarte+": "+"Carte "+type+" "+nom+" d'origine "+origine+", capacité "+familleCapaciteSpeciale);
+	}
+
+
+	@Override
+	public void activerFonctionCarte(Joueur joueur) {
+		// TODO Auto-generated method stub
+		
 	}	
 	
 	
