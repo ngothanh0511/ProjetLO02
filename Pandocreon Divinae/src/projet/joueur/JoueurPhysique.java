@@ -72,9 +72,9 @@ public class JoueurPhysique extends Joueur{
 	}
 	
 	public void informer(){
-		System.out.println("Vous avez: ");
-		System.out.println(ptActionJour + " points Action Jour");
-		System.out.println(ptActionNuit + " points Action Nuit");
+		System.out.print("Vous avez: ");
+		System.out.print(ptActionJour + " points Action Jour, ");
+		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant");
 		System.out.println("Vous avez gagné: " + ptPriere+" points Prières");
 		System.out.println("Vous avez dans la main les cartes suivantes:");
@@ -131,6 +131,11 @@ public class JoueurPhysique extends Joueur{
 		int id;
 		while (laMain.getListeCartesMain().size()>0){
 			informer();
+			for(int i=1;i<Partie.listeJoueur.size();i++){
+				System.out.println("");
+				System.out.print("Joueur_"+(i+1));
+				Partie.listeJoueur.get(i).informer();
+			}
 			System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
 			id = scan.nextInt();
 		if (id==0){

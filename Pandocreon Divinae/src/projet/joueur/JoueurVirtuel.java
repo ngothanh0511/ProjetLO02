@@ -29,15 +29,12 @@ public class JoueurVirtuel extends Joueur{
 	}
 	
 	public void informer(){
-		System.out.println(" a: ");
-		System.out.println(ptActionJour + " points Action Jour");
-		System.out.println(ptActionNuit + " points Action Nuit");
-		System.out.println(ptActionNeant + " points Action Neant");
-		System.out.println("JV a gagn√©: " + ptPriere+" points Pri√®res");
-		System.out.println("JV a dans la main les cartes suivantes:");
-		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
-			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
-		   }
+		System.out.print(" a: ");
+		System.out.print(ptActionJour + " points Action Jour, ");
+		System.out.print(ptActionNuit + " points Action Nuit, ");
+		System.out.println(ptActionNeant + " points Action Neant ");
+		System.out.println("Il a gagnÈ: " + ptPriere+" points PriËres");
+		
 	}
 	
 	public static String setNom(){
