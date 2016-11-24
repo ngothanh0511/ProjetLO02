@@ -1,5 +1,7 @@
 package projet.joueur;
 
+import java.util.Arrays;
+
 import projet.cartes.Carte;
 import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
@@ -10,9 +12,7 @@ public  abstract class Joueur {
 
 	protected int id;
 	private String nom;
-	public enum divinite {
-		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
-	}
+	protected static List<String> divinite = Arrays.asList("Romtec","Gorpa","Shingua","Gwengbelen","PuiTara","Llewella","Killinstred","Yarstur","Drinded","Brewalen");
 	protected String originDivin;
 	protected String [] dogmesDivin= new String[3];
 	protected int ptActionJour=0;
