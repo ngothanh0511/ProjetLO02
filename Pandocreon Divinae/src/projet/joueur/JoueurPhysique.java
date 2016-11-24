@@ -10,13 +10,15 @@ public class JoueurPhysique extends Joueur{
 
 	static Scanner scan = new Scanner(System.in);
 	static Scanner nom = new Scanner(System.in);
-	private static int nbrJoueurs;
+	
 	
 	
 	public void piocheDivinite(){
 		String resDiv;
-		int Div = new Random().nextInt(divinite.values().length);
-		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilis√©
+		/*int Div = new Random().nextInt(divinite.values().length);
+		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilis√É¬©
+		*/
+		resDiv=divinite.get(1);
 		
 		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
 			originDivin="Jour";
@@ -62,7 +64,7 @@ public class JoueurPhysique extends Joueur{
 		System.out.println(ptActionJour + " points Action Jour");
 		System.out.println(ptActionNuit + " points Action Nuit");
 		System.out.println(ptActionNeant + " points Action Neant");
-		System.out.println("Vous avez gagnÈ: " + ptPriere+" points PriËres");
+		System.out.println("Vous avez gagn√©: " + ptPriere+" points Pri√®res");
 		System.out.println("Vous avez dans la main les cartes suivantes:");
 		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
@@ -87,7 +89,7 @@ public class JoueurPhysique extends Joueur{
 	public GuideSpirituel choisirGuideSpirituelASacrifier(){
 		int a;
 		GuideSpirituel carte = null;
-		System.out.println("Mettez l'ID de la carte ‡ sacrifier:");
+		System.out.println("Mettez l'ID de la carte √† sacrifier:");
 		a = scan.nextInt();
 		for (int i=0; i< laMain.getListeCartesMain().size();i++){
 			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
@@ -101,7 +103,7 @@ public class JoueurPhysique extends Joueur{
 	public CarteCroyants choisirCarteCroyantsASacrifier(){
 		int a;
 		CarteCroyants carte = null;
-		System.out.println("Mettez l'ID de la carte ‡ sacrifier:");
+		System.out.println("Mettez l'ID de la carte √† sacrifier:");
 		a = scan.nextInt();
 		for (int i=0; i< laMain.getListeCartesMain().size();i++){
 			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
@@ -116,7 +118,7 @@ public class JoueurPhysique extends Joueur{
 		int id;
 		while (laMain.getListeCartesMain().size() >0){
 			informer();
-		System.out.println("Mettez l'id de la carte ‡ jouer! Tapez 0 si vous voulez terminer votre tour! ");
+		System.out.println("Mettez l'id de la carte √† jouer! Tapez 0 si vous voulez terminer votre tour! ");
 		id = scan.nextInt();
 		if (id == 0){
 			for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
@@ -130,7 +132,7 @@ public class JoueurPhysique extends Joueur{
 				if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 					laMain.getListeCartesMain().get(i).getUtilisable(this);
 					if (laMain.getListeCartesMain().get(i).utilisee()==true){
-						System.out.println("Vous avez jouÈ la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+						System.out.println("Vous avez jou√© la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
 						laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
 						laMain.getListeCartesMain().get(i).calculerPtAction(this);
 						if (laMain.getListeCartesMain().get(i).utilisee()== true){
@@ -252,7 +254,7 @@ public class JoueurPhysique extends Joueur{
 			for (int i=0; i< Partie.listeJoueur.size();i++){
 				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
 					Partie.listeJoueur.get(i).afficherListePairGuideVsCroyants();
-					System.out.println("Mettez l'ID de la carte Guide Spirituel qui contient les cartes Croyants seront dÈfaussÈes:");
+					System.out.println("Mettez l'ID de la carte Guide Spirituel qui contient les cartes Croyants seront d√©fauss√©es:");
 					int b;
 					b = scan.nextInt();
 					for (int k=0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++){
