@@ -15,7 +15,7 @@ public class Partie {
 	private static int nbrJoueurs;
 	private static int tours=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
-	
+	protected static ArrayList <Main> mainJoueurs = new ArrayList <Main>(); 
 	private Partie partie(){
 		return partie;
 		
@@ -66,6 +66,7 @@ public class Partie {
 			nbrJoueurs=setNbrJoueurs();
 			for (int i=0;i<nbrJoueurs;i++){
 				listeJoueur.add(new JoueurVirtuel());
+				mainJoueurs.add(new Main());
 			}
 			System.out.println("Bonjour, "+ phy.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 	
@@ -76,13 +77,15 @@ public class Partie {
 				System.out.println("");
 				System.out.println("La divinité de Joueur_" + i);
 				listeJoueur.get(i).piocheDivinite();
+				listeJoueur.get(i).setLaMain(mainJoueurs.get(i-1));//set la main de chaque JV
+				s.distribuerCartes(mainJoueurs.get(i-1));//pourquoi i-1 car on commence dans cette boucle for par i=1 lors les mains de jouers virtuels sont crée a partir de 0 
 				System.out.println("");
+				
 				JoueurVirtuel.k++; //pour eviter d'avoir meme divinite
 			}
 			Main m1 = new Main();
-			Main m2 = new Main();
 			phy.setLaMain(m1);
-			listeJoueur.get(1).setLaMain(m2);//pour demonstrer le JV
+			//listeJoueur.get(1).setLaMain(m2);//pour demonstrer le JV
 		//	while(tours<4){//juste pour visualiser le nombre de points qu'il va gagner Ã  chaque tour
 				System.out.println("Tour " + tours);
 				System.out.println("Lancement le dé de Cosmogonie...");
@@ -91,11 +94,19 @@ public class Partie {
 					de.donnerPtAction(listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
 				}
 				s.distribuerCartes(m1);
-				s.distribuerCartes(m2);// c'est pour tester la fonctionnalite
+				/*while(nbrJoueurs>0){
+					s.distribuerCartes(m2);// c'est pour tester la fonctionnalite
+				}*/
+				
 				int id;
+				for(int i=1;i<nbrJoueurs+1;i++){
+					System.out.println("");
+					System.out.print("Jouer_"+i);
+					listeJoueur.get(i).informer();
+				}
 				while (phy.getLaMain().getListeCartesMain().size()>0){
+					System.out.println("");
 					phy.informer();
-					listeJoueur.get(1).informer();
 					System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
 					id = scan.nextInt();
 				if (id==0){
