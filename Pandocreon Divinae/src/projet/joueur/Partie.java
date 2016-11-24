@@ -82,6 +82,7 @@ public class Partie {
 	
 	public static void main(String[] args) {
 		StockCarte s = new StockCarte();
+		Collections.shuffle(Joueur.divinite);
 		JoueurPhysique phy = new JoueurPhysique(1,0,0,0,0);
 		listeJoueur.add(phy);
 		Scanner reponse = new Scanner(System.in);
