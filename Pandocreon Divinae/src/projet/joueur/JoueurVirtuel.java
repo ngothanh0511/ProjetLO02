@@ -69,6 +69,7 @@ public class JoueurVirtuel extends Joueur{
 			originDivin="Aube"; 
 			System.out.println(resDiv + " d'origine " + originDivin);
 		}
+		k++;
 		
 	};
 	

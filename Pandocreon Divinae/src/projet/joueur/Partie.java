@@ -92,10 +92,10 @@ public class Partie {
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
-			
 			Main m1 = new Main();
 			phy.setLaMain(m1);
 			for (int i=1;i<listeJoueur.size();i++){
+				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
 			}
 			for (int i=0;i<listeJoueur.size();i++){
