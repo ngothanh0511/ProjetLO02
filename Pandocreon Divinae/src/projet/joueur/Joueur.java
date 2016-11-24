@@ -5,13 +5,17 @@ import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
 
+import java.util.Arrays;
+import java.util.List;
+
 public  abstract class Joueur {
 
 	protected int id;
-	private String nom;
-	public enum divinite {
-		Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
-	}
+	protected static String nom;
+	//public enum divinite {
+		//Romtec,Gorpa,Shingua,Gwengbelen,PuiTara,Llewella,Killinstred,Yarstur,Drinded,Brewalen
+	//}
+	protected static List<String> divinite = Arrays.asList("Romtec","Gorpa","Shingua","Gwengbelen","PuiTara","Llewella","Killinstred","Yarstur","Drinded","Brewalen");
 	protected String originDivin;
 	protected String [] dogmesDivin= new String[3];
 	protected int ptActionJour=0;
@@ -124,5 +128,11 @@ public  abstract class Joueur {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public abstract void informer();
+	
+	
+
+
 
 }
