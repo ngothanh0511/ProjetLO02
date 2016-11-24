@@ -27,8 +27,10 @@ public class JoueurPhysique extends Joueur{
 	
 	public void piocheDivinite(){
 		String resDiv;
-		int Div = new Random().nextInt(divinite.values().length);
-		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisé
+		/*int Div = new Random().nextInt(divinite.values().length);
+		resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃ©
+		*/
+		resDiv=divinite.get(1);
 		
 		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
 			originDivin="Jour";
