@@ -477,7 +477,7 @@ public class JoueurPhysique extends Joueur{
 				}
 			}
 			break;
-		case "F_28":
+		case "F_29":
 			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le dé de Cosmogonie. Sur Jour, le Guide adverse est sacrifié, sur Nuit le votre est sacrifié, sur Néant rien ne se passe.");
 			System.out.println("Lancement du dé....");
 			try {
