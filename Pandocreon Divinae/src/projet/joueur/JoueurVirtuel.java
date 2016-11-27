@@ -1,4 +1,5 @@
 package projet.joueur;
+
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
@@ -7,22 +8,32 @@ import projet.cartes.Carte;
 import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
+import projet.strategy.*;
 
 public class JoueurVirtuel extends Joueur{
 
-	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
+	static Scanner nom = new Scanner(System.in);
+	Random r = new Random();
+	static int k=2;
+	
+	
+	
+	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere, Strategy strat) {
 		super(id, ptJour, ptNuit, ptNeant, ptPriere);
 		// TODO Auto-generated constructor stub
+		//strat=new Normal();
+		this.strat=strat;
 		this.id =id;
 		this.ptActionJour=ptJour;
 		this.ptActionNuit= ptNuit;
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
 		this.typeJoueur = "Joueur Virtuel";
+		
 	}
-	static Scanner nom = new Scanner(System.in);
-	Random r = new Random();
-	static int k=2;
+	
+	
+	
 	public void lancerDeCosmogonie(){
 		//if(lancerDeCosmogonie()=='DIVIN_joueur_appartient')
 		//donne pts d'actions correspondant
@@ -34,7 +45,7 @@ public class JoueurVirtuel extends Joueur{
 		System.out.print(ptActionJour + " points Action Jour, ");
 		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant ");
-		System.out.println("Il a gagn�: " + ptPriere+" points Pri�res");
+		System.out.println("Il a gagné: " + ptPriere+" points Prières");
 		
 	}
 	
@@ -48,7 +59,7 @@ public class JoueurVirtuel extends Joueur{
 		String resDiv;
 		//int choice = r.nextInt(divinite.size());
 		//int Div = new Random().nextInt(divinite.values().length);
-		//resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃ©
+		//resDiv=divinite.values()[Div].name();//pour aggreger le nom du variable utilisÃƒÂ©
 		resDiv=divinite.get(k);
 		
 		if(resDiv=="Yarstur"|| resDiv=="Drinded" || resDiv=="Brewalen"){
@@ -107,14 +118,15 @@ public class JoueurVirtuel extends Joueur{
 	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		//recuperer pts d'actions (appel la mÃ©thode lancerDeCosmogonie)
+		//recuperer pts d'actions (appel la mÃƒÂ©thode lancerDeCosmogonie)
 		//mettre les pts d'action dans la variable ptActionJour/nuit/neant
 	}
 
 	@Override
 	public void jouerSonTour(StockCarte s) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("hi");
+		System.out.println(tryStrat());
 	}
 
 	@Override
