@@ -7,6 +7,7 @@ import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
 import projet.cartes.Tapis;
+import projet.strategy.Strategy;
 
 public  abstract class Joueur {
 
@@ -24,6 +25,15 @@ public  abstract class Joueur {
 	private boolean disponibiliteCapacite;
 	protected Main laMain;
 	protected boolean peutRecevoirPtAction = true;
+	public Strategy strat;//instantiated Strategy de joueur
+	
+	public String tryStrat(){
+		return strat.mode();
+	}
+	
+	public void setMode(Strategy newStrat){
+		strat=newStrat;
+	}
 	
 	public String[] getDogmesDivin(){
 		return dogmesDivin;
