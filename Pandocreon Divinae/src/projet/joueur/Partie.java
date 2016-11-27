@@ -24,7 +24,7 @@ public class Partie {
 	public static int jeton=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
 	protected static Random r = new Random();
-	static int high=3;
+	static int high=2;
 	static int low=1;
 	
 	private  Partie(){
@@ -106,15 +106,14 @@ public class Partie {
 		for (int i = 0; i < iterations - 1; i++) {
 		    int value = (i + (tours-1)) % (iterations - 1);//on cherche le modulo afin de repeter la valeur 
 			int Result = r.nextInt(high-low +1) + 1;
-		    if(Result==1){
-		    	listeJoueur.get(value).setMode(new Normal());
-		    }
-		    if(Result==2){
-		    	listeJoueur.get(value).setMode(new Defenssif());
-		    }
-		    if(Result==3){
-		    	listeJoueur.get(value).setMode(new Agressif());
-		    }
+			if(value!=0){    
+				if(Result==1){
+			    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Agressif());
+			    }
+			    if(Result==2){
+			    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Defenssif());
+			    }
+			}
 		    System.out.println(value + " ");
 		    listeJoueur.get(value).jouerSonTour(s);
 		        
@@ -149,13 +148,13 @@ public class Partie {
 		case ("F"):
 			System.out.println("Changement en mode agressif....");
 			for (int i=1;i<listeJoueur.size();i++){
-				listeJoueur.get(i).setMode(new Agressif());
+				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
 			}
 			break;
 		case ("D"):
 			System.out.println("Changement en mode agressif....");
 			for (int i=1;i<listeJoueur.size();i++){
-				listeJoueur.get(i).setMode(new Agressif());
+				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
 			}
 			//reponse.close();
 			break;
@@ -180,8 +179,7 @@ public class Partie {
 			}
 			
 			/************************************************************/
-			System.out.println(listeJoueur.get(2).tryStrat());
-			
+			System.out.println(((JoueurVirtuel) listeJoueur.get(2)).tryStrat());
 			
 			
 			/***********************************************/
