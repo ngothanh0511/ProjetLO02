@@ -1,21 +1,31 @@
 package projet.joueur;
 
 import projet.cartes.Carte;
+import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
+import projet.cartes.Tapis;
 import projet.joueur.DeCosmogonie;
+import projet.strategy.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+
 
 public class Partie {
 
 	static Scanner scan = new Scanner(System.in);
-	protected static int nbrJoueurs=1;
+	protected static int nbrJoueurs=0;
+	//protected static int nbrJV=0;
 	protected static int tours=1;
+	public static int jeton=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
-	
+	protected static Random r = new Random();
+	static int high=3;
+	static int low=1;
 	
 	private  Partie(){
 		
@@ -56,16 +66,17 @@ public class Partie {
 	public static void setNbrJoueurs(){
 		
 		int a=7;
+		
 		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
 			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
 			a = scan.nextInt();
-			nbrJoueurs += a;
-			for (int i=0;i<a;i++){
-				JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0);
-				listeJoueur.add(joueur);
-				Main m2 = new Main();
-				joueur.setLaMain(m2);
-			}
+		}
+		nbrJoueurs += a;//il faut qu'on met Ã§a dehors de while, sinon il y aura des bugs
+		for (int i=0;i<a;i++){//pareil comme ci dessus
+			JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0,new Normal());//JV normal par defaut changement a cause de strategy
+			listeJoueur.add(joueur);
+			Main m2 = new Main();
+			joueur.setLaMain(m2);
 		}
 	}
 //	public JV creerJV(){
@@ -83,22 +94,43 @@ public class Partie {
 	public static  void tourDeJeu(StockCarte s){
 		DeCosmogonie de = new DeCosmogonie();
 		System.out.println("Tour " + tours);
-		System.out.println("Lancement le dé de Cosmogonie...");
+		System.out.println("Lancement le dÃ© de Cosmogonie...");
 		Collections.shuffle(Arrays.asList(de.face));
 		de.resultatLancement();
 		String resLance= de.getFace();
-		for (int i=0;i<(nbrJoueurs);i++){
-			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
+		for (int i=0;i<(nbrJoueurs+1);i++){//changement
+			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changÃ© le placement de tes codes et les mis dans la mÃ©thode donnerPtAction afon de pourvoir appliquer Ã  tous les joueurs
 		}
-		for(int i=0;i<nbrJoueurs;i++){
-			listeJoueur.get(0).jouerSonTour(s );
-		listeJoueur.add(listeJoueur.get(0));
-		listeJoueur.remove(0);
+		
+		int iterations = nbrJoueurs+2;//chaque tour, la personne suivante qui lance le dÃ©
+		for (int i = 0; i < iterations - 1; i++) {
+		    int value = (i + (tours-1)) % (iterations - 1);//on cherche le modulo afin de repeter la valeur 
+			int Result = r.nextInt(high-low +1) + 1;
+		    if(Result==1){
+		    	listeJoueur.get(value).setMode(new Normal());
+		    }
+		    if(Result==2){
+		    	listeJoueur.get(value).setMode(new Defenssif());
+		    }
+		    if(Result==3){
+		    	listeJoueur.get(value).setMode(new Agressif());
+		    }
+		    System.out.println(value + " ");
+		    listeJoueur.get(value).jouerSonTour(s);
+		        
 		}
-		for(int i=0; i<nbrJoueurs;i++){
+		
+		//for(int i=0;i<nbrJoueurs+1;i++){//changement
+		//	listeJoueur.get(i).jouerSonTour(s );//ici chaque joueur va jouer son tour
+		//listeJoueur.add(listeJoueur.get(i));
+		//listeJoueur.remove(i);
+		//}
+		
+		
+		for(int i=0; i<nbrJoueurs+1;i++){//changement
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
-		/// Réinitialiser Carte.estSacrifiable = true
+		/// RÃ©initialiser Carte.estSacrifiable = true
 		tours+=1;
 		tourDeJeu(s);
 	}
@@ -106,25 +138,55 @@ public class Partie {
 	public static void main(String[] args) {
 		StockCarte s = new StockCarte();
 		Collections.shuffle(Joueur.divinite);
+		Tapis tap = new Tapis(); 
 		JoueurPhysique phy = new JoueurPhysique(1,0,0,0,0);
 		listeJoueur.add(phy);
+		setNbrJoueurs();
 		Scanner reponse = new Scanner(System.in);
-	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
+		
+		System.out.println("Choisissez la difficultÃ© de Joueurs Virtuels (Facile(F)/Difficile(D))? ");
+		switch (reponse.nextLine()){
+		case ("F"):
+			System.out.println("Changement en mode agressif....");
+			for (int i=1;i<listeJoueur.size();i++){
+				listeJoueur.get(i).setMode(new Agressif());
+			}
+			break;
+		case ("D"):
+			System.out.println("Changement en mode agressif....");
+			for (int i=1;i<listeJoueur.size();i++){
+				listeJoueur.get(i).setMode(new Agressif());
+			}
+			//reponse.close();
+			break;
+		}
+			
+	//	Scanner reponse = new Scanner(System.in);
+	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intÃ©rÃªt d'avoir ces Ã©tapes...
 	//	String rep=reponse.nextLine();
 	//	if(rep.equals("O")){
-			setNbrJoueurs();
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
-			System.out.print("Votre Divinité est ");
+			
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels Ã  jouer avec.");
+			System.out.print("Votre DivinitÃ© est ");
 			phy.piocheDivinite();
 			Main m1 = new Main();
 			phy.setLaMain(m1);
 			for (int i=1;i<listeJoueur.size();i++){
-				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
+				System.out.print("DivinitÃ© de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
 			}
 			for (int i=0;i<listeJoueur.size();i++){
 				s.distribuerCartes(listeJoueur.get(i).getLaMain());
 			}
+			
+			/************************************************************/
+			System.out.println(listeJoueur.get(2).tryStrat());
+			
+			
+			
+			/***********************************************/
+			
+			
 			tourDeJeu(s);
 		
 		
