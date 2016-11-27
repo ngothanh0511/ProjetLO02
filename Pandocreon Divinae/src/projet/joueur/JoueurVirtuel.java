@@ -8,6 +8,7 @@ import projet.cartes.Carte;
 import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
+import projet.cartes.Tapis;
 import projet.strategy.*;
 
 public class JoueurVirtuel extends Joueur{
@@ -15,7 +16,19 @@ public class JoueurVirtuel extends Joueur{
 	static Scanner nom = new Scanner(System.in);
 	Random r = new Random();
 	static int k=2;
+	public Strategy strat;//instantiated Strategy de joueur
 	
+	public String tryStrat(){
+		return strat.mode();
+	}
+	
+	public int try_pose_carte(){
+		return strat.pose_carte(this);
+	}
+	
+	public void setMode(Strategy newStrat){
+		strat=newStrat;
+	}
 	
 	
 	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere, Strategy strat) {
@@ -125,9 +138,55 @@ public class JoueurVirtuel extends Joueur{
 	@Override
 	public void jouerSonTour(StockCarte s) {
 		// TODO Auto-generated method stub
+		s.distribuerCartes(laMain);
 		System.out.println("hi");
 		System.out.println(tryStrat());
+		//laMain.getListeCartesMain().get(try_pose_carte()).getIdCarte();
+		//System.out.println(try_pose_carte());
+		//System.out.println("La carte avec l'id est joué " +laMain.getListeCartesMain().get(try_pose_carte()).getIdCarte());
+		//s.distribuerCartes(laMain);
+		for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
+		   }
+		choisirCarte();
+		
+		
 	}
+	
+	public void choisirCarte(){
+		
+		Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
+		
+		int id=try_pose_carte();
+		System.out.println(id);
+		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
+			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
+				laMain.getListeCartesMain().get(i).getUtilisable(this);
+				if (laMain.getListeCartesMain().get(i).utilisee()==true){
+					System.out.println("JV_" +this.getIdJoueur()+" joué la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
+					laMain.getListeCartesMain().get(i).calculerPtAction(this);
+					if (laMain.getListeCartesMain().get(i).utilisee()== true){
+						laMain.getListeCartesMain().remove(i);
+					}
+					
+				}
+				
+			}
+			else{
+				System.out.println("marche pas");
+				id=try_pose_carte();
+			}
+		}
+		
+			
+		
+		informer();
+		//compt--;
+		//}
+		
+	}
+	
 
 	@Override
 	public void activerCapaciteSpeciale(Carte carte, StockCarte s) {
