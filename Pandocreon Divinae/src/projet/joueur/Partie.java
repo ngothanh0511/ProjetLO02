@@ -26,7 +26,6 @@ public class Partie {
 	protected static Random r = new Random();
 	static int high=2;
 	static int low=1;
-	
 	private  Partie(){
 		
 	}
@@ -73,7 +72,7 @@ public class Partie {
 		}
 		nbrJoueurs += a;//il faut qu'on met ça dehors de while, sinon il y aura des bugs
 		for (int i=0;i<a;i++){//pareil comme ci dessus
-			JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0,new Normal());//JV normal par defaut changement a cause de strategy
+			JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0,new Defenssif(),null);//JV normal par defaut changement a cause de strategy
 			listeJoueur.add(joueur);
 			Main m2 = new Main();
 			joueur.setLaMain(m2);
@@ -106,16 +105,21 @@ public class Partie {
 		for (int i = 0; i < iterations - 1; i++) {
 		    int value = (i + (tours-1)) % (iterations - 1);//on cherche le modulo afin de repeter la valeur 
 			int Result = r.nextInt(high-low +1) + 1;
-			if(value!=0){    
-				if(Result==1){
-			    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Agressif());
-			    }
-			    if(Result==2){
-			    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Defenssif());
-			    }
+			if(value!=0){ 
+				if(((JoueurVirtuel) listeJoueur.get(value)).getTypeDif()=="f"){
+					((JoueurVirtuel) listeJoueur.get(value)).setMode(new Defenssif());
+				}
+				else{   
+						if(Result==1){
+					    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Agressif());
+					    }
+					    if(Result==2){
+					    	((JoueurVirtuel) listeJoueur.get(value)).setMode(new Defenssif());
+					    }
+					}
 			}
-		    System.out.println(value + " ");
-		    listeJoueur.get(value).jouerSonTour(s);
+			    System.out.println("Joueur_" +(value + 1) + " d'Origine " + listeJoueur.get(value).getOriginDivin());
+			    listeJoueur.get(value).jouerSonTour(s);
 		        
 		}
 		
@@ -144,27 +148,27 @@ public class Partie {
 		Scanner reponse = new Scanner(System.in);
 		
 		System.out.println("Choisissez la difficulté de Joueurs Virtuels (Facile(F)/Difficile(D))? ");
-		switch (reponse.nextLine()){
-		case ("F"):
-			System.out.println("Changement en mode agressif....");
-			for (int i=1;i<listeJoueur.size();i++){
+		for (int i=1;i<listeJoueur.size();i++){
+			System.out.println("Mode Joueur" + (i+1));
+			switch (reponse.nextLine()){
+			case ("F"):
+				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("f");
 				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
-			}
-			break;
-		case ("D"):
-			System.out.println("Changement en mode agressif....");
-			for (int i=1;i<listeJoueur.size();i++){
+				
+				break;
+			case ("D"):
+				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("d");
 				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
+				
+				//reponse.close();
+				break;
 			}
-			//reponse.close();
-			break;
 		}
-			
 	//	Scanner reponse = new Scanner(System.in);
 	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
 	//	String rep=reponse.nextLine();
 	//	if(rep.equals("O")){
-			
+			System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
@@ -179,7 +183,7 @@ public class Partie {
 			}
 			
 			/************************************************************/
-			System.out.println(((JoueurVirtuel) listeJoueur.get(2)).tryStrat());
+			//System.out.println(((JoueurVirtuel) listeJoueur.get(2)).tryStrat());
 			
 			
 			/***********************************************/
