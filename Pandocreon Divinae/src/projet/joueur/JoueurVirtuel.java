@@ -26,6 +26,10 @@ public class JoueurVirtuel extends Joueur{
 		return strat.pose_carte(this);
 	}
 	
+	public void try_defausser_carte(JoueurVirtuel joueur, StockCarte s){
+		 strat.defausser_carte(joueur, s);
+	}
+	
 	public void setMode(Strategy newStrat){
 		strat=newStrat;
 	}
@@ -139,15 +143,12 @@ public class JoueurVirtuel extends Joueur{
 	public void jouerSonTour(StockCarte s) {
 		// TODO Auto-generated method stub
 		s.distribuerCartes(laMain);
-		System.out.println("hi");
 		System.out.println(tryStrat());
-		//laMain.getListeCartesMain().get(try_pose_carte()).getIdCarte();
-		//System.out.println(try_pose_carte());
-		//System.out.println("La carte avec l'id est joué " +laMain.getListeCartesMain().get(try_pose_carte()).getIdCarte());
-		//s.distribuerCartes(laMain);
-		for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+		/*for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
-		   }
+		}*/
+		try_defausser_carte(this, s);
+		s.distribuerCartes(laMain);
 		choisirCarte();
 		
 		
@@ -155,10 +156,9 @@ public class JoueurVirtuel extends Joueur{
 	
 	public void choisirCarte(){
 		
-		Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
+		//Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
 		
 		int id=try_pose_carte();
-		System.out.println(id);
 		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
 			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 				laMain.getListeCartesMain().get(i).getUtilisable(this);
@@ -174,7 +174,7 @@ public class JoueurVirtuel extends Joueur{
 				
 			}
 			else{
-				System.out.println("marche pas");
+				//System.out.println("marche pas");
 				id=try_pose_carte();
 			}
 		}
@@ -182,6 +182,7 @@ public class JoueurVirtuel extends Joueur{
 			
 		
 		informer();
+		System.out.println("**********************************");
 		//compt--;
 		//}
 		
