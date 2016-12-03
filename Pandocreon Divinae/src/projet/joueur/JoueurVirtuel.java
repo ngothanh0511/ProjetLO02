@@ -17,6 +17,7 @@ public class JoueurVirtuel extends Joueur{
 	Random r = new Random();
 	static int k=2;
 	public Strategy strat;//instantiated Strategy de joueur
+	String typDiff;
 	
 	public String tryStrat(){
 		return strat.mode();
@@ -34,8 +35,17 @@ public class JoueurVirtuel extends Joueur{
 		strat=newStrat;
 	}
 	
+	public void setTypeDif(String str) {
+		// TODO Auto-generated method stub
+		typDiff=str;
+	}
 	
-	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere, Strategy strat) {
+	public String getTypeDif(){
+		return typDiff;
+	}
+	
+	
+	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere, Strategy strat, String typDiff) {
 		super(id, ptJour, ptNuit, ptNeant, ptPriere);
 		// TODO Auto-generated constructor stub
 		//strat=new Normal();
@@ -46,6 +56,7 @@ public class JoueurVirtuel extends Joueur{
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
 		this.typeJoueur = "Joueur Virtuel";
+		this.typDiff=typDiff;
 		
 	}
 	
@@ -194,5 +205,7 @@ public class JoueurVirtuel extends Joueur{
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }
