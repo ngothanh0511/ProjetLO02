@@ -1,22 +1,30 @@
 package projet.joueur;
 
 import projet.cartes.Carte;
+import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
+import projet.cartes.Tapis;
 import projet.joueur.DeCosmogonie;
+import projet.strategy.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Partie {
 
 	static Scanner scan = new Scanner(System.in);
-	protected static int nbrJoueurs=1;
+	protected static int nbrJoueurs=0;
 	protected static int tours=1;
+	public static int jeton=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
 	protected static ArrayList <Joueur> rangJoueur = new ArrayList<Joueur>();
-	
+	protected static Random r = new Random();
+	static int high=2;
+	static int low=1;
 	
 	private  Partie(){
 		
@@ -66,6 +74,7 @@ public class Partie {
 		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
 			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
 			a = scan.nextInt();
+			}
 			nbrJoueurs += a;
 			for (int i=0;i<a;i++){
 				JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0);
@@ -73,7 +82,7 @@ public class Partie {
 				rangJoueur.add(joueur);
 				Main m2 = new Main();
 				joueur.setLaMain(m2);
-			}
+			
 		}
 	}
 //	public JV creerJV(){
@@ -121,6 +130,24 @@ public class Partie {
 		rangJoueur.add(phy);
 		Scanner reponse = new Scanner(System.in);
 			setNbrJoueurs();
+			System.out.println("Choisissez la difficultÃ© de Joueurs Virtuels (Facile(F)/Difficile(D))? ");
+		for (int i=1;i<listeJoueur.size();i++){
+			System.out.println("Mode Joueur" + (i+1));
+			switch (reponse.nextLine()){
+			case ("F"):
+				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("f");
+				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
+				
+				break;
+			case ("D"):
+				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("d");
+				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
+				
+				//reponse.close();
+				break;
+			}
+		}
+		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();

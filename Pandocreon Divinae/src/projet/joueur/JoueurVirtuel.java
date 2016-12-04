@@ -12,9 +12,40 @@ import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
 import projet.cartes.Tapis;
+import projet.strategy.*;
 
 public class JoueurVirtuel extends Joueur {
-
+	static Scanner nom = new Scanner(System.in);
+	Random r = new Random();
+	static int k=2;
+	public Strategy strat;//instantiated Strategy de joueur
+	String typDiff;
+	
+	public String tryStrat(){
+		return strat.mode();
+	}
+	
+	public int try_pose_carte(){
+		return strat.pose_carte(this);
+	}
+	
+	public void try_defausser_carte(JoueurVirtuel joueur, StockCarte s){
+		 strat.defausser_carte(joueur, s);
+	}
+	
+	public void setMode(Strategy newStrat){
+		strat=newStrat;
+	}
+	
+	public void setTypeDif(String str) {
+		// TODO Auto-generated method stub
+		typDiff=str;
+	}
+	
+	public String getTypeDif(){
+		return typDiff;
+	}
+	
 	public JoueurVirtuel(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
 		super(id, ptJour, ptNuit, ptNeant, ptPriere);
 		// TODO Auto-generated constructor stub
@@ -24,6 +55,7 @@ public class JoueurVirtuel extends Joueur {
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
 		this.typeJoueur = "Joueur Virtuel";
+		this.typDiff=typDiff;
 	}
 
 	static Scanner nom = new Scanner(System.in);
@@ -123,9 +155,51 @@ public class JoueurVirtuel extends Joueur {
 
 	@Override
 	public void jouerSonTour(StockCarte s) {
-		System.out.println("Joueur_" + id + " a joué son tour");
 		// TODO Auto-generated method stub
-
+		s.distribuerCartes(laMain);
+		System.out.println(tryStrat());
+		/*for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
+		}*/
+		try_defausser_carte(this, s);
+		s.distribuerCartes(laMain);
+		choisirCarte();
+		
+		
+	}
+	
+	public void choisirCarte(){
+		
+		//Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
+		
+		int id=try_pose_carte();
+		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
+			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
+				laMain.getListeCartesMain().get(i).getUtilisable(this);
+				if (laMain.getListeCartesMain().get(i).utilisee()==true){
+					System.out.println("JV_" +this.getIdJoueur()+" jouÃ© la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
+					laMain.getListeCartesMain().get(i).calculerPtAction(this);
+					if (laMain.getListeCartesMain().get(i).utilisee()== true){
+						laMain.getListeCartesMain().remove(i);
+					}
+					
+				}
+				
+			}
+			else{
+				//System.out.println("marche pas");
+				id=try_pose_carte();
+			}
+		}
+		
+			
+		
+		informer();
+		System.out.println("**********************************");
+		//compt--;
+		//}
+		
 	}
 
 	@Override

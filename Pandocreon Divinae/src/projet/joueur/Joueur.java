@@ -8,6 +8,7 @@ import projet.cartes.CarteCroyants;
 import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
 import projet.cartes.Tapis;
+import projet.strategy.Strategy;
 
 public abstract class Joueur {
 

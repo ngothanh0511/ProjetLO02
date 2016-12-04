@@ -1,8 +1,10 @@
 package projet.joueur;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Random;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 import projet.cartes.*;
 
 
@@ -23,6 +25,7 @@ public class JoueurPhysique extends Joueur{
 
 	static Scanner scan = new Scanner(System.in);
 	static Scanner nom = new Scanner(System.in);
+	private static int nbrJoueurs;
 	
 	
 	
@@ -283,7 +286,7 @@ public class JoueurPhysique extends Joueur{
 					if( Partie.listeJoueur.get(i).getIdJoueur()!= id){
 						CarteCroyants carteSacrifier = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
 						Partie.listeJoueur.get(i).sacrifierCarte(carteSacrifier,s);
-					
+					break;
 					}
 			}
 				break;
@@ -720,6 +723,49 @@ public class JoueurPhysique extends Joueur{
 				System.out.println("La capacitÈ spÈciale de la carte "+carteJouee.getNom()+" est annulÈÈ");
 				break;
 			} 
+		case "F_29":
+			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le d√© de Cosmogonie. Sur Jour, le Guide adverse est sacrifi√©, sur Nuit le votre est sacrifi√©, sur N√©ant rien ne se passe.");
+			System.out.println("Lancement du d√©....");
+			try {
+				TimeUnit.SECONDS.sleep(2);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			DeCosmogonie dice1 = new DeCosmogonie();
+			Collections.shuffle(Arrays.asList(dice1.face));
+			dice1.resultatLancement();
+			String resLance3= dice1.getFace();
+			
+			if(resLance3.equals("Jour")){
+				System.out.println("Vous voulez choisir les guides spirituels de quel joueur? ");
+				int h2 = scan.nextInt();
+				for(int i=0;i< Partie.listeJoueur.get(h2).getLaMain().getListeCartesMain().size();i++){	
+			
+					if(Partie.listeJoueur.get(h2).getLaMain().getListeCartesMain().get(i).getType().equals("GuideSpirituel")){
+						System.out.println(Partie.listeJoueur.get(h2).getLaMain().getListeCartesMain().get(i).afficherCarte());
+					}
+
+				}
+				System.out.println("Mettez l'ID de la carte que vous voulez choisir! S'il y a rien, le joueur n'a pas de carte de type GuideSpirituel, donc, tape 0 pour continuer");
+				
+				GuideSpirituel carteSacrifier = Partie.listeJoueur.get(h2).choisirGuideSpirituelASacrifier();
+				Partie.listeJoueur.get(h2).sacrifierCarte(carteSacrifier,s);
+			}
+			if(resLance3.equals("Nuit")){
+				System.out.println("Vous voulez choisir quels GuideSpirituels parmi tes cartes? ");
+				for(int i=0;i< Partie.listeJoueur.get(0).getLaMain().getListeCartesMain().size();i++){	
+					
+					if(Partie.listeJoueur.get(0).getLaMain().getListeCartesMain().get(i).getType().equals("GuideSpirituel")){
+						System.out.println(Partie.listeJoueur.get(0).getLaMain().getListeCartesMain().get(i).afficherCarte());
+					}
+
+				}
+				GuideSpirituel carteSacrifier = Partie.listeJoueur.get(0).choisirGuideSpirituelASacrifier();//.getLaMain().getListeCartesMain().get(idDeux)
+				Partie.listeJoueur.get(0).sacrifierCarte(carteSacrifier,s);
+			}
+			
+			break;
 		}
 		}
 	
