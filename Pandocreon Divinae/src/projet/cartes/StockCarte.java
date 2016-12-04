@@ -74,9 +74,9 @@ public class StockCarte {
 		GuideSpirituel c_57 = new GuideSpirituel("Messie", 57, "GuideSpirituel", "Jour",new String[] {"Hunmain", "Mystique"}, 3, "F_20"); 
 		DeusEx c_58= new DeusEx("Colère Divine", 58, "DeusEx", "Jour", "F_21");
 		DeusEx c_59= new DeusEx("Colère Divine", 59, "DeusEx", "Nuit", "F_21");
-		DeusEx c_60= new DeusEx("Stase", 60, "DeusEx", "Jour", "F_22");
+		DeusEx c_60= new DeusEx("Stase", 60, "DeusEx", "Jour", "F_23");
 		DeusEx c_61= new DeusEx("Ordre Céleste", 61, "DeusEx", "Jour", "F_23");
-		DeusEx c_62= new DeusEx("Fourberie", 62, "DeusEx", "Nuit", "F_24");
+		DeusEx c_62= new DeusEx("Fourberie", 62, "DeusEx", "Nuit", "F_16");
 		DeusEx c_63= new DeusEx("Diversion", 63, "DeusEx", "Nuit", "F_4");
 		DeusEx c_64= new DeusEx("Concentration", 64, "DeusEx", "Neant", "F_23");
 		DeusEx c_65= new DeusEx("Trou Noir", 65, "DeusEx", "Neant", "F_10");

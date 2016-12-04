@@ -15,6 +15,7 @@ public class Partie {
 	protected static int nbrJoueurs=1;
 	protected static int tours=1;
 	protected static ArrayList <Joueur> listeJoueur = new ArrayList <Joueur>(); 
+	protected static ArrayList <Joueur> rangJoueur = new ArrayList<Joueur>();
 	
 	
 	private  Partie(){
@@ -25,6 +26,12 @@ public class Partie {
 	
 	public static Partie getInstance(){
 		return partie;
+	}
+	
+	public void setRangJoueur(){
+		for(int i=0;i<rangJoueur.size();i++){
+			
+		}
 	}
 	
 	public static Joueur getEliminant(){
@@ -63,6 +70,7 @@ public class Partie {
 			for (int i=0;i<a;i++){
 				JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0);
 				listeJoueur.add(joueur);
+				rangJoueur.add(joueur);
 				Main m2 = new Main();
 				joueur.setLaMain(m2);
 			}
@@ -87,15 +95,17 @@ public class Partie {
 		Collections.shuffle(Arrays.asList(de.face));
 		de.resultatLancement();
 		String resLance= de.getFace();
-		for (int i=0;i<(nbrJoueurs);i++){
+		for (int i=0;i<(listeJoueur.size());i++){
 			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
 		}
-		for(int i=0;i<nbrJoueurs;i++){
+		for(int i=0;i<listeJoueur.size();i++){
 			listeJoueur.get(0).jouerSonTour(s );
+			listeJoueur.add(listeJoueur.get(0));
+			listeJoueur.remove(0);
+		}
 		listeJoueur.add(listeJoueur.get(0));
 		listeJoueur.remove(0);
-		}
-		for(int i=0; i<nbrJoueurs;i++){
+		for(int i=0; i<listeJoueur.size();i++){ 
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
 		/// Réinitialiser Carte.estSacrifiable = true
@@ -108,10 +118,8 @@ public class Partie {
 		Collections.shuffle(Joueur.divinite);
 		JoueurPhysique phy = new JoueurPhysique(1,0,0,0,0);
 		listeJoueur.add(phy);
+		rangJoueur.add(phy);
 		Scanner reponse = new Scanner(System.in);
-	//	System.out.println("Vous voulez commencer le jeu (O/N)? ");  // Je ne vois pas l'intérêt d'avoir ces étapes...
-	//	String rep=reponse.nextLine();
-	//	if(rep.equals("O")){
 			setNbrJoueurs();
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 			System.out.print("Votre Divinité est ");

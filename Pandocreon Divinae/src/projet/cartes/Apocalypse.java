@@ -24,8 +24,8 @@ public class Apocalypse extends Carte {
 		this.familleCapaciteSpeciale = familleCapacitespeciale;
 	}
 	
-	public void activerFonctionCarte(Joueur joueur){
-		
+	public void activerFonctionCarte(Joueur joueur,StockCarte s){
+		joueur.activerCapaciteSpeciale(this, s);
 	}
 	
 	public String afficherCarte(){

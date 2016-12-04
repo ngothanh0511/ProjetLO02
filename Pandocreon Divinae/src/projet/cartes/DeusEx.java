@@ -37,8 +37,8 @@ public class DeusEx extends Carte {
 
 
 	@Override
-	public void activerFonctionCarte(Joueur joueur) {
-		// TODO Auto-generated method stub
+	public void activerFonctionCarte(Joueur joueur,StockCarte s) {
+		joueur.activerCapaciteSpeciale(this, s);
 		
 	}	
 	

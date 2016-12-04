@@ -36,7 +36,7 @@ public class GuideSpirituel extends Carte {
 		this.nbrCartesCroyants = nbrCartesCroyants;
 		this.familleCapaciteSpeciale = familleCapaciteSpeciale;
 	}
-	public void activerFonctionCarte(Joueur joueur){
+	public void activerFonctionCarte(Joueur joueur, StockCarte s){
 		ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
 		PairGuideVsCroyants.add(this);
 		System.out.println("Les cartes Croyants disponible à récupérer sont:");

@@ -23,7 +23,7 @@ public class CarteCroyants extends Carte {
 	 public String [] getDogmes(){
 		 return dogmes;
 	 }
-	public void activerFonctionCarte(Joueur joueur){
+	public void activerFonctionCarte(Joueur joueur, StockCarte s){
 		Tapis.recevoirCartes(this);
 	}
 	/**

@@ -16,6 +16,7 @@ public abstract class   Carte {
 	protected String familleCapaciteSpeciale; // La capacité spéciale de la Carte
 	protected boolean estUtilisable;
 	protected boolean estSacrifiable;
+	protected boolean estAnnule= false;
 	public abstract String afficherCarte();
 	public boolean utilisee(){
 		if (estUtilisable == true){
@@ -24,6 +25,17 @@ public abstract class   Carte {
 		else {
 			return false;
 		}
+	}
+	
+	public void setAnnule(boolean value){
+		 estAnnule = value;
+	}
+	
+	public boolean getAnnule(){
+		return estAnnule;
+	}
+	public String getNom(){
+		return nom;
 	}
 	public int getIdCarte(){
 		return idCarte;
@@ -129,7 +141,7 @@ public void calculerPtAction(Joueur joueur){
 		}
 	}
 }
-public abstract void activerFonctionCarte(Joueur joueur);
+public abstract void activerFonctionCarte(Joueur joueur, StockCarte s);
 
 }
   enum TypeCarte {
