@@ -20,6 +20,7 @@ public class JoueurVirtuel extends Joueur {
 	static int k=2;
 	public Strategy strat;//instantiated Strategy de joueur
 	String typDiff;
+	protected ArrayList<Joueur> cibleAttaque = new ArrayList<Joueur>();
 	
 	public String tryStrat(){
 		return strat.mode();
@@ -29,8 +30,39 @@ public class JoueurVirtuel extends Joueur {
 		return strat.pose_carte(this);
 	}
 	
-	public void try_defausser_carte(JoueurVirtuel joueur, StockCarte s){
-		 strat.defausser_carte(joueur, s);
+	public void defausser_carte( StockCarte s) {
+		// TODO Auto-generated method stub
+		
+	//	ArrayList <Integer> liste_carte_def = new ArrayList <Integer>();
+		
+		for(int i=0;i< laMain.getListeCartesMain().size();i++){	
+			String c= laMain.getListeCartesMain().get(i).getOrigine();
+			 
+			if(originDivin=="Aube" || originDivin=="Jour"){
+				if(c=="Nuit"){ // je mets Neant ici cgetLaMain().getListeCartesMain().get(i)ar origin aube peut avoir les point d'action Neant
+				//	liste_carte_def.add(joueur.getLaMain().getListeCartesMain().get(i).getIdCarte());
+					this.defausserCarte(laMain.getListeCartesMain().get(i), s);
+				}
+				
+			}
+			
+			else if(originDivin=="Nuit" || originDivin=="Crepuscule"){
+				if(c=="Jour" ){//c'est la meme cas	
+					//liste_carte_def.add(joueur.getLaMain().getListeCartesMain().get(i).getIdCarte());
+					this.defausserCarte(laMain.getListeCartesMain().get(i), s);
+				}
+				
+			}
+			
+		}
+	/*	for(int j=0;j<liste_carte_def.size();j++){
+			for(int i=0;i< joueur.getLaMain().getListeCartesMain().size();i++){
+				if(joueur.getLaMain().getListeCartesMain().get(i).getIdCarte()==liste_carte_def.get(j)){
+					joueur.defausserCarte(joueur.getLaMain().getListeCartesMain().get(i), s);
+				}
+			}
+		}*/
+		
 	}
 	
 	public void setMode(Strategy newStrat){
@@ -55,12 +87,12 @@ public class JoueurVirtuel extends Joueur {
 		this.ptActionNeant = ptNeant;
 		this.ptPriere = ptPriere;
 		this.typeJoueur = "Joueur Virtuel";
-		this.typDiff=typDiff;
+	//	this.typDiff=typDiff;
 	}
 
-	static Scanner nom = new Scanner(System.in);
-	protected ArrayList<Joueur> cibleAttaque = new ArrayList<Joueur>();
-	Random r = new Random();
+	
+	
+	
 	
 
 	public void informer() {
@@ -72,9 +104,9 @@ public class JoueurVirtuel extends Joueur {
 		if(laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 		System.out.println("Il possède:");
 		for (int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
+			System.out.println("");
+			System.out.println(laMain.getlistePaireGuideVsCroyants().get(i).get(0).afficherCarte()+" qui rattache:");
 			for(int j=1;j<laMain.getlistePaireGuideVsCroyants().get(i).size();j++){
-				System.out.println("");
-				System.out.println(laMain.getlistePaireGuideVsCroyants().get(i).get(0).afficherCarte()+" qui rattache:");
 				System.out.println(laMain.getlistePaireGuideVsCroyants().get(i).get(j).afficherCarte());
 			}
 		}
@@ -88,8 +120,17 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public CarteCroyants choisirCarteCroyantsASacrifier() {
-		for (int h = 2; h < laMain.getlistePaireGuideVsCroyants().size(); h++) {
-			for (int j = 1; j < laMain.getlistePaireGuideVsCroyants().get(0).size(); j++) {
+		for (int h = 0; h < laMain.getlistePaireGuideVsCroyants().size()-1; h++) {
+			for(int l=0;l<laMain.getlistePaireGuideVsCroyants().size()-1;l++){
+				if(laMain.getlistePaireGuideVsCroyants().get(l).size()<laMain.getlistePaireGuideVsCroyants().get(l+1).size()){
+					ArrayList <Carte> ar = laMain.getlistePaireGuideVsCroyants().get(l);
+					laMain.getlistePaireGuideVsCroyants().set(l, laMain.getlistePaireGuideVsCroyants().get(l+1));
+					laMain.getlistePaireGuideVsCroyants().set(l+1, ar);
+			}
+		}
+		}
+			for (int k = 1; k < laMain.getlistePaireGuideVsCroyants().get(0).size()-1; k++) {
+				for(int j=1;j<laMain.getlistePaireGuideVsCroyants().get(0).size()-1;j++){
 				if (laMain.getlistePaireGuideVsCroyants().get(0).get(j).getNbrCroyants() > laMain
 						.getlistePaireGuideVsCroyants().get(0).get(j + 1).getNbrCroyants()) {
 					laMain.getlistePaireGuideVsCroyants().get(0).add(j + 2,
@@ -98,27 +139,37 @@ public class JoueurVirtuel extends Joueur {
 				}
 			}
 		}
+
 		return (CarteCroyants) laMain.getlistePaireGuideVsCroyants().get(0).get(1);
 	}
 
 	public CarteCroyants choisirCarteCroyantsASacrifierDeEnemie(Joueur joueur) {
-		for (int h = 2; h < joueur.getLaMain().getlistePaireGuideVsCroyants().size(); h++) {
-			for (int j = 1; j < joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).size(); j++) {
-				if (joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).get(j).getNbrCroyants() > joueur
-						.getLaMain().getlistePaireGuideVsCroyants().get(0).get(j + 1).getNbrCroyants()) {
-					joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).add(j + 2,
-							joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).get(j));
-					joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).remove(j);
+		for (int h = 0; h < laMain.getlistePaireGuideVsCroyants().size()-1; h++) {
+			for(int l=0;l<laMain.getlistePaireGuideVsCroyants().size()-1;l++){
+				if(laMain.getlistePaireGuideVsCroyants().get(l).size()<laMain.getlistePaireGuideVsCroyants().get(l+1).size()){
+					ArrayList <Carte> ar = laMain.getlistePaireGuideVsCroyants().get(l);
+					laMain.getlistePaireGuideVsCroyants().set(l, laMain.getlistePaireGuideVsCroyants().get(l+1));
+					laMain.getlistePaireGuideVsCroyants().set(l+1, ar);
+			}
+		}
+		}
+		for (int k = 1; k < laMain.getlistePaireGuideVsCroyants().get(0).size()-1; k++) {
+			for(int j=1;j<laMain.getlistePaireGuideVsCroyants().get(0).size()-1;j++){
+				if (laMain.getlistePaireGuideVsCroyants().get(0).get(j).getNbrCroyants() > laMain
+						.getlistePaireGuideVsCroyants().get(0).get(j + 1).getNbrCroyants()) {
+					laMain.getlistePaireGuideVsCroyants().get(0).add(j + 2,
+							laMain.getlistePaireGuideVsCroyants().get(0).get(j));
+					laMain.getlistePaireGuideVsCroyants().get(0).remove(j);
 				}
 			}
 		}
-		return (CarteCroyants) joueur.getLaMain().getlistePaireGuideVsCroyants().get(0)
-				.get(joueur.getLaMain().getlistePaireGuideVsCroyants().get(0).size() - 1);
+
+		return (CarteCroyants) laMain.getlistePaireGuideVsCroyants().get(0).get(laMain.getlistePaireGuideVsCroyants().get(0).size()-1);
 	}
 
 	public GuideSpirituel choisirGuideSpirituelASacrifier() {
-		for (int h = 1; h < laMain.getlistePaireGuideVsCroyants().size(); h++) {
-			for (int k = 0; k < laMain.getlistePaireGuideVsCroyants().size(); k++) {
+		for (int h = 0; h < laMain.getlistePaireGuideVsCroyants().size()-1; h++) {
+			for (int k = 0; k < laMain.getlistePaireGuideVsCroyants().size()-1; k++) {
 				if (laMain.getlistePaireGuideVsCroyants().get(k).size() > laMain.getlistePaireGuideVsCroyants()
 						.get(k + 1).size()) {
 					laMain.getlistePaireGuideVsCroyants().add(k + 2, laMain.getlistePaireGuideVsCroyants().get(k));
@@ -130,8 +181,8 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public GuideSpirituel choisirGuideSpirituelASacrifierDeEnemie(Joueur joueur) {
-		for (int h = 1; h < joueur.getLaMain().getlistePaireGuideVsCroyants().size(); h++) {
-			for (int k = 0; k < joueur.getLaMain().getlistePaireGuideVsCroyants().size(); k++) {
+		for (int h = 0; h < joueur.getLaMain().getlistePaireGuideVsCroyants().size()-1; h++) {
+			for (int k = 0; k < joueur.getLaMain().getlistePaireGuideVsCroyants().size()-1; k++) {
 				if (joueur.getLaMain().getlistePaireGuideVsCroyants().get(k).size() > joueur.getLaMain()
 						.getlistePaireGuideVsCroyants().get(k + 1).size()) {
 					joueur.getLaMain().getlistePaireGuideVsCroyants().add(k + 2,
@@ -145,45 +196,74 @@ public class JoueurVirtuel extends Joueur {
 	}
 
 	public void getCibleAttaque() {
+		Partie.setRangJoueur();
 		for (int i = 0; i < Partie.rangJoueur.size(); i++) {
+			if(Partie.rangJoueur.get(i).id!=this.id){
 			if (Partie.rangJoueur.get(i).estAttaquable == true) {
 				cibleAttaque.add(Partie.rangJoueur.get(i));
 			}
 		}
-		System.out.println("Le Joueur "+id+" choisit de appliquer la capacité spéciale de sa carte sur joueur "+cibleAttaque.get(0).id);
+		}
+		if(cibleAttaque.isEmpty()==false){
+			if(cibleAttaque.get(0).getTypeJoueur()!="Joueur Physique"){
+		System.out.println("Le Joueur "+id+" choisit d'appliquer la capacité spéciale de sa carte sur joueur "+cibleAttaque.get(0).id);
 	}
-
+		}
+	}
 	@Override
 	public void jouerSonTour(StockCarte s) {
 		// TODO Auto-generated method stub
 		s.distribuerCartes(laMain);
-		System.out.println(tryStrat());
+	//	System.out.println(tryStrat());
 		/*for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
 		}*/
-		try_defausser_carte(this, s);
+		defausser_carte(s);
 		s.distribuerCartes(laMain);
-		choisirCarte();
-		
+		int rang = Partie.rangJoueur.indexOf(this);
+		if(typDiff=="f"){
+			strat= new Defenssif();
+		}
+		else if(typDiff=="d"){
+		if(Partie.listeJoueur.size()>3){
+			if(rang<3){
+				strat = new Defenssif();
+			}
+			else{ strat = new Agressif();}
+		}
+		else{
+			if(rang==0){
+				strat = new Defenssif();
+			}
+			else{ strat = new Agressif();}
+		}
+		}
+		choisirCarte(s);
+		for(int i=0;i<Partie.listeJoueur.size();i++){
+			Partie.listeJoueur.get(i).calculerPtPrieres();
+		}
 		
 	}
 	
-	public void choisirCarte(){
+	public void choisirCarte(StockCarte s){
 		
 		//Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
 		
 		int id=try_pose_carte();
-		for (int i=0; i<laMain.getListeCartesMain().size(); i++){
+		for (int i=0; i<laMain.getListeCartesMain().size(); i++){ 
 			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 				laMain.getListeCartesMain().get(i).getUtilisable(this);
 				if (laMain.getListeCartesMain().get(i).utilisee()==true){
-					System.out.println("JV_" +this.getIdJoueur()+" jouÃ© la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
-					laMain.getListeCartesMain().get(i).activerFonctionCarte(this);
+					System.out.println("JV_" +this.getIdJoueur()+" joue la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					laMain.getListeCartesMain().get(i).activerFonctionCarte(this,s);
 					laMain.getListeCartesMain().get(i).calculerPtAction(this);
 					if (laMain.getListeCartesMain().get(i).utilisee()== true){
 						laMain.getListeCartesMain().remove(i);
 					}
-					
+					else if(laMain.getListeCartesMain().get(i).utilisee()== false){
+						laMain.getListeCartesMain().get(i).setFonctionnable(false);
+						System.out.println("Cette carte ne marche pas!");
+					}
 				}
 				
 			}
@@ -192,11 +272,20 @@ public class JoueurVirtuel extends Joueur {
 				id=try_pose_carte();
 			}
 		}
-		
+		for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
+			Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
+			Tapis.getListeCartesCroyantsIndisponible().remove(i);
+		}
 			
-		
-		informer();
+		System.out.println("Le Joueur "+this.id+" a fini son tour");
+	//	informer();
 		System.out.println("**********************************");
+		try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//compt--;
 		//}
 		
@@ -249,6 +338,7 @@ public class JoueurVirtuel extends Joueur {
 				}
 				} else {
 				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 		case ("F_3"):
@@ -279,13 +369,24 @@ public class JoueurVirtuel extends Joueur {
 					}				
 			} else {
 				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 		case ("F_4"):
 			for (int i = 0; i < Partie.rangJoueur.size(); i++) {
-				Partie.rangJoueur.get(i).setAttaquable(true);
+				if(carte.getType()=="Croyant"){
+					if(Partie.rangJoueur.get(i).getLaMain().getListeCartesMain().size()>1){
+						Partie.rangJoueur.get(i).setAttaquable(true);
+					}
+				}
+				else if(carte.getType()=="DeusEx"){
+					if(Partie.rangJoueur.get(i).getLaMain().getListeCartesMain().size()>2){
+						Partie.rangJoueur.get(i).setAttaquable(true);
+					}
+				}
 			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			Collections.shuffle(cibleAttaque.get(0).getLaMain().getListeCartesMain());
 			laMain.getListeCartesMain().add(cibleAttaque.get(0).getLaMain().getListeCartesMain().get(0));
 			laMain.getListeCartesMain().add(cibleAttaque.get(0).getLaMain().getListeCartesMain().get(1));
@@ -296,27 +397,35 @@ public class JoueurVirtuel extends Joueur {
 				cibleAttaque.get(0).getLaMain().getListeCartesMain().remove(0);
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
 					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
-					System.out.println("Le Joueur_"+id+"a pris 3 cartes dans votre main");
+					System.out.println("Le Joueur_"+id+" a pris 3 cartes dans votre main");
 				}
 				else {
-				System.out.println("Le Joueur_"+id+"a pris 3 cartes du Joueur_"+cibleAttaque.get(0).id);
+				System.out.println("Le Joueur_"+id+" a pris 3 cartes du Joueur_"+cibleAttaque.get(0).id);
 			}
 			}
 			else {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
 					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
-					System.out.println("Le Joueur_"+id+"a pris 2 cartes dans votre main");
+					System.out.println("Le Joueur_"+id+" a pris 2 cartes dans votre main");
 				}
 				else {
-				System.out.println("Le Joueur_"+id+"a pris 2 cartes du Joueur_"+cibleAttaque.get(0).id);}
+				System.out.println("Le Joueur_"+id+" a pris 2 cartes du Joueur_"+cibleAttaque.get(0).id);}
+			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 
 		case ("F_5"):
 			for (int i = 0; i < Partie.rangJoueur.size(); i++) {	
+				if(Partie.rangJoueur.get(i).laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 				Partie.rangJoueur.get(i).setAttaquable(true);
 			}
+			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			switch (carte.getOrigine()) {
 			case "Jour":
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
@@ -341,12 +450,20 @@ public class JoueurVirtuel extends Joueur {
 				}
 				break;
 			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case ("F_6"):
 			for (int i = 0; i < Partie.rangJoueur.size(); i++) {
+				if(Partie.rangJoueur.get(i).laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 				Partie.rangJoueur.get(i).setAttaquable(true);
 			}
+			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			for (int i = 0; i < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); i++) {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
 					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
@@ -377,6 +494,11 @@ public class JoueurVirtuel extends Joueur {
 					break;
 				}
 			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 
 		case ("F_30"):
@@ -400,7 +522,10 @@ public class JoueurVirtuel extends Joueur {
 				GuideSpirituel carteSacrifier = cibleAttaque.get(0).choisirGuideSpirituelASacrifier();
 				cibleAttaque.get(0).sacrifierCarte(carteSacrifier, s);
 			}
-
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case ("F_7"):
 			DeCosmogonie de = new DeCosmogonie();
@@ -432,6 +557,10 @@ public class JoueurVirtuel extends Joueur {
 				setPtActionJour(ptNeant);
 				cibleAttaque.get(0).setPtActionNeant(0);
 			} 
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case ("F_9"):
 			for (int i = 0; i < Partie.rangJoueur.size(); i++) {
@@ -440,8 +569,14 @@ public class JoueurVirtuel extends Joueur {
 				}
 			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			System.out.println("Le Joueur "+id+ "bénéficiera la capacité spéciale de la carte"+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0).getNom()+" du Joueur "+cibleAttaque.get(0).id );
 			activerCapaciteSpeciale(cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0), s);
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_10":
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
@@ -450,25 +585,52 @@ public class JoueurVirtuel extends Joueur {
 			System.out.println("Jusqu'à la fin du tour, plus aucun joueur ne reçoit de points d'Action");
 			break;
 		case "F_11":
+			Partie.setRangJoueur();
+			int rang = Partie.rangJoueur.indexOf(this);
 			if (Partie.listeJoueur.size() > 3) {
-				if (Partie.getEliminant().typeJoueur == "Joueur Physique") {
+				if(rang==Partie.rangJoueur.size()-1){
+					carte.setSacrifiable(false);
+					carte.setUtilisable(false);
+				}
+				else{
+					if(Partie.getEliminant()==null){
+						carte.setSacrifiable(false);
+						carte.setUtilisable(false);
+					}
+					else{ 
+						if (Partie.getEliminant().typeJoueur == "Joueur Physique") {
 					System.out.println("Vous êtes éliminé car le joueur qui gagne le moins points de Prières");
 					Partie.listeJoueur.remove(Partie.getEliminant());
+					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -= 1;
 					System.exit(1);
 				} else if (Partie.getEliminant().typeJoueur == "Joueur Virtuel") {
 					System.out.println("Le Joueur_" + Partie.getEliminant().id
 							+ " est éliminé car il est le joueur qui gagne le moins points de Prières");
 					Partie.listeJoueur.remove(Partie.getEliminant());
+					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -= 1;
+					s.getStock().add(carte);
+					this.laMain.getListeCartesMain().remove(carte);
 					for (int i = 0; i < Partie.listeJoueur.indexOf(this); i++) {
 						Partie.listeJoueur.add(Partie.listeJoueur.get(0));
 						Partie.listeJoueur.remove(0);
 					}
 					Partie.tourDeJeu(s);
 				}
-
+					}
+				}
 			} else if (Partie.listeJoueur.size() < 4) {
+				if(rang!=0){
+					carte.setSacrifiable(false);
+					carte.setUtilisable(false);
+				}
+				else{
+					if(Partie.getGagnant()==null){
+						carte.setSacrifiable(false);
+						carte.setUtilisable(false);
+					}
+					else{
 				if (Partie.getGagnant().typeJoueur == "Joueur Physique") {
 					System.out.println("Félicitation! Vous êtes gagné !");
 				} else if (Partie.getGagnant().typeJoueur == "Joueur Virtuel") {
@@ -477,8 +639,11 @@ public class JoueurVirtuel extends Joueur {
 				}
 				System.exit(1);
 			}
+				}
+			}
 			break;
 		case "F_12":
+			if(laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 			for (int i = 0; i < laMain.getlistePaireGuideVsCroyants().size(); i++) {
 				if (laMain.getlistePaireGuideVsCroyants().get(i).contains(choisirGuideSpirituelASacrifier())) {
 					Integer pt = laMain.getlistePaireGuideVsCroyants().get(i).size() - 1;
@@ -495,7 +660,11 @@ public class JoueurVirtuel extends Joueur {
 					break;
 
 				}
-
+			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 		case "F_13":
@@ -528,6 +697,10 @@ public class JoueurVirtuel extends Joueur {
 				System.out.println("Toutes les cartes Croyants d'origine Néant du joueur "+cibleAttaque.get(0).getIdJoueur()+" ont été sacrifiées");
 
 			} 
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_14":
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
@@ -560,6 +733,10 @@ public class JoueurVirtuel extends Joueur {
 
 				}
 			} 
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_15":
 			Iterator<CarteCroyants> it = Tapis.getListeCartesCroyants().iterator();
@@ -588,18 +765,22 @@ public class JoueurVirtuel extends Joueur {
 		case "F_16":
 			if (carte.getType() == "GuideSpirituel") {
 				for (int i = 0; i < Partie.listeJoueur.size(); i++) {
+					if(Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().size()>1){
 					if (Arrays.asList(Partie.listeJoueur.get(i).dogmesDivin).contains("Humain")
 							|| Arrays.asList(Partie.listeJoueur.get(i).dogmesDivin).contains("Symboles")) {
 						Partie.listeJoueur.get(i).setAttaquable(true);
 					}
 				}
+				}
 			} else if (carte.getType() == "DeusEx") {
 				for (int i = 0; i < Partie.listeJoueur.size(); i++) {
+					if(Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().size()>1){
 					Partie.listeJoueur.get(i).setAttaquable(true);
+				}
 				}
 			}
 			getCibleAttaque();
-			if (Partie.rangJoueur.isEmpty() == false) {
+			if (cibleAttaque.isEmpty() == false) {
 				for (int l = 1; l < 3; l++) {
 					cibleAttaque.get(0).sacrifierCarte(choisirCarteCroyantsASacrifierDeEnemie(cibleAttaque.get(0)), s);
 				}
@@ -632,6 +813,7 @@ public class JoueurVirtuel extends Joueur {
 				}
 			} else {
 				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 		case "F_18":
@@ -641,6 +823,7 @@ public class JoueurVirtuel extends Joueur {
 				}
 			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			Carte maCarte = choisirGuideSpirituelASacrifier();
 			Carte enemieCarte = choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0));
 			System.out.println("Le Joueur "+id+" a choisi de échanger sa carte "+maCarte.getNom()+" avec la carte "+enemieCarte.getNom()+" du Joueur "+cibleAttaque.get(0).id);
@@ -660,6 +843,11 @@ public class JoueurVirtuel extends Joueur {
 					laMain.getlistePaireGuideVsCroyants().remove(k);
 					break;
 				}
+			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
 			}
 			break;
 		case "F_19":
@@ -707,6 +895,7 @@ public class JoueurVirtuel extends Joueur {
 			break;
 		case "F_21":
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
+				if(Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 				for (int j = 0; j < Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().size(); j++) {
 					if (Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().get(j).get(0)
 							.getOrigine() != carte.getOrigine()) {
@@ -715,7 +904,9 @@ public class JoueurVirtuel extends Joueur {
 					}
 				}
 			}
+			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			for (int j = 0; j < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); j++) {
 				if (cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getOrigine() != carte
 						.getOrigine()) {
@@ -731,7 +922,11 @@ public class JoueurVirtuel extends Joueur {
 				}
 
 			}
-
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_23":
 			for (int i = 0; i < Partie.getListeJoueur().size(); i++) {
@@ -740,21 +935,33 @@ public class JoueurVirtuel extends Joueur {
 				}
 			}
 			getCibleAttaque();
+			if (cibleAttaque.isEmpty() == false) {
 			for (int j = 0; j < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); j++) {
 				if (choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getIdCarte() == cibleAttaque.get(0)
 						.getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getIdCarte()) {
 					laMain.getlistePaireGuideVsCroyants()
 							.add(cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j));
 					cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().remove(j);
-					System.out.println("Le Joueur "+id+" a volé la carte Guide Spirituel "+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getNom()+" et ses Croyants de Joueur "+cibleAttaque.get(0).id);
+					System.out.println("Le Joueur "+id+" a volé la carte Guide Spirituel "+laMain.getlistePaireGuideVsCroyants().get(laMain.getlistePaireGuideVsCroyants().size()-1).get(0).getNom()+" et ses Croyants de Joueur "+cibleAttaque.get(0).id);
+					this.calculerPtPrieres();
 					break;
 				}
 			}
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_25":
+			if(laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 			System.out.print("Le Joueur "+id+" bénéficie la capacité spéciale de sa carte "+laMain.getlistePaireGuideVsCroyants().get(0).get(0).getNom());
 			activerCapaciteSpeciale(laMain.getlistePaireGuideVsCroyants().get(0).get(0), s);
-			
+			}
+			else {
+				carte.setSacrifiable(false);
+				carte.setUtilisable(false);
+			}
 			break;
 		case "F_26":
 			switch (carte.getNom()) {

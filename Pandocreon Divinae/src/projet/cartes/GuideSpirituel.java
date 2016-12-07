@@ -37,13 +37,13 @@ public class GuideSpirituel extends Carte {
 		this.familleCapaciteSpeciale = familleCapaciteSpeciale;
 	}
 	public void activerFonctionCarte(Joueur joueur, StockCarte s){
-		ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
-		PairGuideVsCroyants.add(this);
+		
+		if(joueur.getTypeJoueur()=="Joueur Physique"){
 		System.out.println("Les cartes Croyants disponible à récupérer sont:");
 		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
 			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
 		}
-		for (int k = 1;k<nbrCartesCroyants;k++){
+		for (int k = 0;k<nbrCartesCroyants;k++){
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
 					+ " Si vous ne voulez pas rattacher une autre carte Croyants, tapez 0!");
 			int i;
@@ -53,6 +53,8 @@ public class GuideSpirituel extends Carte {
 			}
 			else{
 				for (int j =0; j< Tapis.getListeCartesCroyants().size(); j++){
+					ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
+					PairGuideVsCroyants.add(this);
 					if (i== Tapis.getListeCartesCroyants().get(j).getIdCarte()){ 
 						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
 								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
@@ -72,6 +74,30 @@ public class GuideSpirituel extends Carte {
 							+ "Choisir la carte Croyants qui possède au moins un dogme en commun avec votre carte Guide Spirituel");
 					}
 				}
+				}
+			}
+		}
+		
+		}
+		else if(joueur.getTypeJoueur()=="Joueur Virtuel"){
+			for(int j=0; j<this.nbrCartesCroyants;j++){
+				ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
+				PairGuideVsCroyants.add(this);
+				if(Tapis.getListeCartesCroyants().isEmpty()==false){
+			for(int i=0;i<Tapis.getListeCartesCroyants().size();i++){
+				if(Arrays.asList(Tapis.getListeCartesCroyants().get(i).dogmes).contains(this.dogmes[0])
+						||Arrays.asList(Tapis.getListeCartesCroyants().get(i).dogmes).contains(this.dogmes[1])){
+					PairGuideVsCroyants.add(Tapis.getListeCartesCroyants().get(i));
+					System.out.println("Le Joueur "+joueur.getIdJoueur()+" vient de rattacher la carte Croyants c_"
+							+ Tapis.getListeCartesCroyants().get(i).getIdCarte());
+					Tapis.getListeCartesCroyants().remove(i);
+					joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
+					nbrCartesCroyantsRattaches +=1;
+					joueur.calculerPtPrieres();
+					System.out.println("Le Joueur "+joueur.getIdJoueur()+" a " + joueur.getPtPriere() +" points Prières");
+					break;
+				}
+			}
 				}
 			}
 		}

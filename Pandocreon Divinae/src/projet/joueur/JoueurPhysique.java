@@ -48,18 +48,29 @@ public class JoueurPhysique extends Joueur{
 	}
 	
 	public void informer(){
+		System.out.println("");
 		System.out.print("Vous avez: ");
 		System.out.print(ptActionJour + " points Action Jour, ");
 		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant");
 		System.out.println("Vous avez gagné: " + ptPriere+" points Prières");
+		if(this.laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
+			System.out.println("Vous possedez:");
+			for (int i=0;i<this.laMain.getlistePaireGuideVsCroyants().size();i++){
+				System.out.println("");
+				System.out.println(this.laMain.getlistePaireGuideVsCroyants().get(i).get(0).afficherCarte()+" qui rattache:");
+				for(int j=1;j<this.laMain.getlistePaireGuideVsCroyants().get(i).size();j++){
+					System.out.println(this.laMain.getlistePaireGuideVsCroyants().get(i).get(j).afficherCarte());
+				}
+			}
+			}
 		System.out.println("Vous avez dans la main les cartes suivantes:");
 		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
 		   }
 	}
 	
-	public static int setNbrJoueurs(){
+/*	public static int setNbrJoueurs(){
 		
 		int a=7;
 		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
@@ -67,7 +78,7 @@ public class JoueurPhysique extends Joueur{
 			a = scan.nextInt();
 		}
 		return a;
-	}
+	}*/
 	
 	public void sauvegarderJeu(){
 		
@@ -109,7 +120,7 @@ public class JoueurPhysique extends Joueur{
 			for(int i=0;i<Partie.listeJoueur.size();i++){
 				if(Partie.listeJoueur.get(i).typeJoueur=="Joueur Virtuel"){
 				System.out.println("");
-				System.out.print("Joueur_"+(i+1));
+				System.out.print("Joueur_"+(Partie.listeJoueur.get(i).id));
 				Partie.listeJoueur.get(i).informer();
 				}
 			}
@@ -130,13 +141,16 @@ public class JoueurPhysique extends Joueur{
 		}
 		s.distribuerCartes(laMain);
 		choisirCarte(s);
+		for(int i=0;i<Partie.listeJoueur.size();i++){
+			Partie.listeJoueur.get(i).calculerPtPrieres();
+		}
 	}
 	
 	public void choisirCarte(StockCarte s){
 		int id;
 		while (laMain.getListeCartesMain().size() >0){
 			informer();
-		System.out.println("Mettez l'id de la carte à jouer! Tapez 0 si vous voulez terminer votre tour! ");
+		System.out.println("Mettez l'id de la carte à jouer ou à sacrifier! Tapez 0 si vous voulez terminer votre tour! ");
 		id = scan.nextInt();
 		if (id == 0){
 			for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
@@ -262,7 +276,12 @@ public class JoueurPhysique extends Joueur{
 					if(carte.getType()=="DeusEx"){
 						laMain.getListeCartesMain().add(Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().get(0));
 						Partie.listeJoueur.get(i).getLaMain().getListeCartesMain().remove(0);
+						System.out.println("Vous avez pris 3 cartes dans la main de Joueur_"+Partie.listeJoueur.get(i).id);
 					}
+					else{					
+						System.out.println("Vous avez pris 2 cartes dans la main de Joueur_"+Partie.listeJoueur.get(i).id);
+					}
+
 					break;
 				}
 			}
@@ -403,6 +422,7 @@ public class JoueurPhysique extends Joueur{
 			break;
 		case "F_11":
 			if(Partie.listeJoueur.size()>3){
+				if(Partie.getEliminant()!= null){
 				if(Partie.getEliminant().typeJoueur=="Joueur Physique"){
 					System.out.println("Vous êtes éliminé car le joueur qui gagne le moins points de Prières");
 					Partie.listeJoueur.remove(Partie.getEliminant()); 
@@ -414,16 +434,20 @@ public class JoueurPhysique extends Joueur{
 					System.out.println("Le Joueur_"+Partie.getEliminant().id+" est éliminé car il est le joueur qui gagne le moins points de Prières");
 					Partie.listeJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -=1;
+					s.getStock().add(carte);
+					this.laMain.getListeCartesMain().remove(carte);
 					for(int i =0; i< Partie.listeJoueur.indexOf(this);i++){
 						Partie.listeJoueur.add(Partie.listeJoueur.get(0));
 						Partie.listeJoueur.remove(0);
 					}
 					Partie.tourDeJeu(s);
 				}
-				
+				}
+				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le moins points de Prières ");}
 				
 			}
 			else if(Partie.listeJoueur.size()<4){
+				if(Partie.getGagnant()!= null){
 				if(Partie.getGagnant().typeJoueur=="Joueur Physique"){
 					System.out.println("Félicitation! Vous êtes gagné !");
 				}
@@ -431,6 +455,8 @@ public class JoueurPhysique extends Joueur{
 					System.out.println("Joueur_"+Partie.getGagnant().id+" est gagné car il est le joueur qui gagne le plus points Prières.");
 				}
 				System.exit(1);
+				}
+				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le plus points de Prières ");}
 			}
 			break;
 		case "F_12":
@@ -676,8 +702,8 @@ public class JoueurPhysique extends Joueur{
 						if(b==Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getIdCarte()){
 							laMain.getlistePaireGuideVsCroyants().add(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j));
 							Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().remove(j);
-							System.out.println("Vous avez volé la carte Guide Spirituel "+Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getNom()+" et ses Croyants de Joueur "+Partie.listeJoueur.get(i).id);
-
+							System.out.println("Vous avez volé la carte Guide Spirituel "+laMain.getlistePaireGuideVsCroyants().get(laMain.getlistePaireGuideVsCroyants().size()-1).get(0).getNom()+" et ses Croyants de Joueur "+Partie.listeJoueur.get(i).id);
+							this.calculerPtPrieres();
 							break;
 						}
 					}
@@ -724,8 +750,8 @@ public class JoueurPhysique extends Joueur{
 				break;
 			} 
 		case "F_29":
-			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le dÃ© de Cosmogonie. Sur Jour, le Guide adverse est sacrifiÃ©, sur Nuit le votre est sacrifiÃ©, sur NÃ©ant rien ne se passe.");
-			System.out.println("Lancement du dÃ©....");
+			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le dé de Cosmogonie. Sur Jour, le Guide adverse est sacrifié, sur Nuit le votre est sacrifié, sur Néant rien ne se passe.");
+			System.out.println("Lancement du dé....");
 			try {
 				TimeUnit.SECONDS.sleep(2);
 			} catch (InterruptedException e) {

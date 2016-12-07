@@ -14,7 +14,7 @@ public class Tapis {
 	private static ArrayList <CarteCroyants> ListeCartesCroyantsIndisponible = new ArrayList <CarteCroyants> (); 
 	public static void recevoirCartes(CarteCroyants c){
 		ListeCartesCroyantsIndisponible.add(c);
-		System.out.println("La carte c_ "+ c.getIdCarte() +" est bien ajoutÃ© au centre de la table!");
+		System.out.println("La carte c_ "+ c.getIdCarte() +" est bien ajouté au centre de la table!");
 	}
 	public static ArrayList <CarteCroyants> getListeCartesCroyants(){
 		return ListeCartesCroyants;

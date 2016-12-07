@@ -38,6 +38,9 @@ public abstract class Joueur {
 		this.estAttaquable = value;
 	}
 
+	public String getTypeJoueur(){
+		return typeJoueur;
+	}
 	public String[] getDogmesDivin() {
 		return dogmesDivin;
 	}
@@ -91,9 +94,10 @@ public abstract class Joueur {
 	}
 
 	public void calculerPtPrieres() {
+		this.ptPriere=0;
 		for (int i = 0; i < this.laMain.getlistePaireGuideVsCroyants().size(); i++) {
 			for (int j = 1; j < this.laMain.getlistePaireGuideVsCroyants().get(i).size(); j++) {
-				ptPriere += this.laMain.getlistePaireGuideVsCroyants().get(i).get(j).getNbrCroyants();
+				this.ptPriere += this.laMain.getlistePaireGuideVsCroyants().get(i).get(j).getNbrCroyants();
 			}
 		}
 	}
@@ -229,5 +233,8 @@ public abstract class Joueur {
 	}
 
 	public abstract void informer();
+	public abstract void choisirCarte(StockCarte s);
 
 }
+
+

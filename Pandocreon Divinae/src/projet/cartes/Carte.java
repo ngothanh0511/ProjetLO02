@@ -1,6 +1,11 @@
 package projet.cartes;
 
+
+import java.util.Arrays;
+
 import projet.joueur.Joueur;
+import projet.joueur.JoueurVirtuel;
+import projet.joueur.Partie;
 
 /**
  * La classe Carte représente les Cartes dans le jeu
@@ -17,7 +22,15 @@ public abstract class   Carte {
 	protected boolean estUtilisable;
 	protected boolean estSacrifiable;
 	protected boolean estAnnule= false;
+	protected boolean estFonctionnable = true;
 	public abstract String afficherCarte();
+	public void setUtilisable(boolean value){
+		estUtilisable = value;
+	}
+	public void setFonctionnable(boolean value){
+		estFonctionnable=value;
+	}
+	
 	public boolean utilisee(){
 		if (estUtilisable == true){
 			return true;
@@ -68,7 +81,11 @@ public abstract class   Carte {
 	 * @param joueur
 	 */
 	public void getUtilisable(Joueur joueur){
-		switch(origine) {
+	if(estFonctionnable==false){
+		estUtilisable = false;
+	}
+	else{
+	switch(origine) {
 		case "None":
 			estUtilisable = true;
 			break;
@@ -109,7 +126,56 @@ public abstract class   Carte {
 		
 			break;
 		}
-	
+		if(joueur.getTypeJoueur()=="Joueur Virtuel"){
+			switch(type){
+			case "GuideSpirituel":
+				if(estUtilisable==true){
+					if(Tapis.getListeCartesCroyants().isEmpty()==true){
+						estUtilisable=false;
+					}
+					else{
+						int a=0;
+						for(int i=0;i<Tapis.getListeCartesCroyants().size();i++){
+							if((Arrays.asList(Tapis.getListeCartesCroyants().get(i).dogmes).contains((((GuideSpirituel)this).getDogmes())[0]))
+									||Arrays.asList(Tapis.getListeCartesCroyants().get(i).dogmes).contains((((GuideSpirituel)this).getDogmes())[1])){
+								a+=1;
+							}
+						}
+						if(a==0){
+							estUtilisable=false;
+						}
+					}
+				}
+				break;
+			case "Apocalypse":
+				Partie.setRangJoueur();
+				int rang = Partie.getRangJoueur().indexOf(this);
+				if (Partie.getRangJoueur().size() > 3) {
+					if(rang==Partie.getRangJoueur().size()-1){
+						estUtilisable=false;
+					}
+					else{
+						if(Partie.getEliminant()==null){
+							estUtilisable=false;
+						}
+					}
+					
+			}
+				else if(Partie.getListeJoueur().size() < 4){
+					if(rang!=0){
+						estUtilisable=false;
+				}
+					else{
+						if(Partie.getGagnant()==null){
+							estUtilisable=false;
+						}
+					}
+					
+				}
+			break;
+			}
+		}
+	}
 }
 	
 public void calculerPtAction(Joueur joueur){

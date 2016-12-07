@@ -36,30 +36,36 @@ public class Partie {
 		return partie;
 	}
 	
-	public void setRangJoueur(){
-		for(int i=0;i<rangJoueur.size();i++){
-			
+	public static void setRangJoueur(){
+		for(int i=1;i<rangJoueur.size();i++){
+			for(int j=0;j<rangJoueur.size()-1;j++){
+				if(rangJoueur.get(j).ptPriere<rangJoueur.get(j+1).ptPriere){
+					Joueur gagnant = rangJoueur.get(j);
+					rangJoueur.set(j, rangJoueur.get(j+1));
+					rangJoueur.set(j+1, gagnant);
+				}
+			}
 		}
 	}
 	
 	public static Joueur getEliminant(){
-		Joueur eliminant = listeJoueur.get(0);
-		for (int i=1; i<listeJoueur.size();i++){
-			if (listeJoueur.get(i).ptPriere< eliminant.ptPriere){
-				eliminant = listeJoueur.get(i);
-			}
+		setRangJoueur();
+		if(rangJoueur.get(rangJoueur.size()-1).ptPriere==rangJoueur.get(rangJoueur.size()-2).ptPriere){
+			return null;
 		}
-		return eliminant;
+		else{
+		return rangJoueur.get(rangJoueur.size()-1);
+		}
 	}
 	
 	public static Joueur getGagnant(){
-		Joueur gagnant = listeJoueur.get(0);
-		for (int i=1; i<listeJoueur.size();i++){
-			if (listeJoueur.get(i).ptPriere> gagnant.ptPriere){
-				gagnant = listeJoueur.get(i);
-			}
+		setRangJoueur();
+		if(rangJoueur.get(0).ptPriere==rangJoueur.get(1).ptPriere){
+			return null;
 		}
-		return gagnant;
+		else{
+		return rangJoueur.get(0);
+		}
 	}
 	public boolean estTermine(){
 		return true;
@@ -67,6 +73,9 @@ public class Partie {
 	
 	public static ArrayList<Joueur> getListeJoueur(){
 		return listeJoueur;
+	}
+	public static ArrayList<Joueur> getRangJoueur(){
+		return rangJoueur;
 	}
 	public static void setNbrJoueurs(){
 		
@@ -117,8 +126,10 @@ public class Partie {
 		for(int i=0; i<listeJoueur.size();i++){ 
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
+		setRangJoueur();
 		/// Réinitialiser Carte.estSacrifiable = true
 		tours+=1;
+		System.out.println("-------------------------------------------------------------------------------");
 		tourDeJeu(s);
 	}
 	
@@ -130,24 +141,26 @@ public class Partie {
 		rangJoueur.add(phy);
 		Scanner reponse = new Scanner(System.in);
 			setNbrJoueurs();
-			System.out.println("Choisissez la difficultÃ© de Joueurs Virtuels (Facile(F)/Difficile(D))? ");
+			String mode;
+			System.out.println("Choisissez le mode de jeu (Facile(F)/Difficile(D))? ");
+			mode = reponse.nextLine();
 		for (int i=1;i<listeJoueur.size();i++){
-			System.out.println("Mode Joueur" + (i+1));
-			switch (reponse.nextLine()){
+		//	System.out.println("Mode Joueur " + (i+1));
+			switch (mode){
 			case ("F"):
 				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("f");
-				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
+			//	((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
 				
 				break;
 			case ("D"):
 				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("d");
-				((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
+	//			((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
 				
 				//reponse.close();
 				break;
 			}
 		}
-		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
+//		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
 			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
