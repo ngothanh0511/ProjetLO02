@@ -96,13 +96,13 @@ public class JoueurVirtuel extends Joueur {
 	
 
 	public void informer() {
-		System.out.print(" a: ");
+		System.out.print(" (rang "+Partie.getNumRang(this)+") a: ");
 		System.out.print(ptActionJour + " points Action Jour, ");
 		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant ");
-		System.out.println("Il a gagné: " + ptPriere + " points Prières");
+		System.out.println("Il a gagnÃ©: " + ptPriere + " points PriÃ¨res");
 		if(laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
-		System.out.println("Il possède:");
+		System.out.println("Il possÃ¨de:");
 		for (int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
 			System.out.println("");
 			System.out.println(laMain.getlistePaireGuideVsCroyants().get(i).get(0).afficherCarte()+" qui rattache:");
@@ -206,7 +206,7 @@ public class JoueurVirtuel extends Joueur {
 		}
 		if(cibleAttaque.isEmpty()==false){
 			if(cibleAttaque.get(0).getTypeJoueur()!="Joueur Physique"){
-		System.out.println("Le Joueur "+id+" choisit d'appliquer la capacité spéciale de sa carte sur joueur "+cibleAttaque.get(0).id);
+		System.out.println("Le Joueur "+id+" choisit d'appliquer la capacitÃ© spÃ©ciale de sa carte sur joueur "+cibleAttaque.get(0).id);
 	}
 		}
 	}
@@ -247,14 +247,13 @@ public class JoueurVirtuel extends Joueur {
 	
 	public void choisirCarte(StockCarte s){
 		
-		//Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer 
-		
+		//Collections.shuffle(laMain.getListeCartesMain());//c'est un truc pour essayer, on peut le supprimer
 		int id=try_pose_carte();
 		for (int i=0; i<laMain.getListeCartesMain().size(); i++){ 
 			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 				laMain.getListeCartesMain().get(i).getUtilisable(this);
 				if (laMain.getListeCartesMain().get(i).utilisee()==true){
-					System.out.println("JV_" +this.getIdJoueur()+" joue la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					System.out.println("JV_" +this.getIdJoueur()+" ( d'origine "+this.originDivin + " :rang "+Partie.getNumRang(this)+" ) "+" joue la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
 					laMain.getListeCartesMain().get(i).activerFonctionCarte(this,s);
 					laMain.getListeCartesMain().get(i).calculerPtAction(this);
 					if (laMain.getListeCartesMain().get(i).utilisee()== true){
@@ -271,14 +270,15 @@ public class JoueurVirtuel extends Joueur {
 				//System.out.println("marche pas");
 				id=try_pose_carte();
 			}
+			
 		}
 		for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
 			Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
 			Tapis.getListeCartesCroyantsIndisponible().remove(i);
 		}
 			
-		System.out.println("Le Joueur "+this.id+" a fini son tour");
-	//	informer();
+		System.out.println("Le Joueur "+this.id+" (rang "+Partie.getNumRang(this) +") a fini son tour");
+
 		System.out.println("**********************************");
 		try {
 			Thread.sleep(4000);
@@ -297,13 +297,13 @@ public class JoueurVirtuel extends Joueur {
 		case ("F_1"):
 			if (carte.getOrigine() == "Jour") {
 				ptActionJour += 1;
-				System.out.println("Le Joueur_"+id+" a reçu 1 point d'Action Jour");
+				System.out.println("Le Joueur_"+id+" a reÃ§u 1 point d'Action Jour");
 			} else if (carte.getOrigine() == "Nuit") {
 				ptActionNuit += 1;
-				System.out.println("Le Joueur_"+id+" a reçu 1 point d'Action Nuit");
+				System.out.println("Le Joueur_"+id+" a reÃ§u 1 point d'Action Nuit");
 			} else {
 				ptActionNeant += 1;
-				System.out.println("Le Joueur_"+id+" a reçu 1 point d'Action Néant");
+				System.out.println("Le Joueur_"+id+" a reÃ§u 1 point d'Action NÃ©ant");
 			}
 			break;
 
@@ -330,7 +330,7 @@ public class JoueurVirtuel extends Joueur {
 
 				}
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 					System.out.println("Vous ne pourrez pas sacrifie vos cartes Croyants durant ce tour");
 				}
 				else {
@@ -361,7 +361,7 @@ public class JoueurVirtuel extends Joueur {
 								.setSacrifiable(false);
 					}
 					if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-						System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+						System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 						System.out.println("Vous ne pourrez pas sacrifie vos cartes Guide Spirituel durant ce tour");
 					}
 					else {
@@ -396,7 +396,7 @@ public class JoueurVirtuel extends Joueur {
 				laMain.getListeCartesMain().add(cibleAttaque.get(0).getLaMain().getListeCartesMain().get(0));
 				cibleAttaque.get(0).getLaMain().getListeCartesMain().remove(0);
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 					System.out.println("Le Joueur_"+id+" a pris 3 cartes dans votre main");
 				}
 				else {
@@ -405,7 +405,7 @@ public class JoueurVirtuel extends Joueur {
 			}
 			else {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 					System.out.println("Le Joueur_"+id+" a pris 2 cartes dans votre main");
 				}
 				else {
@@ -429,7 +429,7 @@ public class JoueurVirtuel extends Joueur {
 			switch (carte.getOrigine()) {
 			case "Jour":
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 					System.out.println("Vous devez sacrifier une de votre cartes Croyants");
 				}
 				CarteCroyants carteSacrifier = cibleAttaque.get(0).choisirCarteCroyantsASacrifier();
@@ -440,7 +440,7 @@ public class JoueurVirtuel extends Joueur {
 				for (int i = 0; i < Partie.listeJoueur.size(); i++) {
 					if (Partie.listeJoueur.get(i).getIdJoueur() != id) {
 						if(Partie.listeJoueur.get(i).typeJoueur=="Joueur Physique"){
-							System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+							System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 							System.out.println("Vous devez sacrifier une de votre cartes Croyants");
 						}
 						CarteCroyants carteSacrifier1 = Partie.listeJoueur.get(i).choisirCarteCroyantsASacrifier();
@@ -466,7 +466,7 @@ public class JoueurVirtuel extends Joueur {
 			if (cibleAttaque.isEmpty() == false) {
 			for (int i = 0; i < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); i++) {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 				}
 				if (choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getIdCarte() == cibleAttaque.get(0)
 						.getLaMain().getlistePaireGuideVsCroyants().get(i).get(0).getIdCarte()) {
@@ -487,9 +487,9 @@ public class JoueurVirtuel extends Joueur {
 					}
 					cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().remove(i);
 					if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-						System.out.println("Toutes les cartes Croyants de votre carte Guide Spirituel "+choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getNom()+" ont été défaussées");
+						System.out.println("Toutes les cartes Croyants de votre carte Guide Spirituel "+choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getNom()+" ont Ã©tÃ© dÃ©faussÃ©es");
 					}
-					else {System.out.println("Toutes les cartes Croyants de la carte Guide Spirituel "+choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getNom()+" du Joueur_"+cibleAttaque.get(0).id+" ont été défaussées");
+					else {System.out.println("Toutes les cartes Croyants de la carte Guide Spirituel "+choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0)).getNom()+" du Joueur_"+cibleAttaque.get(0).id+" ont Ã©tÃ© dÃ©faussÃ©es");
 					}
 					break;
 				}
@@ -516,7 +516,7 @@ public class JoueurVirtuel extends Joueur {
 			getCibleAttaque();
 			if (cibleAttaque.isEmpty() == false) {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-					System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
+					System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
 					System.out.println("Vous devez sacrifier une de votre cartes Guide Spirituel");
 				}
 				GuideSpirituel carteSacrifier = cibleAttaque.get(0).choisirGuideSpirituelASacrifier();
@@ -529,7 +529,7 @@ public class JoueurVirtuel extends Joueur {
 			break;
 		case ("F_7"):
 			DeCosmogonie de = new DeCosmogonie();
-			System.out.println("Lancement le dé de Cosmogonie...");
+			System.out.println("Lancement le dÃ© de Cosmogonie...");
 			de.resultatLancement();
 			String resLance = de.getFace();
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
@@ -544,8 +544,8 @@ public class JoueurVirtuel extends Joueur {
 			getCibleAttaque();
 			if (cibleAttaque.isEmpty() == false) {
 				if(cibleAttaque.get(0).typeJoueur=="Joueur Physique"){
-						System.out.println("Le Joueur_"+id+" a appliqué la capcité spéciale de la carte "+ carte.getNom()+" sur vous");
-						System.out.println("Vous pedrez votre points d'Action à ce joueur");
+						System.out.println("Le Joueur_"+id+" a appliquÃ© la capcitÃ© spÃ©ciale de la carte "+ carte.getNom()+" sur vous");
+						System.out.println("Vous pedrez votre points d'Action Ã  ce joueur");
 				}
 				int ptJour = ptActionJour + cibleAttaque.get(0).getPtActionJour();
 				setPtActionJour(ptJour);
@@ -570,7 +570,7 @@ public class JoueurVirtuel extends Joueur {
 			}
 			getCibleAttaque();
 			if (cibleAttaque.isEmpty() == false) {
-			System.out.println("Le Joueur "+id+ "bénéficiera la capacité spéciale de la carte"+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0).getNom()+" du Joueur "+cibleAttaque.get(0).id );
+			System.out.println("Le Joueur "+id+ "bÃ©nÃ©ficiera la capacitÃ© spÃ©ciale de la carte"+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0).getNom()+" du Joueur "+cibleAttaque.get(0).id );
 			activerCapaciteSpeciale(cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(0).get(0), s);
 			}
 			else {
@@ -582,7 +582,7 @@ public class JoueurVirtuel extends Joueur {
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
 				Partie.listeJoueur.get(i).peutRecevoirPtAction = false;
 			}
-			System.out.println("Jusqu'à la fin du tour, plus aucun joueur ne reçoit de points d'Action");
+			System.out.println("Jusqu'Ã  la fin du tour, plus aucun joueur ne reÃ§oit de points d'Action");
 			break;
 		case "F_11":
 			Partie.setRangJoueur();
@@ -599,14 +599,14 @@ public class JoueurVirtuel extends Joueur {
 					}
 					else{ 
 						if (Partie.getEliminant().typeJoueur == "Joueur Physique") {
-					System.out.println("Vous êtes éliminé car le joueur qui gagne le moins points de Prières");
+					System.out.println("Vous Ãªtes Ã©liminÃ© car le joueur qui gagne le moins points de PriÃ¨res");
 					Partie.listeJoueur.remove(Partie.getEliminant());
 					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -= 1;
 					System.exit(1);
 				} else if (Partie.getEliminant().typeJoueur == "Joueur Virtuel") {
 					System.out.println("Le Joueur_" + Partie.getEliminant().id
-							+ " est éliminé car il est le joueur qui gagne le moins points de Prières");
+							+ " est Ã©liminÃ© car il est le joueur qui gagne le moins points de PriÃ¨res");
 					Partie.listeJoueur.remove(Partie.getEliminant());
 					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -= 1;
@@ -632,10 +632,10 @@ public class JoueurVirtuel extends Joueur {
 					}
 					else{
 				if (Partie.getGagnant().typeJoueur == "Joueur Physique") {
-					System.out.println("Félicitation! Vous êtes gagné !");
+					System.out.println("FÃ©licitation! Vous Ãªtes gagnÃ© !");
 				} else if (Partie.getGagnant().typeJoueur == "Joueur Virtuel") {
 					System.out.println("Joueur_" + Partie.getGagnant().id
-							+ " est gagné car il est le joueur qui gagne le plus points Prières.");
+							+ " est gagnÃ© car il est le joueur qui gagne le plus points PriÃ¨res.");
 				}
 				System.exit(1);
 			}
@@ -649,13 +649,13 @@ public class JoueurVirtuel extends Joueur {
 					Integer pt = laMain.getlistePaireGuideVsCroyants().get(i).size() - 1;
 					if (originDivin == "Jour") {
 						ptActionJour += pt;
-						System.out.println("Le Joueur "+id+" a reçu "+pt+"points d'Action Jour");
+						System.out.println("Le Joueur "+id+" a reÃ§u "+pt+"points d'Action Jour");
 					} else if (originDivin == "Nuit") {
 						ptActionNuit += pt;
-						System.out.println("Le Joueur "+id+" a reçu "+pt+"points d'Action Nuit");
+						System.out.println("Le Joueur "+id+" a reÃ§u "+pt+"points d'Action Nuit");
 					} else if (originDivin == "Aube" || originDivin == "Crepuscule") {
 						ptActionNeant += pt;
-						System.out.println("Le Joueur "+id+" a reçu "+pt+"points d'Action Néant");
+						System.out.println("Le Joueur "+id+" a reÃ§u "+pt+"points d'Action NÃ©ant");
 					}
 					break;
 
@@ -694,7 +694,7 @@ public class JoueurVirtuel extends Joueur {
 						}
 					}
 				}
-				System.out.println("Toutes les cartes Croyants d'origine Néant du joueur "+cibleAttaque.get(0).getIdJoueur()+" ont été sacrifiées");
+				System.out.println("Toutes les cartes Croyants d'origine NÃ©ant du joueur "+cibleAttaque.get(0).getIdJoueur()+" ont Ã©tÃ© sacrifiÃ©es");
 
 			} 
 			else {
@@ -797,7 +797,7 @@ public class JoueurVirtuel extends Joueur {
 			getCibleAttaque();
 			if (cibleAttaque.isEmpty() == false) {
 				Carte carteGuide = cibleAttaque.get(0).choisirGuideSpirituelASacrifier();
-				System.out.println("Le Joueur "+cibleAttaque.get(0).id+" reprend dans sa main la carte Guide Spirituel "+carteGuide.getNom()+". Les Croyants qui y étaient attachés sont défaussés.");
+				System.out.println("Le Joueur "+cibleAttaque.get(0).id+" reprend dans sa main la carte Guide Spirituel "+carteGuide.getNom()+". Les Croyants qui y Ã©taient attachÃ©s sont dÃ©faussÃ©s.");
 				cibleAttaque.get(0).laMain.getListeCartesMain().add(carteGuide);
 				for (int j = 0; j < cibleAttaque.get(0).laMain.getlistePaireGuideVsCroyants().size(); j++) {
 					if (cibleAttaque.get(0).laMain.getlistePaireGuideVsCroyants().get(j).get(0)
@@ -826,7 +826,7 @@ public class JoueurVirtuel extends Joueur {
 			if (cibleAttaque.isEmpty() == false) {
 			Carte maCarte = choisirGuideSpirituelASacrifier();
 			Carte enemieCarte = choisirGuideSpirituelASacrifierDeEnemie(cibleAttaque.get(0));
-			System.out.println("Le Joueur "+id+" a choisi de échanger sa carte "+maCarte.getNom()+" avec la carte "+enemieCarte.getNom()+" du Joueur "+cibleAttaque.get(0).id);
+			System.out.println("Le Joueur "+id+" a choisi de Ã©changer sa carte "+maCarte.getNom()+" avec la carte "+enemieCarte.getNom()+" du Joueur "+cibleAttaque.get(0).id);
 			for (int k = 0; k < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); k++) {
 				if (cibleAttaque.get(0).laMain.getlistePaireGuideVsCroyants().get(k).get(0).getIdCarte() == enemieCarte
 						.getIdCarte()) {
@@ -874,14 +874,14 @@ public class JoueurVirtuel extends Joueur {
 			String face = null;
 			if (originDivin == "Jour") {
 				face = "Jour";
-				System.out.println("Le Joueur "+id+" pose le dé de Cosmogonie sur la face Jour.");
+				System.out.println("Le Joueur "+id+" pose le dÃ© de Cosmogonie sur la face Jour.");
 			} else if (originDivin == "Nuit") {
 				face = "Nuit";
-				System.out.println("Le Joueur "+id+" pose le dé de Cosmogonie sur la face Nuit.");
+				System.out.println("Le Joueur "+id+" pose le dÃ© de Cosmogonie sur la face Nuit.");
 
 			} else if (originDivin == "Aube" || originDivin == "Crepuscule") {
 				face = "Neant";
-				System.out.println("Le Joueur "+id+" pose le dé de Cosmogonie sur la face Néant.");
+				System.out.println("Le Joueur "+id+" pose le dÃ© de Cosmogonie sur la face NÃ©ant.");
 
 			}
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
@@ -910,7 +910,7 @@ public class JoueurVirtuel extends Joueur {
 			for (int j = 0; j < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().size(); j++) {
 				if (cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getOrigine() != carte
 						.getOrigine()) {
-					System.out.println("La carte Guide Spirituel "+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getNom()+" du Joueur "+cibleAttaque.get(0).id+" est défaussée. Les Croyants y attachés reviennent au centre de la table.");
+					System.out.println("La carte Guide Spirituel "+cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j).get(0).getNom()+" du Joueur "+cibleAttaque.get(0).id+" est dÃ©faussÃ©e. Les Croyants y attachÃ©s reviennent au centre de la table.");
 					for (int k = 1; k < cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j)
 							.size(); k++) {
 						Tapis.getListeCartesCroyants().add((CarteCroyants) cibleAttaque.get(0).getLaMain()
@@ -942,7 +942,7 @@ public class JoueurVirtuel extends Joueur {
 					laMain.getlistePaireGuideVsCroyants()
 							.add(cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().get(j));
 					cibleAttaque.get(0).getLaMain().getlistePaireGuideVsCroyants().remove(j);
-					System.out.println("Le Joueur "+id+" a volé la carte Guide Spirituel "+laMain.getlistePaireGuideVsCroyants().get(laMain.getlistePaireGuideVsCroyants().size()-1).get(0).getNom()+" et ses Croyants de Joueur "+cibleAttaque.get(0).id);
+					System.out.println("Le Joueur "+id+" a volÃ© la carte Guide Spirituel "+laMain.getlistePaireGuideVsCroyants().get(laMain.getlistePaireGuideVsCroyants().size()-1).get(0).getNom()+" et ses Croyants de Joueur "+cibleAttaque.get(0).id);
 					this.calculerPtPrieres();
 					break;
 				}
@@ -955,7 +955,7 @@ public class JoueurVirtuel extends Joueur {
 			break;
 		case "F_25":
 			if(laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
-			System.out.print("Le Joueur "+id+" bénéficie la capacité spéciale de sa carte "+laMain.getlistePaireGuideVsCroyants().get(0).get(0).getNom());
+			System.out.print("Le Joueur "+id+" bÃ©nÃ©ficie la capacitÃ© spÃ©ciale de sa carte "+laMain.getlistePaireGuideVsCroyants().get(0).get(0).getNom());
 			activerCapaciteSpeciale(laMain.getlistePaireGuideVsCroyants().get(0).get(0), s);
 			}
 			else {
@@ -968,24 +968,24 @@ public class JoueurVirtuel extends Joueur {
 			case "Influence Jour":
 				if (carteJouee.getOrigine() == "Nuit" || carteJouee.getOrigine() == "Neant") {
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacitÃ© spÃ©ciale de la carte "+carteJouee.getNom()+" est annulÃ©Ã©");
 				}
 				break;
 			case "Influence Nuit":
 				if (carteJouee.getOrigine() == "Jour" || carteJouee.getOrigine() == "Neant") {
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacitÃ© spÃ©ciale de la carte "+carteJouee.getNom()+" est annulÃ©Ã©");
 				}
 				break;
 			case "Influence Neant":
 				if (carteJouee.getOrigine() == "Jour" || carteJouee.getOrigine() == "Nuit") {
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacitÃ© spÃ©ciale de la carte "+carteJouee.getNom()+" est annulÃ©Ã©");
 				}
 				break;
 			case "Influence Nulle":
 				carteJouee.setAnnule(true);
-				System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+				System.out.println("La capacitÃ© spÃ©ciale de la carte "+carteJouee.getNom()+" est annulÃ©Ã©");
 				break;
 			}
 			break;
