@@ -77,6 +77,19 @@ public class Partie {
 	public static ArrayList<Joueur> getRangJoueur(){
 		return rangJoueur;
 	}
+	
+	public static int getNumRang(Joueur joueur){
+		int rep = 0;
+		for(int i=0;i<rangJoueur.size();i++){
+			if(rangJoueur.get(i).getIdJoueur()==joueur.getIdJoueur()){
+				rep= i+1;
+			}
+		}
+		
+		return rep;
+		
+	}
+	
 	public static void setNbrJoueurs(){
 		
 		int a=7;
@@ -108,13 +121,13 @@ public class Partie {
 	
 	public static  void tourDeJeu(StockCarte s){
 		DeCosmogonie de = new DeCosmogonie();
-		System.out.println("Tour " + tours);
-		System.out.println("Lancement le dé de Cosmogonie...");
+		System.out.println("***********************************Tour " + tours+"*************************");
+		System.out.println("Lancement le dÃ© de Cosmogonie...");
 		Collections.shuffle(Arrays.asList(de.face));
 		de.resultatLancement();
 		String resLance= de.getFace();
 		for (int i=0;i<(listeJoueur.size());i++){
-			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
+			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changÃ© le placement de tes codes et les mis dans la mÃ©thode donnerPtAction afon de pourvoir appliquer Ã  tous les joueurs
 		}
 		for(int i=0;i<listeJoueur.size();i++){
 			listeJoueur.get(0).jouerSonTour(s );
@@ -127,10 +140,23 @@ public class Partie {
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
 		setRangJoueur();
-		/// Réinitialiser Carte.estSacrifiable = true
+		/// RÃ©initialiser Carte.estSacrifiable = true
 		tours+=1;
-		System.out.println("-------------------------------------------------------------------------------");
+		System.out.println("----------------------------------------RÃ©capitulatif du tour---------------------------------------");
+		for(int i=0;i<listeJoueur.size();i++){
+			if(listeJoueur.get(i).typeJoueur=="Joueur Virtuel"){
+			System.out.println("");
+			System.out.print("Joueur_"+(listeJoueur.get(i).id));
+			listeJoueur.get(i).informer();
+			}
+		}
+		System.out.println("-----------------------------------------------------------------------------------------------------");
+		System.out.println("");
+		
+		
 		tourDeJeu(s);
+		
+		
 	}
 	
 	public static void main(String[] args) {
@@ -161,13 +187,13 @@ public class Partie {
 			}
 		}
 //		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à jouer avec.");
-			System.out.print("Votre Divinité est ");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels Ã  jouer avec.");
+			System.out.print("Votre DivinitÃ© est ");
 			phy.piocheDivinite();
 			Main m1 = new Main();
 			phy.setLaMain(m1);
 			for (int i=1;i<listeJoueur.size();i++){
-				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
+				System.out.print("DivinitÃ© de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
 			}
 			for (int i=0;i<listeJoueur.size();i++){
