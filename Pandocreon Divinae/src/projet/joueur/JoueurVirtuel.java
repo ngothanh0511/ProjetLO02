@@ -21,6 +21,8 @@ public class JoueurVirtuel extends Joueur {
 	public Strategy strat;//instantiated Strategy de joueur
 	String typDiff;
 	protected ArrayList<Joueur> cibleAttaque = new ArrayList<Joueur>();
+	//protected ArrayList<Carte> memoire = new ArrayList<Carte>();
+	
 	
 	public String tryStrat(){
 		return strat.mode();
@@ -37,6 +39,8 @@ public class JoueurVirtuel extends Joueur {
 		
 		for(int i=0;i< laMain.getListeCartesMain().size();i++){	
 			String c= laMain.getListeCartesMain().get(i).getOrigine();
+			//String d=laMain.getListeCartesMain().get(i).getType();
+			Carte d=this.getLaMain().getListeCartesMain().get(i);
 			 
 			if(originDivin=="Aube" || originDivin=="Jour"){
 				if(c=="Nuit"){ // je mets Neant ici cgetLaMain().getListeCartesMain().get(i)ar origin aube peut avoir les point d'action Neant
@@ -53,6 +57,15 @@ public class JoueurVirtuel extends Joueur {
 				}
 				
 			}
+			//memoire.add(laMain.getListeCartesMain().get(i));
+			
+			/*if( d.getType()=="Apocalypse" ){
+				d.getUtilisable(this);
+				if (d.utilisee()!=true){
+					this.defausserCarte(d, s);
+				
+				}
+			}*/
 			
 		}
 	/*	for(int j=0;j<liste_carte_def.size();j++){
@@ -96,7 +109,7 @@ public class JoueurVirtuel extends Joueur {
 	
 
 	public void informer() {
-		System.out.print(" (rang "+Partie.getNumRang(this)+") a: ");
+		System.out.print(" ( divinite "+ this.originDivin +" rang "+Partie.getNumRang(this)+") a: ");
 		System.out.print(ptActionJour + " points Action Jour, ");
 		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant ");
@@ -215,9 +228,11 @@ public class JoueurVirtuel extends Joueur {
 		// TODO Auto-generated method stub
 		s.distribuerCartes(laMain);
 	//	System.out.println(tryStrat());
-		/*for (int i=0; i< laMain.getListeCartesMain().size(); i++){
-			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
-		}*/
+		if(Partie.tours>15){
+			for (int i=0; i< laMain.getListeCartesMain().size(); i++){
+				   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
+			}
+		}
 		defausser_carte(s);
 		s.distribuerCartes(laMain);
 		int rang = Partie.rangJoueur.indexOf(this);
@@ -603,7 +618,7 @@ public class JoueurVirtuel extends Joueur {
 					Partie.listeJoueur.remove(Partie.getEliminant());
 					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -= 1;
-					System.exit(1);
+					//System.exit(1);
 				} else if (Partie.getEliminant().typeJoueur == "Joueur Virtuel") {
 					System.out.println("Le Joueur_" + Partie.getEliminant().id
 							+ " est éliminé car il est le joueur qui gagne le moins points de Prières");
