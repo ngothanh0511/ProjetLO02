@@ -1,6 +1,7 @@
 package projet.joueur;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -148,11 +149,20 @@ public class JoueurPhysique extends Joueur{
 	}
 	
 	public void choisirCarte(StockCarte s){
-		int id;
+		int id=0;
+		boolean fin = false;
 		while (laMain.getListeCartesMain().size() >0){
-			informer();
-		System.out.println("Mettez l'id de la carte à jouer ou à sacrifier! Tapez 0 si vous voulez terminer votre tour! ");
-		id = scan.nextInt();
+		informer();
+		do{
+			try{	
+				Scanner rep = new Scanner(System.in);
+				System.out.println("Mettez l'id de la carte à jouer ou à sacrifier! Tapez 0 si vous voulez terminer votre tour! ");
+				id = rep.nextInt();
+				fin=true;
+			}catch(InputMismatchException e){
+				System.out.println("L'ID INVALID!");
+			}
+		}while(fin==false);
 		if (id == 0){
 			for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
 				Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
