@@ -93,7 +93,7 @@ public class Partie {
 	public static void setNbrJoueurs(){
 		
 		int a=7;
-		while(a>5){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
+		while(a>5 || a<=0){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
 			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
 			a = scan.nextInt();
 			}
@@ -150,9 +150,13 @@ public class Partie {
 			listeJoueur.get(i).informer();
 			}
 		}
+		StockCarte.getStockCarte();
 		System.out.println("-----------------------------------------------------------------------------------------------------");
 		System.out.println("");
-		
+		if(tours==20){
+			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagné le jeu!! Felicitations!!!");
+			System.exit(1);
+		}
 		
 		tourDeJeu(s);
 		
