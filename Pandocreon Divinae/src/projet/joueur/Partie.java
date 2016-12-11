@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 /**
- * Cette classe repr�sente la partie qui g�n�rer le jeu
+ * Cette classe représente la partie qui générer le jeu
  */
 public class Partie {
 
@@ -27,7 +27,7 @@ public class Partie {
 	
 	private static Partie partie = new Partie();
 	/**
-	 * La m�thode static qui retourne l'instance unique de la classe Partie
+	 * La méthode static qui retourne l'instance unique de la classe Partie
 	 * @return
 	 */
 	public static Partie getInstance(){
@@ -48,7 +48,7 @@ public class Partie {
 		}
 	}
 	/**
-	 * Retouner le joueur qui a le moins points de Pri�res
+	 * Retouner le joueur qui a le moins points de Prières
 	 * @return
 	 */
 	public static Joueur getEliminant(){
@@ -61,7 +61,7 @@ public class Partie {
 		}
 	}
 	/**
-	 * Retourner le joueur qui a le plus points de Pri�res
+	 * Retourner le joueur qui a le plus points de Prières
 	 * @return
 	 */
 	public static Joueur getGagnant(){
@@ -137,12 +137,12 @@ public class Partie {
 	public static  void tourDeJeu(StockCarte s){
 		DeCosmogonie de = new DeCosmogonie();
 		System.out.println("***********************************Tour " + tours+"*************************");
-		System.out.println("Lancement le dé de Cosmogonie...");
+		System.out.println("Lancement le dÃ© de Cosmogonie...");
 		Collections.shuffle(Arrays.asList(de.face));
 		de.resultatLancement();
 		String resLance= de.getFace();
 		for (int i=0;i<(listeJoueur.size());i++){
-			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changé le placement de tes codes et les mis dans la méthode donnerPtAction afon de pourvoir appliquer à tous les joueurs
+			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changÃ© le placement de tes codes et les mis dans la mÃ©thode donnerPtAction afon de pourvoir appliquer Ã  tous les joueurs
 		}
 		for(int i=0;i<listeJoueur.size();i++){
 			listeJoueur.get(0).jouerSonTour(s );
@@ -155,7 +155,7 @@ public class Partie {
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
 		setRangJoueur();
-		/// Réinitialiser Carte.estSacrifiable = true
+		/// RÃ©initialiser Carte.estSacrifiable = true
 		for (int j=0; j<listeJoueur.size();j++){
 			for(int k=0; k<listeJoueur.get(j).laMain.getlistePaireGuideVsCroyants().size();k++){
 				for(int h=0;h<listeJoueur.get(j).laMain.getlistePaireGuideVsCroyants().get(k).size();h++){
@@ -164,7 +164,7 @@ public class Partie {
 			}
 		}
 		tours+=1;
-		System.out.println("----------------------------------------R�capitulatif du tour---------------------------------------");
+		System.out.println("----------------------------------------Récapitulatif du tour---------------------------------------");
 		for(int i=0;i<listeJoueur.size();i++){
 			if(listeJoueur.get(i).typeJoueur=="Joueur Virtuel"){
 			System.out.println("");
@@ -175,8 +175,8 @@ public class Partie {
 		StockCarte.getStockCarte();
 		System.out.println("-----------------------------------------------------------------------------------------------------");
 		System.out.println("");
-		if(tours==20){
-			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagn� le jeu!! Felicitations!!!");
+		if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
+			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagné le jeu!! Felicitations!!!");
 			System.exit(1);
 		}
 		
@@ -213,13 +213,13 @@ public class Partie {
 			}
 		}
 //		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels � jouer avec.");
-			System.out.print("Votre Divinit� est ");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à  jouer avec.");
+			System.out.print("Votre Divinité est ");
 			phy.piocheDivinite();
 			Main m1 = new Main();
 			phy.setLaMain(m1);
 			for (int i=1;i<listeJoueur.size();i++){
-				System.out.print("Divinit� de Joueur_"+listeJoueur.get(i).id +" est ");
+				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
 			}
 			for (int i=0;i<listeJoueur.size();i++){
