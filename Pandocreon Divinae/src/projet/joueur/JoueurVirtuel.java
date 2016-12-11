@@ -239,11 +239,11 @@ public class JoueurVirtuel extends Joueur {
 		// TODO Auto-generated method stub
 		s.distribuerCartes(laMain);
 	//	System.out.println(tryStrat()); // pour voir le mode joué par joueur virtuel
-		if(Partie.tours>15){
+		/*if(Partie.tours>15){ //pour voir les cartes dans la main de joueur virtuel
 			for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 				   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
 			}
-		}
+		}*/
 		defausser_carte(s);
 		s.distribuerCartes(laMain);
 		int rang = Partie.rangJoueur.indexOf(this);
