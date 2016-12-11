@@ -2,14 +2,12 @@ package projet.cartes;
 
 
 import java.util.Arrays;
-
 import projet.joueur.Joueur;
-import projet.joueur.JoueurVirtuel;
 import projet.joueur.Partie;
 
 /**
  * La classe Carte représente les Cartes dans le jeu
- * @author Tung NGO
+ * 
  *
  */
 public abstract class   Carte {
@@ -23,14 +21,29 @@ public abstract class   Carte {
 	protected boolean estSacrifiable;
 	protected boolean estAnnule= false;
 	protected boolean estFonctionnable = true;
+	/**
+	 * Méthode abstract qui affiche les attributes de la carte d'Action
+	 *
+	 */
 	public abstract String afficherCarte();
+	/**
+	 * Setter de l'attribute estUtilisable
+	 *
+	 */
 	public void setUtilisable(boolean value){
 		estUtilisable = value;
 	}
+	/**
+	 * Setter de l'attribute estFonctionnable
+	 *
+	 */
 	public void setFonctionnable(boolean value){
 		estFonctionnable=value;
 	}
-	
+	/**
+	 * Méthode permet de savoir si la carte est utilisée ou pas
+	 *
+	 */
 	public boolean utilisee(){
 		if (estUtilisable == true){
 			return true;
@@ -39,40 +52,70 @@ public abstract class   Carte {
 			return false;
 		}
 	}
-	
+	/**
+	 * Setter de l'attribute estAnnule
+	 *
+	 */
 	public void setAnnule(boolean value){
 		 estAnnule = value;
 	}
-	
+	/**
+	 * Getter de l'attribute estAnnule
+	 *
+	 */
 	public boolean getAnnule(){
 		return estAnnule;
 	}
+	/**
+	 * Getter de l'attribute nom
+	 *
+	 */
 	public String getNom(){
 		return nom;
 	}
+	/**
+	 * Getter de l'attribute idCarte
+	 *
+	 */
 	public int getIdCarte(){
 		return idCarte;
 	}
-	
+	/**
+	 * Getter de l'attribute estSarifiable
+	 *
+	 */
 	public boolean getSacrifiable(){
 		return estSacrifiable;
 	}
-	
+	/**
+	 * Setter de l'attribute estSacrifiable
+	 *
+	 */
 	public void setSacrifiable(boolean values){
 		estSacrifiable = values;
 	}
 	
-	public int getNbrCroyants(){	
-		return 0;
-	}
+//	public int getNbrCroyants(){	
+//		return 0;
+//	}
+	/**
+	 * Getter de l'attribute type
+	 *
+	 */
 	public String getType(){
 		return type;
 	}
-	
+	/**
+	 * Getter de l'attribute origine
+	 *
+	 */
 	public String getOrigine(){
 		return origine;
 	}
-	
+	/**
+	 * Getter de l'attribute familleCapaciteSpeciale
+	 *
+	 */
 	public String getFamilleCapaciteSpeciale(){
 		return familleCapaciteSpeciale;
 	}
@@ -177,7 +220,10 @@ public abstract class   Carte {
 		}
 	}
 }
-	
+	/**
+	 * La méthode qui calcule les points d'Action du joueur 
+	 * @param joueur
+	 */
 public void calculerPtAction(Joueur joueur){
 	if (estUtilisable = true){
 		switch(origine) {
@@ -207,6 +253,11 @@ public void calculerPtAction(Joueur joueur){
 		}
 	}
 }
+/**
+ * La méthode abstract qui active la fonctionne de la carte d'Action quand elle est utilisée
+ * @param joueur
+ * @param s
+ */
 public abstract void activerFonctionCarte(Joueur joueur, StockCarte s);
 
 }

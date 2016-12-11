@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /**
  * La classe StockCarte reprÃ©sente une collection de toutes les cartes d'Action dans le jeu
- * @author Tung NGO
+ * 
  *
  */
 public class StockCarte {
@@ -185,7 +185,7 @@ public class StockCarte {
 		return stock;
 	}
 	/**
-	 * ComplÃ©ter la main de joueur Ã  7 cartes
+	 * Compléter la main de joueur à  7 cartes
 	 */
 	public  void  distribuerCartes(Main laMain){
 		Collections.shuffle(getStock());
@@ -202,7 +202,9 @@ public class StockCarte {
 		}
 		
 	}
-	
+	/**
+	 * Informer le nombre de carte resté dans le stock
+	 */
 	public static void getStockCarte(){
 		System.out.println("Il y a "+stock.size() +" cartes qui sont disponibles");
 	} 

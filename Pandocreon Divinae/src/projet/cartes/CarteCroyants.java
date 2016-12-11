@@ -1,28 +1,39 @@
 package projet.cartes;
 
-import java.util.Arrays;
-
 import projet.joueur.Joueur;
 
 /**
  * La classe CarteCroyants représente les cartes Croyants dans le jeu
- * @author Tung NGO
+ * 
  *
  */
 public class CarteCroyants extends Carte {
 	private Integer nbrCroyants;
 	protected String [] dogmes= new String[3];
+	/**
+	 * La méthode affiche les attributes de la carte Croyants
+	 */
 	public String afficherCarte(){
-		return ("c_"+idCarte+" : "+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:"+dogmes[0]+","+
-				dogmes[1]+","+dogmes[2]+", capacité"+familleCapaciteSpeciale+" et contient "+nbrCroyants+" Croyants");
+		return ("c_"+idCarte+" : "+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:{"+dogmes[0]+","+
+				dogmes[1]+","+dogmes[2]+" }, contient "+nbrCroyants+" Croyants,"+" capacité "+familleCapaciteSpeciale);
 	}	
+	/**
+	 * Getter de l'attribute nbrCroyants
+	 * @return
+	 */
 	 public int getNbrCroyants(){
 		 return nbrCroyants;
 	 }
-	
+	 /**
+	  * Getter de l'attribute dogmes
+	  * @return
+	  */
 	 public String [] getDogmes(){
 		 return dogmes;
 	 }
+	 /**
+	  * La méthode active la fonctionne de la carte Croyants quand elle est utilisée
+	  */
 	public void activerFonctionCarte(Joueur joueur, StockCarte s){
 		Tapis.recevoirCartes(this);
 	}

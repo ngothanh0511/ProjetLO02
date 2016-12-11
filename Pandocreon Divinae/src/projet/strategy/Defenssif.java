@@ -11,7 +11,7 @@ import projet.cartes.Tapis;
 import projet.joueur.JoueurVirtuel;
 
 /**
- * @author sweet
+ * Cette classe représente la stratégie Défenssif du joueur virtuel
  *
  */
 public class Defenssif implements Strategy{

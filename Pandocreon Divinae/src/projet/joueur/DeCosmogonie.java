@@ -1,7 +1,9 @@
 package projet.joueur;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Random;
+/**
+ * Cette classe représente le dé de Cosmogonie
+ * 
+ *
+ */
 public class DeCosmogonie {
 	
 	private static String resFace;
@@ -11,12 +13,17 @@ public class DeCosmogonie {
 	//	Jour,Nuit,Neant
 	//}
 	protected  String [] face = {"Jour","Nuit","Neant"};
-	
+	/**
+	 * Retourner la face du dé de Cosmogonie
+	 * @return
+	 */
 	public String  getFace(){
 		 return face[0];
 		//return face.values()[faceAleatoire];
 	}
-
+	/**
+	 * Informer le résultat du dé de Cosmogonie
+	 */
 	public void resultatLancement(){  // j'ai changé cette méthode à static afin de débugger un bug
 		
 		 resFace=face[0];//pour aggreger le nom du variable utilisÃ©
@@ -25,7 +32,11 @@ public class DeCosmogonie {
 		//return resFace.name();
 		
 	}
-	
+	/**
+	 * Donner les points d'Action à chaque joueur 
+	 * @param resLance : le résultat du lancement de dé Cosmogonie
+	 * @param joueur
+	 */
 	public void donnerPtAction(String resLance, Joueur joueur){
 		
 		switch (resLance){
@@ -60,24 +71,4 @@ public class DeCosmogonie {
 		}
 		
 	}
-	
-
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-			   
-		/**if(resFace==face.JOUR){
-			 jjj
-		}
-		
-		if(resFace==face.NUIT){
-			
-		}
-		
-		if(resFace==face.NEANT){
-			
-		}**/
-
-	}
-
 }

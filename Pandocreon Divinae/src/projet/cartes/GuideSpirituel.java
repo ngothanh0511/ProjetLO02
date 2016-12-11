@@ -9,7 +9,7 @@ import projet.joueur.Joueur;
 
 /**
  * La classe GuideSpirituel représente les cartes Guide Spirituel dans le jeu
- * @author Tung NGO
+ * 
  *
  */
 public class GuideSpirituel extends Carte {
@@ -36,6 +36,9 @@ public class GuideSpirituel extends Carte {
 		this.nbrCartesCroyants = nbrCartesCroyants;
 		this.familleCapaciteSpeciale = familleCapaciteSpeciale;
 	}
+	/**
+	 * La méthode active la fonctionne de la carte Guide Spirituel quand elle est utilisée
+	 */
 	public void activerFonctionCarte(Joueur joueur, StockCarte s){
 		
 		if(joueur.getTypeJoueur()=="Joueur Physique"){
@@ -43,6 +46,8 @@ public class GuideSpirituel extends Carte {
 		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
 			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
 		}
+		ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
+		PairGuideVsCroyants.add(this);
 		for (int k = 0;k<nbrCartesCroyants;k++){
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
 					+ " Si vous ne voulez pas rattacher une autre carte Croyants, tapez 0!");
@@ -53,8 +58,7 @@ public class GuideSpirituel extends Carte {
 			}
 			else{
 				for (int j =0; j< Tapis.getListeCartesCroyants().size(); j++){
-					ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
-					PairGuideVsCroyants.add(this);
+					
 					if (i== Tapis.getListeCartesCroyants().get(j).getIdCarte()){ 
 						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
 								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
@@ -62,10 +66,7 @@ public class GuideSpirituel extends Carte {
 							System.out.println("Vous venez de rattacher la carte Croyants c_"
 									+ Tapis.getListeCartesCroyants().get(j).getIdCarte());
 							Tapis.getListeCartesCroyants().remove(j);
-							joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
 							nbrCartesCroyantsRattaches +=1;
-							joueur.calculerPtPrieres();
-							System.out.println("Vous avez " + joueur.getPtPriere() +" points Prières");
 							
 						}
 					
@@ -77,12 +78,16 @@ public class GuideSpirituel extends Carte {
 				}
 			}
 		}
-		
+		if(PairGuideVsCroyants.size()>1){
+		joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
+		}
+		joueur.calculerPtPrieres();
+		System.out.println("Vous avez " + joueur.getPtPriere() +" points Prières");
 		}
 		else if(joueur.getTypeJoueur()=="Joueur Virtuel"){
+			ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
+			PairGuideVsCroyants.add(this);
 			for(int j=0; j<this.nbrCartesCroyants;j++){
-				ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
-				PairGuideVsCroyants.add(this);
 				if(Tapis.getListeCartesCroyants().isEmpty()==false){
 			for(int i=0;i<Tapis.getListeCartesCroyants().size();i++){
 				if(Arrays.asList(Tapis.getListeCartesCroyants().get(i).dogmes).contains(this.dogmes[0])
@@ -91,26 +96,34 @@ public class GuideSpirituel extends Carte {
 					System.out.println("Le Joueur "+joueur.getIdJoueur()+" vient de rattacher la carte Croyants c_"
 							+ Tapis.getListeCartesCroyants().get(i).getIdCarte());
 					Tapis.getListeCartesCroyants().remove(i);
-					joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
 					nbrCartesCroyantsRattaches +=1;
-					joueur.calculerPtPrieres();
-					System.out.println("Le Joueur "+joueur.getIdJoueur()+" a " + joueur.getPtPriere() +" points Prières");
 					break;
 				}
 			}
 				}
 			}
+			if(PairGuideVsCroyants.size()>1){
+				joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
+				}
+			joueur.calculerPtPrieres();
+			System.out.println("Le Joueur "+joueur.getIdJoueur()+" a " + joueur.getPtPriere() +" points Prières");
 		}
 		if (nbrCartesCroyantsRattaches == 0){
 			estUtilisable = false;
 		}
 	}
 	
-	
+	/**
+	 * La méthode affiche les attributes de la carte Guide Spirituel
+	 */
 	public String afficherCarte(){
-		return ("c_"+idCarte+" :"+"Carte "+type+" "+nom+" d'origine "+origine+", dogmes:"+dogmes[0]+","+
-				dogmes[1]+", capacité"+familleCapaciteSpeciale+" et peut rattacher "+nbrCartesCroyants+" cartes Croyants");
+		return ("c_"+idCarte+" :"+" Carte "+type+" "+nom+" d'origine "+origine+", dogmes:{"+dogmes[0]+","+
+				dogmes[1]+"}, capacité"+familleCapaciteSpeciale+" et peut rattacher "+nbrCartesCroyants+" cartes Croyants");
 	}
+	/**
+	 * Getter de l'attribute dogmes
+	 * @return
+	 */
 	public String [] getDogmes() {
 		return dogmes;
 	}	

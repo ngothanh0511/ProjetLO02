@@ -2,18 +2,27 @@ package projet.joueur;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import projet.cartes.*;
 
-
+/**
+ * Cette classe représente le joueur physique dans le jeu
+ * 
+ *
+ */
 public class JoueurPhysique extends Joueur{
-
+	/**
+	 * Constructeur de la classe JoueurPhysique
+	 * @param id
+	 * @param ptJour
+	 * @param ptNuit
+	 * @param ptNeant
+	 * @param ptPriere
+	 */
 	public JoueurPhysique( Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
-		super(id, ptJour, ptNuit, ptNeant, ptPriere);
 		// TODO Auto-generated constructor stub
 		this.id = id;
 		this.ptActionJour = ptJour;
@@ -27,35 +36,26 @@ public class JoueurPhysique extends Joueur{
 
 	static Scanner scan = new Scanner(System.in);
 	static Scanner nom = new Scanner(System.in);
-	private static int nbrJoueurs;
-	
-	
-	
-	public void commencerJeu(){
-		
-	}
-	
-	public void abandonnerJeu(){
-		
-	}
-	
-	public void choisirMode(){
-		
-	}
-	
+	//private static int nbrJoueurs;
+	/**
+	 * Le joueur physique saisit son nom
+	 * @return
+	 */
 	public static String setNom(){
 		System.out.println("Mettez votre nom : ");
 		return nom.nextLine();
 		
 	}
-	
+	/**
+	 * L'affichage des informations nécessaires pour le joueur physique
+	 */
 	public void informer(){
 		System.out.println("");
 		System.out.print("Vous ( divinite d'origin "+this.getOriginDivin()+" :rang "+Partie.getNumRang(this)+") avez: ");
 		System.out.print(ptActionJour + " points Action Jour, ");
 		System.out.print(ptActionNuit + " points Action Nuit, ");
 		System.out.println(ptActionNeant + " points Action Neant");
-		System.out.println("Vous avez gagnÃ©: " + ptPriere+" points PriÃ¨res");
+		System.out.println("Vous avez gagné: " + ptPriere+" points Prières");
 		if(this.laMain.getlistePaireGuideVsCroyants().isEmpty()==false){
 			System.out.println("Vous possedez:");
 			for (int i=0;i<this.laMain.getlistePaireGuideVsCroyants().size();i++){
@@ -66,7 +66,13 @@ public class JoueurPhysique extends Joueur{
 				}
 			}
 			}
-		System.out.println("Vous avez dans la main les cartes suivantes:");
+		if(Tapis.getListeCartesCroyants().isEmpty()==false){
+		System.out.println("\nLes cartes Croyants disponible à récupérer sur le tapis sont:");
+		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
+			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
+		}
+		}
+		System.out.println("\nVous avez dans la main les cartes suivantes:");
 		  for (int i=0; i< laMain.getListeCartesMain().size(); i++){
 			   System.out.println(laMain.getListeCartesMain().get(i).afficherCarte());
 		   }
@@ -81,16 +87,14 @@ public class JoueurPhysique extends Joueur{
 		}
 		return a;
 	}*/
-	
-	public void sauvegarderJeu(){
-		
-	}
-	
-	
+	/**
+	 * L'action choisir une carte Guide Spirituel à sacrifier quand le joueur est obligé à sacrifier 
+	 * suite à la capacité spéciale d'un autre carte qui est activée par un opponant
+	 */
 	public GuideSpirituel choisirGuideSpirituelASacrifier(){
 		int a;
 		GuideSpirituel carte = null;
-		System.out.println("Mettez l'ID de la carte Ã  sacrifier:");
+		System.out.println("Mettez l'ID de la carte à  sacrifier:");
 		a = scan.nextInt();
 		for (int i=0; i< laMain.getListeCartesMain().size();i++){
 			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
@@ -100,11 +104,14 @@ public class JoueurPhysique extends Joueur{
 		}
 		return carte;
 	}
-	
+	/**
+	 * L'action choisir une carte Croyants à sacrifier quand le joueur est obligé à sacrifier 
+	 * suite à la capacité spéciale d'un autre carte qui est activée par un opponant
+	 */
 	public CarteCroyants choisirCarteCroyantsASacrifier(){
 		int a;
 		CarteCroyants carte = null;
-		System.out.println("Mettez l'ID de la carte Ã  sacrifier:");
+		System.out.println("Mettez l'ID de la carte à  sacrifier:");
 		a = scan.nextInt();
 		for (int i=0; i< laMain.getListeCartesMain().size();i++){
 			if(a==laMain.getListeCartesMain().get(i).getIdCarte()){
@@ -114,7 +121,9 @@ public class JoueurPhysique extends Joueur{
 		}
 		return carte; 
 	}
-	
+	/**
+	 * Le joueur joue son tour
+	 */
 	public void jouerSonTour(StockCarte s){
 		s.distribuerCartes(laMain);
 		int id;
@@ -127,7 +136,7 @@ public class JoueurPhysique extends Joueur{
 				}
 			}*/
 			informer();
-			System.out.println("Mettez l'ID de la carte que vous voulez dÃ©fausser! Si vous ne vouslez pas dÃ©fausser plus de carte, tapez 0!");
+			System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
 			id = scan.nextInt();
 		if (id==0){
 			break;
@@ -147,7 +156,9 @@ public class JoueurPhysique extends Joueur{
 			Partie.listeJoueur.get(i).calculerPtPrieres();
 		}
 	}
-	
+	/**
+	 * Le joueur choisit la carte d'Action à jouer
+	 */
 	public void choisirCarte(StockCarte s){
 		int id=0;
 		boolean fin = false;
@@ -156,7 +167,7 @@ public class JoueurPhysique extends Joueur{
 		do{
 			try{	
 				Scanner rep = new Scanner(System.in);
-				System.out.println("Mettez l'id de la carte Ã  jouer ou Ã  sacrifier! Tapez 0 si vous voulez terminer votre tour! ");
+				System.out.println("Mettez l'id de la carte à  jouer ou à  sacrifier! Tapez 0 si vous voulez terminer votre tour! ");
 				id = rep.nextInt();
 				fin=true;
 			}catch(InputMismatchException e){
@@ -175,11 +186,14 @@ public class JoueurPhysique extends Joueur{
 				if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 					laMain.getListeCartesMain().get(i).getUtilisable(this);
 					if (laMain.getListeCartesMain().get(i).utilisee()==true){
-						System.out.println("Vous avez jouÃ© la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+						System.out.println("Vous avez joué la carte c_ "+ laMain.getListeCartesMain().get(i).getNom());
 						carteJouee = laMain.getListeCartesMain().get(i);
 						laMain.getListeCartesMain().get(i).activerFonctionCarte(this,s);
 						laMain.getListeCartesMain().get(i).calculerPtAction(this);
 						if (laMain.getListeCartesMain().get(i).utilisee()== true){
+					 		if(laMain.getListeCartesMain().get(i).getType()=="DeusEx"||laMain.getListeCartesMain().get(i).getType()=="Apocalypse"){
+					 				s.getStock().add(laMain.getListeCartesMain().get(i));
+					 		}
 							laMain.getListeCartesMain().remove(i);
 						}
 						
@@ -203,22 +217,25 @@ public class JoueurPhysique extends Joueur{
 		}
 		
 	}
-	
+	/**
+	 * Cette méthode active la capactié spéciale de la carte quand elle est utilisée pour une carte DeusEx et Apocalypse
+	 * ou quand elle est sacrifiée pour une carte Croyants ou Guide Spirituel
+	 */
 	public void activerCapaciteSpeciale(Carte carte, StockCarte s){
 		int a;
 		switch (carte.getFamilleCapaciteSpeciale()){
 		case ("F_1") :
 			if (carte.getOrigine() =="Jour"){
 				ptActionJour += 1;
-				System.out.println("Vous avez reÃ§u 1 point d'Action Jour");
+				System.out.println("Vous avez reçu 1 point d'Action Jour");
 			}
 			else if (carte.getOrigine() =="Nuit"){
 				ptActionNuit += 1;
-				System.out.println("Vous avez reÃ§u 1 point d'Action Nuit");
+				System.out.println("Vous avez reçu 1 point d'Action Nuit");
 			}
 			else {
 				ptActionNeant +=1;
-				System.out.println("Vous avez reÃ§u 1 point d'Action NÃ©ant");
+				System.out.println("Vous avez reçu 1 point d'Action Néant");
 			}
 			break;
 		
@@ -241,7 +258,7 @@ public class JoueurPhysique extends Joueur{
 						
 					}
 					else {
-						System.out.println("Cette capacitÃ© spÃ©ciale n'est pas applicable avec le joueur"+Partie.listeJoueur.get(i).getIdJoueur());
+						System.out.println("Cette capacité spéciale n'est pas applicable avec le joueur"+Partie.listeJoueur.get(i).getIdJoueur());
 					}
 					break;
 				}
@@ -265,7 +282,7 @@ public class JoueurPhysique extends Joueur{
 							System.out.println("Le joueur"+Partie.listeJoueur.get(i).getIdJoueur()+"ne pourra pas sacrifier ses cartes Guide Spirituel durant ce tour");
 					}
 					else{
-						System.out.println("Cette capacitÃ© spÃ©ciale n'est pas applicable avec le joueur"+Partie.listeJoueur.get(i).getIdJoueur());
+						System.out.println("Cette capacité spéciale n'est pas applicable avec le joueur"+Partie.listeJoueur.get(i).getIdJoueur());
 
 					}
 					
@@ -427,7 +444,9 @@ public class JoueurPhysique extends Joueur{
 			break;
 		case "F_10":
 			for(int i=0; i< Partie.listeJoueur.size();i++){
+				if(Partie.listeJoueur.get(i).id!=this.id){
 				Partie.listeJoueur.get(i).peutRecevoirPtAction= false;
+			}
 			}
 			System.out.println("Jusqu'Ã  la fin du tour, plus aucun joueur ne reÃ§oit de points d'Action");
 			break;
@@ -557,7 +576,7 @@ public class JoueurPhysique extends Joueur{
 					if(Arrays.asList(Partie.listeJoueur.get(i).dogmesDivin).contains("Humain") 
 							||Arrays.asList(Partie.listeJoueur.get(i).dogmesDivin).contains("Symboles")){
 						for(int l=1; l<3;l++){
-						System.out.println("Mettez l'ID de la "+ l+" iÃ¨me carte Croyants que vous voulez le Joueur_"+Partie.listeJoueur.get(i).id+" sacrifie:");
+						System.out.println("Mettez l'ID de la "+ l+" ième carte Croyants que vous voulez le Joueur_"+Partie.listeJoueur.get(i).id+" sacrifie:");
 						int b= scan.nextInt();
 						for (int j=0;j<Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().size();j++){
 							for(int k=1;k<Partie.listeJoueur.get(i).laMain.getlistePaireGuideVsCroyants().get(j).size();k++){
@@ -569,7 +588,7 @@ public class JoueurPhysique extends Joueur{
 					}
 					}	
 					else {
-						System.out.println("Le joueur que vous choissiez ne possÃ¨de pas dogme Humain ou Symbole!");
+						System.out.println("Le joueur que vous choissiez ne possède pas dogme Humain ou Symbole!");
 					}
 					
 					}
@@ -808,13 +827,6 @@ public class JoueurPhysique extends Joueur{
 	
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		
-		
-		
-		
-	}
+	
 
 }

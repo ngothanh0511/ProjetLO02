@@ -9,7 +9,11 @@ import projet.cartes.GuideSpirituel;
 import projet.cartes.StockCarte;
 import projet.cartes.Tapis;
 import projet.strategy.Strategy;
-
+/**
+ * Cette classe représente le joueur général de jeu
+ * 
+ *
+ */
 public abstract class Joueur {
 
 	protected int id;
@@ -25,42 +29,65 @@ public abstract class Joueur {
 	protected String typeJoueur;
 	static int k = 0;
 
-	private enum capaciteSpeciale {
-	}
 
-	private boolean disponibiliteCapacite;
+//	private boolean disponibiliteCapacite;
 	protected Main laMain;
 	protected boolean peutRecevoirPtAction = true;
 	protected static Carte carteJouee;
 	protected boolean estAttaquable;
-
+	/**
+	 * Setter de l'attribute estAttaquable
+	 * @param value
+	 */
 	public void setAttaquable(boolean value) {
 		this.estAttaquable = value;
 	}
-
+	/**
+	 * Getter de l'attribute typeJoueur
+	 * @return
+	 */
 	public String getTypeJoueur(){
 		return typeJoueur;
 	}
+	/**
+	 * Getter de l'attribute dogmesDivin
+	 * @return
+	 */
 	public String[] getDogmesDivin() {
 		return dogmesDivin;
 	}
-
+	/**
+	 * Setter de l'attribute originDivin
+	 * @param originDivin
+	 */
 	public void setOriginDivin(String originDivin) {
 		this.originDivin = originDivin;
 	}
-
+	/**
+	 * Getter de l'attribute originDivin
+	 * @return
+	 */
 	public String getOriginDivin() {
 		return originDivin;
 	}
-
+	/**
+	 * Getter de l'attribute id
+	 * @return
+	 */
 	public int getIdJoueur() {
 		return id;
 	}
-
+	/**
+	 * Getter de l'attribute ptActionJour
+	 * @return
+	 */
 	public int getPtActionJour() {
 		return ptActionJour;
 	}
-
+	/**
+	 * Setter de l'attribute ptActionJour
+	 * @param ptActionJour
+	 */
 	public void setPtActionJour(int ptActionJour) {
 		if (peutRecevoirPtAction == true) {
 			this.ptActionJour = ptActionJour;
@@ -68,11 +95,17 @@ public abstract class Joueur {
 			System.out.println("Joueur_" + id + " ne peut pas recevoir points Actions dans ce tour!");
 		}
 	}
-
+	/**
+	 * Getter de l'attribute ptActionNuit
+	 * @return
+	 */
 	public int getPtActionNuit() {
 		return ptActionNuit;
 	}
-
+	/**
+	 * Setter de l'attribute ptActionNuit
+	 * @param ptActionNuit
+	 */
 	public void setPtActionNuit(int ptActionNuit) {
 		if (peutRecevoirPtAction == true) {
 			this.ptActionNuit = ptActionNuit;
@@ -80,11 +113,17 @@ public abstract class Joueur {
 			System.out.println("Joueur_" + id + " ne peut pas recevoir points Actions dans ce tour!");
 		}
 	}
-
+	/**
+	 * Getter de l'attribute ptActionNeant
+	 * @return
+	 */
 	public int getPtActionNeant() {
 		return ptActionNeant;
 	}
-
+	/**
+	 * Setter de l'attribute ptActionNeant
+	 * @param ptActionNeant
+	 */
 	public void setPtActionNeant(int ptActionNeant) {
 		if (peutRecevoirPtAction == true) {
 			this.ptActionNeant = ptActionNeant;
@@ -92,25 +131,20 @@ public abstract class Joueur {
 			System.out.println("Joueur_" + id + " ne peut pas recevoir points Actions dans ce tour!");
 		}
 	}
-
+	/**
+	 * Calculer les points Prières de chaque joueur en fonction des Croyants qu'il a récupéré
+	 */
 	public void calculerPtPrieres() {
 		this.ptPriere=0;
 		for (int i = 0; i < this.laMain.getlistePaireGuideVsCroyants().size(); i++) {
 			for (int j = 1; j < this.laMain.getlistePaireGuideVsCroyants().get(i).size(); j++) {
-				this.ptPriere += this.laMain.getlistePaireGuideVsCroyants().get(i).get(j).getNbrCroyants();
+				this.ptPriere += ((CarteCroyants) this.laMain.getlistePaireGuideVsCroyants().get(i).get(j)).getNbrCroyants();
 			}
 		}
 	}
-
-	public Joueur(Integer id, Integer ptJour, Integer ptNuit, Integer ptNeant, Integer ptPriere) {
-		this.id = id;
-		this.ptActionJour = ptJour;
-		this.ptActionNuit = ptNuit;
-		this.ptActionNeant = ptNeant;
-		this.ptPriere = ptPriere;
-
-	}
-
+	/**
+	 * Chaque joueur pioche une Divinité quelconque
+	 */
 	public void piocheDivinite() {
 		String resDiv;
 		resDiv = divinite.get(k);
@@ -134,41 +168,54 @@ public abstract class Joueur {
 		k++;
 
 	};
-
+	/**
+	 * L'action défausser carte de joueur
+	 * @param c
+	 * @param s
+	 */
 	public void defausserCarte(Carte c, StockCarte s) {
 		s.getStock().add(c);
 		laMain.getListeCartesMain().remove(c);
 	}
-
+	/**
+	 * Getter de l'attribute ptPriere
+	 * @return
+	 */
 	public int getPtPriere() {
 		return ptPriere;
 	}
-
+	/**
+	 * Permettre de savoir si le joueur est éliminé 
+	 * @return
+	 */
 	public boolean estElimine() {
 		return false;
 
 	}
-
+	/**
+	 * Permettre de savoir si le joueur est le gagnant
+	 * @return
+	 */
 	public boolean estGagne() {
 		return true;
 	}
-
-	public void activerCapacite() {
-
-	}
-
-	public void passerTour() {
-
-	}
-
+	/**
+	 * Getter de l'attribute laMain
+	 * @return
+	 */
 	public Main getLaMain() {
 		return laMain;
 	}
-
+	/**
+	 * Setter de l'attribute laMain
+	 * @param laMain
+	 */
 	public void setLaMain(Main laMain) {
 		this.laMain = laMain;
 	}
-
+	/**
+	 * La méthode affiche toutes les cartes Guide Spirituel et ses cartes Croyants que le joueur possède
+	 */
 	public void afficherListePairGuideVsCroyants() {
 		for (int i = 0; i < laMain.getlistePaireGuideVsCroyants().size(); i++) {
 			System.out.println("Paire " + i + " :");
@@ -177,11 +224,23 @@ public abstract class Joueur {
 			}
 		}
 	}
-
+	/**
+	 * La méthode abstract de l'action jouer un tour du joueur
+	 * @param s
+	 */
 	public abstract void jouerSonTour(StockCarte s);
-
+	/**
+	 * La méthode abstract qui active la capacité spéciale d'une carte quand elle est utilisée pour une carte DeuxEx ou Apocalypse
+	 * ou quand elle est sacrifiée pour une carte Croyant ou Guide Spirituel
+	 * @param carte
+	 * @param s
+	 */
 	public abstract void activerCapaciteSpeciale(Carte carte, StockCarte s);
-
+	/**
+	 * L'action sacrifier de'une carte Croyant ou Guide Spirituel
+	 * @param carte
+	 * @param s
+	 */
 	public void sacrifierCarte(Carte carte, StockCarte s) {
 		if (carte.getSacrifiable() != false) {
 			if (carte.getAnnule() != false) {
@@ -222,16 +281,9 @@ public abstract class Joueur {
 			}
 		}
 	}
-
 	public abstract GuideSpirituel choisirGuideSpirituelASacrifier();
 
 	public abstract CarteCroyants choisirCarteCroyantsASacrifier();
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 	public abstract void informer();
 	public abstract void choisirCarte(StockCarte s);
 
