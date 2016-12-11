@@ -175,10 +175,10 @@ public class Partie {
 		StockCarte.getStockCarte();
 		System.out.println("-----------------------------------------------------------------------------------------------------");
 		System.out.println("");
-		if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
+		/*if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
 			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagné le jeu!! Felicitations!!!");
 			System.exit(1);
-		}
+		}*/
 		
 		tourDeJeu(s);
 		
