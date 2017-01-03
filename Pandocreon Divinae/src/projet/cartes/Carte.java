@@ -204,7 +204,7 @@ public abstract class   Carte {
 					}
 					
 			}
-				else if(Partie.getListeJoueur().size() < 4){
+				else if(Partie.getInstance().getListeJoueur().size() < 4){
 					if(rang!=0){
 						estUtilisable=false;
 				}

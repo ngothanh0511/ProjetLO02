@@ -1,4 +1,6 @@
 package projet.joueur;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.InputMismatchException;
@@ -7,6 +9,7 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 import projet.cartes.*;
+import projet.vueGraphique.Principal;
 
 /**
  * Cette classe représente le joueur physique dans le jeu
@@ -33,7 +36,14 @@ public class JoueurPhysique extends Joueur{
 	}
 
 
-
+	private boolean estJoueSonTour = false;
+	private int a =0;
+	public int geta(){
+		return a;
+	}
+	public void seta(int value){
+		a = value;
+	}
 	static Scanner scan = new Scanner(System.in);
 	static Scanner nom = new Scanner(System.in);
 	//private static int nbrJoueurs;
@@ -45,6 +55,20 @@ public class JoueurPhysique extends Joueur{
 		System.out.println("Mettez votre nom : ");
 		return nom.nextLine();
 		
+	}
+	/**
+	 * Setter de l'attribue estJoueSonTour
+	 * @param value
+	 */
+	public void setEstJoueSonTour(boolean value){
+		this.estJoueSonTour = value;
+	}
+	/**
+	 * Getter de l'attribue estJoueSonTour
+	 * @return
+	 */
+	public boolean getEstJoueSonTour(){
+		return estJoueSonTour;
 	}
 	/**
 	 * L'affichage des informations nécessaires pour le joueur physique
@@ -125,16 +149,50 @@ public class JoueurPhysique extends Joueur{
 	 * Le joueur joue son tour
 	 */
 	public void jouerSonTour(StockCarte s){
-		s.distribuerCartes(laMain);
+	//	s.distribuerCartes(laMain);
+		Principal.getInstance().getJouerCarte().setEnabled(true);
+		Principal.getInstance().getDefausserCarte().setEnabled(true);
+		Principal.getInstance().getTerminerSonTour().setEnabled(true);
+		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+" \nVotre tour, Choisissez une action!");
+		while(Partie.getInstance().getEstJoueSonTour()==false){
+		/*		Principal.getInstance().getJouerCarte().addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	            	Principal.getInstance().getControlleur().Button_on_click_JouerCarte(e);
+	            }
+	        });
+			Principal.getInstance().getTerminerSonTour().addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	    //        	Principal.getInstance().getControlleur().Button_on_click_TerminerSonTour(e);
+	      //      	Principal.getInstance().getTerminerSonTour().setEnabled(true);
+	           	for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
+	    				Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
+	    				Tapis.getListeCartesCroyantsIndisponible().remove(i);
+	            	}
+	            	Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"    \n  Vous avez terminé votre tour! ");
+	    			Partie.getInstance().setEstJoueSonTour(true);              }
+	        });
+			Principal.getInstance().getDefausserCarte().addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	            	Principal.getInstance().getControlleur().Button_on_click_DefausserCarte(e);
+	            }
+	        });  */
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+
+				e.printStackTrace();
+			}
+		}
 		int id;
-		while (laMain.getListeCartesMain().size()>0){
+		
+	/*	while (laMain.getListeCartesMain().size()>0){
 			/*for(int i=0;i<Partie.listeJoueur.size();i++){
 				if(Partie.listeJoueur.get(i).typeJoueur=="Joueur Virtuel"){
 				System.out.println("");
 				System.out.print("Joueur_"+(Partie.listeJoueur.get(i).id));
 				Partie.listeJoueur.get(i).informer();
 				}
-			}*/
+			}
 			informer();
 			System.out.println("Mettez l'ID de la carte que vous voulez défausser! Si vous ne vouslez pas défausser plus de carte, tapez 0!");
 			id = scan.nextInt();
@@ -147,22 +205,92 @@ public class JoueurPhysique extends Joueur{
 					defausserCarte(laMain.getListeCartesMain().get(i),s);
 					break;
 				}
-			}
+			} 
 		}
 		}
 		s.distribuerCartes(laMain);
-		choisirCarte(s);
-		for(int i=0;i<Partie.listeJoueur.size();i++){
-			Partie.listeJoueur.get(i).calculerPtPrieres();
+		choisirCarte(s); */
+		
+		/// GRAPHIQUE
+/*		if (estJoueSonTour==false){
+		//	Partie.getInstance().updateVue();
+			Principal.getInstance().setVisible(true);
+		}
+		else {
+			passerTour();
+	} */
+		
+	}
+	
+public void commencerTour(){
+	DeCosmogonie de = new DeCosmogonie();
+	System.out.println("***********************************Tour " + Partie.tours+"*************************");
+	System.out.println("Lancement le dé de Cosmogonie...");
+	Collections.shuffle(Arrays.asList(de.face));
+	de.resultatLancement();
+	String resLance= de.getFace();
+	for (int i=0;i<(Partie.getInstance().getListeJoueur().size());i++){
+		de.donnerPtAction(resLance, Partie.getInstance().getListeJoueur().get(i)); 
+	}
+	for(int j=0;j<Partie.getInstance().getListeJoueur().size();j++){
+		if(Partie.getInstance().getListeJoueur().get(0).getTypeJoueur()=="Joueur Physique"){
+			break;
+		}
+		Partie.getInstance().getListeJoueur().get(0).jouerSonTour(Partie.getInstance().getStockCarte());
+		Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
+		Partie.getInstance().getListeJoueur().remove(0);
+		a++;
+		}
+		jouerSonTour(Partie.getInstance().getStockCarte());
+}
+	public void terminerTour(){
+		estJoueSonTour = false;
+		Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
+		Partie.getInstance().getListeJoueur().remove(0);
+		a=0;
+	for(int j=0;j<Partie.getInstance().getListeJoueur().size();j++){
+		Partie.getInstance().getListeJoueur().get(j).calculerPtPrieres();
+		Partie.getInstance().getListeJoueur().get(j).peutRecevoirPtAction = true;
+		for(int k=0; k<Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().size();k++){
+			for(int h=0;h<Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().get(k).size();h++){
+				Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().get(k).get(h).setSacrifiable(true);
+			}
 		}
 	}
-	/**
+	Partie.setRangJoueur();
+	Partie.tours+=1;
+	}
+	public void passerTour(){
+ 		for(int i=0;i<Partie.getInstance().getListeJoueur().size();i++){
+ 			if(a==Partie.getInstance().getListeJoueur().size()){
+ 				terminerTour();
+ 				commencerTour();
+				break;
+			}
+ 			if(Partie.getInstance().getListeJoueur().get(0).getTypeJoueur()=="Joueur Physique"){
+ 				break;
+ 			}
+			Partie.getInstance().getListeJoueur().get(0).jouerSonTour(Partie.getInstance().getStockCarte());
+			Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
+			Partie.getInstance().getListeJoueur().remove(0);
+			a++;
+			if(a==Partie.getInstance().getListeJoueur().size()){
+				
+			/// RÃƒÂ©initialiser Carte.estSacrifiable = true
+			terminerTour();
+			commencerTour();
+				break;
+			}
+		}
+		jouerSonTour(Partie.getInstance().getStockCarte());
+	}
+	/** 
 	 * Le joueur choisit la carte d'Action à jouer
 	 */
-	public void choisirCarte(StockCarte s){
-		int id=0;
+	public void choisirCarte( Carte c, StockCarte s){
+		int id= c.getIdCarte();
 		boolean fin = false;
-		while (laMain.getListeCartesMain().size() >0){
+/*		while (laMain.getListeCartesMain().size() >0){
 		informer();
 		do{
 			try{	
@@ -181,7 +309,7 @@ public class JoueurPhysique extends Joueur{
 			}
 			break;
 		}
-		else{
+		else{*/
 			for (int i=0; i<laMain.getListeCartesMain().size(); i++){
 				if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
 					laMain.getListeCartesMain().get(i).getUtilisable(this);
@@ -213,10 +341,11 @@ public class JoueurPhysique extends Joueur{
 					
 				
 			}
+			Partie.getInstance().updateVue();
 		}
-		}
+//		}
 		
-	}
+//	}
 	/**
 	 * Cette méthode active la capactié spéciale de la carte quand elle est utilisée pour une carte DeusEx et Apocalypse
 	 * ou quand elle est sacrifiée pour une carte Croyants ou Guide Spirituel
@@ -470,7 +599,7 @@ public class JoueurPhysique extends Joueur{
 						Partie.listeJoueur.add(Partie.listeJoueur.get(0));
 						Partie.listeJoueur.remove(0);
 					}
-					Partie.tourDeJeu(s);
+					Partie.getInstance().tourDeJeu(s);
 				}
 				}
 				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le moins points de PriÃ¨res ");}
@@ -695,7 +824,7 @@ public class JoueurPhysique extends Joueur{
 			for(int i =0; i< Partie.listeJoueur.indexOf(this);i++){
 				Partie.listeJoueur.set(Partie.listeJoueur.size()-1, Partie.listeJoueur.get(0));
 			}
-			Partie.tourDeJeu(s);
+			Partie.getInstance().tourDeJeu(s);
 			break;
 		case "F_21":
 			System.out.println("Mettez l'ID du joueur que vous vouslez appliquer cet effet sur");

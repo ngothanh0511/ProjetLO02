@@ -28,6 +28,7 @@ public abstract class Joueur {
 	protected int ptPriere = 0;
 	protected String typeJoueur;
 	static int k = 0;
+	private String joueurDivinite;
 
 
 //	private boolean disponibiliteCapacite;
@@ -42,6 +43,21 @@ public abstract class Joueur {
 	public void setAttaquable(boolean value) {
 		this.estAttaquable = value;
 	}
+	/**
+	 * Setter de l'attribute joueurDivinite
+	 * @param value
+	 */
+	public void setJoueurDivinite(String value){
+		this.joueurDivinite = value;
+	}
+	/**
+	 * Getter de l'attribute joueurDivinite
+	 * @param value
+	 */
+	public String getJoueurDivinite(){
+		return joueurDivinite;
+	}
+	
 	/**
 	 * Getter de l'attribute typeJoueur
 	 * @return
@@ -148,7 +164,7 @@ public abstract class Joueur {
 	public void piocheDivinite() {
 		String resDiv;
 		resDiv = divinite.get(k);
-
+		this.setJoueurDivinite(resDiv);
 		if (resDiv == "Yarstur" || resDiv == "Drinded" || resDiv == "Brewalen") {
 			originDivin = "Jour";
 			System.out.println(resDiv + " d'origine " + originDivin);
@@ -176,6 +192,7 @@ public abstract class Joueur {
 	public void defausserCarte(Carte c, StockCarte s) {
 		s.getStock().add(c);
 		laMain.getListeCartesMain().remove(c);
+		Partie.getInstance().updateVue();
 	}
 	/**
 	 * Getter de l'attribute ptPriere
@@ -187,7 +204,7 @@ public abstract class Joueur {
 	/**
 	 * Permettre de savoir si le joueur est éliminé 
 	 * @return
-	 */
+f	 */
 	public boolean estElimine() {
 		return false;
 
@@ -285,7 +302,7 @@ public abstract class Joueur {
 
 	public abstract CarteCroyants choisirCarteCroyantsASacrifier();
 	public abstract void informer();
-	public abstract void choisirCarte(StockCarte s);
+	public abstract void choisirCarte(Carte c,StockCarte s);
 
 }
 

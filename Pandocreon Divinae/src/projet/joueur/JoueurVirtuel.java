@@ -107,6 +107,14 @@ public class JoueurVirtuel extends Joueur {
 	}
 	
 	/**
+	 * Retourner le nom du joueur
+	 * @return
+	 */
+	public String getNom(){
+		return "Joueur "+this.id;
+	}
+	
+	/**
 	 * Affichage des informations des joueur virtuels
 	 */
 	public void informer() {
@@ -237,7 +245,7 @@ public class JoueurVirtuel extends Joueur {
 	 */
 	public void jouerSonTour(StockCarte s) {
 		// TODO Auto-generated method stub
-		s.distribuerCartes(laMain);
+	//	s.distribuerCartes(laMain);
 	//	System.out.println(tryStrat()); // pour voir le mode joué par joueur virtuel
 		/*if(Partie.tours>15){ //pour voir les cartes dans la main de joueur virtuel
 			for (int i=0; i< laMain.getListeCartesMain().size(); i++){
@@ -264,43 +272,21 @@ public class JoueurVirtuel extends Joueur {
 			else{ strat = new Agressif();}
 		}
 		}
-		choisirCarte(s);
+		int id=try_pose_carte();
+		Carte c = null;
+		while (id != 0){
+			for (int i=0; i<laMain.getListeCartesMain().size(); i++){ 
+				if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
+					c = laMain.getListeCartesMain().get(i);
+					break;
+				}
+		}
+		choisirCarte(c,s);
+		Partie.getInstance().updateVue();
+		id=try_pose_carte();
+		}
 		for(int i=0;i<Partie.listeJoueur.size();i++){
 			Partie.listeJoueur.get(i).calculerPtPrieres();
-		}
-		
-	}
-	/**
-	 * Le joueur choisit la carte d'Action à utiliser
-	 */
-	public void choisirCarte(StockCarte s){
-		
-		int id=try_pose_carte();
-		for (int i=0; i<laMain.getListeCartesMain().size(); i++){ 
-			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
-				laMain.getListeCartesMain().get(i).getUtilisable(this);
-				if (laMain.getListeCartesMain().get(i).utilisee()==true){
-					System.out.println("JV_" +this.getIdJoueur()+" ( d'origine "+this.originDivin + " :rang "+Partie.getNumRang(this)+" ) "+" joue la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
-					laMain.getListeCartesMain().get(i).activerFonctionCarte(this,s);
-					laMain.getListeCartesMain().get(i).calculerPtAction(this);
-					if (laMain.getListeCartesMain().get(i).utilisee()== true){
-						if(laMain.getListeCartesMain().get(i).getType()=="DeusEx"||laMain.getListeCartesMain().get(i).getType()=="Apocalypse"){
-			 				s.getStock().add(laMain.getListeCartesMain().get(i));
-			 		}
-						laMain.getListeCartesMain().remove(i);
-					}
-					else if(laMain.getListeCartesMain().get(i).utilisee()== false){
-						laMain.getListeCartesMain().get(i).setFonctionnable(false);
-						System.out.println("Cette carte ne marche pas!");
-					}
-				}
-				
-			}
-			else{
-				
-				id=try_pose_carte();
-			}
-			
 		}
 		for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
 			Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
@@ -316,6 +302,41 @@ public class JoueurVirtuel extends Joueur {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	/**
+	 * Le joueur choisit la carte d'Action à utiliser
+	 */
+	public void choisirCarte(Carte c, StockCarte s){
+		
+	//	int id=try_pose_carte();
+		int id = c.getIdCarte();
+		for (int i=0; i<laMain.getListeCartesMain().size(); i++){ 
+			if (laMain.getListeCartesMain().get(i).getIdCarte()==id){
+				laMain.getListeCartesMain().get(i).getUtilisable(this);
+				if (laMain.getListeCartesMain().get(i).utilisee()==true){
+					System.out.println("JV_" +this.getIdJoueur()+" ( d'origine "+this.originDivin + " :rang "+Partie.getNumRang(this)+" ) "+" joue la carte c_ "+ laMain.getListeCartesMain().get(i).getIdCarte());
+					laMain.getListeCartesMain().get(i).activerFonctionCarte(this,s);
+					laMain.getListeCartesMain().get(i).calculerPtAction(this);
+					if (laMain.getListeCartesMain().get(i).utilisee()== true){
+						if(laMain.getListeCartesMain().get(i).getType()=="DeusEx"||laMain.getListeCartesMain().get(i).getType()=="Apocalypse"){
+			 				s.getStock().add(laMain.getListeCartesMain().get(i));
+			 		}
+						laMain.getListeCartesMain().remove(i);
+					}
+					else if(laMain.getListeCartesMain().get(i).utilisee()== false){
+						laMain.getListeCartesMain().get(i).setFonctionnable(false);
+			//			System.out.println("Cette carte ne marche pas!");
+					}
+				}
+				
+			}
+		/*	else{
+				
+				id=try_pose_carte();
+			} */
+			
+		}
+		
 		
 		
 	}
@@ -650,7 +671,7 @@ public class JoueurVirtuel extends Joueur {
 						Partie.listeJoueur.add(Partie.listeJoueur.get(0));
 						Partie.listeJoueur.remove(0);
 					}
-					Partie.tourDeJeu(s);
+					Partie.getInstance().tourDeJeu(s);
 				}
 					}
 				}
@@ -925,7 +946,7 @@ public class JoueurVirtuel extends Joueur {
 			for (int i = 0; i < Partie.listeJoueur.indexOf(this); i++) {
 				Partie.listeJoueur.set(Partie.listeJoueur.size() - 1, Partie.listeJoueur.get(0));
 			}
-			Partie.tourDeJeu(s);
+			Partie.getInstance().tourDeJeu(s);
 			break;
 		case "F_21":
 			for (int i = 0; i < Partie.listeJoueur.size(); i++) {
@@ -963,9 +984,9 @@ public class JoueurVirtuel extends Joueur {
 			}
 			break;
 		case "F_23":
-			for (int i = 0; i < Partie.getListeJoueur().size(); i++) {
-				if(Partie.getListeJoueur().get(i).laMain.getlistePaireGuideVsCroyants().isEmpty()== false){
-				Partie.getListeJoueur().get(i).setAttaquable(true);
+			for (int i = 0; i < Partie.getInstance().getListeJoueur().size(); i++) {
+				if(Partie.getInstance().getListeJoueur().get(i).laMain.getlistePaireGuideVsCroyants().isEmpty()== false){
+				Partie.getInstance().getListeJoueur().get(i).setAttaquable(true);
 				}
 			}
 			getCibleAttaque();

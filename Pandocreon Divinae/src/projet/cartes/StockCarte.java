@@ -200,6 +200,7 @@ public class StockCarte {
 				break;
 			}
 		}
+		Partie.getInstance().updateVue();
 		
 	}
 	/**

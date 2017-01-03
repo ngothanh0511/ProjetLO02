@@ -1,15 +1,18 @@
 package projet.joueur;
 import projet.cartes.StockCarte;
 import projet.joueur.DeCosmogonie;
+import projet.vueGraphique.Principal;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Observable;
 import java.util.Random;
 import java.util.Scanner;
 /**
  * Cette classe représente la partie qui générer le jeu
  */
-public class Partie {
+public class Partie extends Observable  {
 
 	static Scanner scan = new Scanner(System.in);
 	protected static int nbrJoueurs=0;
@@ -21,8 +24,25 @@ public class Partie {
 	static int high=2;
 	static int low=1;
 	
-	private  Partie(){
-		
+	private static  JoueurPhysique phy;
+	private static StockCarte s;
+	
+	
+	
+	/**
+	 * Getter de l'attribue StockCarte
+	 * @return
+	 */
+	public StockCarte getStockCarte(){
+		return s;
+	}
+	
+	private static boolean estJoueSonTour;
+	public void setEstJoueSonTour(boolean value){
+		estJoueSonTour = value;
+	}
+	public boolean getEstJoueSonTour(){
+		return estJoueSonTour;
 	}
 	
 	private static Partie partie = new Partie();
@@ -74,6 +94,9 @@ public class Partie {
 		}
 	}
 	
+	public  JoueurPhysique getJPhysique(){
+		return phy;
+	}
 //	public boolean estTermine(){
 //		return true;
 //	}
@@ -81,7 +104,7 @@ public class Partie {
 	 * Getter de l'attribute listeJoueur
 	 * @return
 	 */
-	public static ArrayList<Joueur> getListeJoueur(){
+	public ArrayList<Joueur> getListeJoueur(){
 		return listeJoueur;
 	}
 	/**
@@ -106,21 +129,41 @@ public class Partie {
 	/**
 	 * Setter de l'attribute nbrJoueurs
 	 */
-	public static void setNbrJoueurs(){
+	public void setNbrJoueurs(int a){
 		
-		int a=7;
-		while(a>5 || a<=0){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
-			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
-			a = scan.nextInt();
-			}
 			nbrJoueurs += a;
+			phy = new JoueurPhysique(1,0,0,0,0);
+			listeJoueur.add(phy);
+			rangJoueur.add(phy);
+			Main m1 = new Main();
+			phy.setLaMain(m1);
 			for (int i=0;i<a;i++){
 				JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0);
 				listeJoueur.add(joueur);
 				rangJoueur.add(joueur);
 				Main m2 = new Main();
 				joueur.setLaMain(m2);
+			updateVue();
+		}
+	}
+	
+	public void setNiveau(String mode){
+		for (int i=1;i<listeJoueur.size();i++){
+			if(listeJoueur.get(i).getTypeJoueur()=="Joueur Virtuel"){
+		switch (mode){
+		case ("F"):
+			((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("f");
+		//	((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
 			
+			break;
+		case ("D"):
+			((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("d");
+//			((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
+			
+			//reponse.close();
+			break;
+		}
+	}
 		}
 	}
 //	public JV creerJV(){
@@ -130,27 +173,45 @@ public class Partie {
 //	public Strategie setStrategie(){
 		
 //	}
+	
+	public  void updateVue() {
+		setChanged();
+		notifyObservers();
+	}
+	
 	/**
 	 * Un tour de jeu
 	 * @param s
 	 */
-	public static  void tourDeJeu(StockCarte s){
+	public  void tourDeJeu(StockCarte s){
+		estJoueSonTour= false;
 		DeCosmogonie de = new DeCosmogonie();
 		System.out.println("***********************************Tour " + tours+"*************************");
-		System.out.println("Lancement le dÃ© de Cosmogonie...");
+		System.out.println("Lancement le d� de Cosmogonie...");
+		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n ***********************************Tour " + tours+"*************************"
+				+ "\n Lancement le d� de Cosmogonie...");
 		Collections.shuffle(Arrays.asList(de.face));
 		de.resultatLancement();
 		String resLance= de.getFace();
 		for (int i=0;i<(listeJoueur.size());i++){
-			de.donnerPtAction(resLance, listeJoueur.get(i)); // J'ai changÃ© le placement de tes codes et les mis dans la mÃ©thode donnerPtAction afon de pourvoir appliquer Ã  tous les joueurs
+			de.donnerPtAction(resLance, listeJoueur.get(i)); 
 		}
+		updateVue();
 		for(int i=0;i<listeJoueur.size();i++){
 			listeJoueur.get(0).jouerSonTour(s );
-			listeJoueur.add(listeJoueur.get(0));
+ 			listeJoueur.add(listeJoueur.get(0));
 			listeJoueur.remove(0);
+			updateVue();
 		}
+/*		boolean b = phy.getEstJoueSonTour();
+		System.out.println(b);
+		phy.setEstJoueSonTour(false);
+		boolean a = phy.getEstJoueSonTour();
+		System.out.println(a); */
+		
 		listeJoueur.add(listeJoueur.get(0));
 		listeJoueur.remove(0);
+		updateVue();
 		for(int i=0; i<listeJoueur.size();i++){ 
 			listeJoueur.get(i).peutRecevoirPtAction = true;
 		}
@@ -175,49 +236,60 @@ public class Partie {
 		StockCarte.getStockCarte();
 		System.out.println("-----------------------------------------------------------------------------------------------------");
 		System.out.println("");
-		/*if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
+		if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
 			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagné le jeu!! Felicitations!!!");
 			System.exit(1);
-		}*/
+		}
 		
-		tourDeJeu(s);
+		tourDeJeu(s); 
 		
 		
 	}
 	
-	public static void main(String[] args) {
-		StockCarte s = new StockCarte();
-		Collections.shuffle(Joueur.divinite);
-		JoueurPhysique phy = new JoueurPhysique(1,0,0,0,0);
+//	public static void main(String[] args) {
+	public  void commencer(){
+	//	this.addObserver(Principal.getInstance());
+	    s = new StockCarte();
+	/*    int a=Principal.getInstance().getNbrComponants();
+	    nbrJoueurs += a;
+		phy = new JoueurPhysique(1,0,0,0,0);
 		listeJoueur.add(phy);
 		rangJoueur.add(phy);
-		Scanner reponse = new Scanner(System.in);
-			setNbrJoueurs();
-			String mode;
+		Main m1 = new Main();
+		phy.setLaMain(m1);
+		for (int i=0;i<a;i++){
+			JoueurVirtuel joueur = new JoueurVirtuel(i+2,0,0,0,0);
+			listeJoueur.add(joueur);
+			rangJoueur.add(joueur);
+			Main m2 = new Main();
+			joueur.setLaMain(m2);
+		
+	}
+		
+		if (Principal.getInstance().getMode()==1){
+		this.setNiveau("F");
+		}
+		else if (Principal.getInstance().getMode()==2){
+			this.setNiveau("D");
+		} */
+		
+//		Scanner reponse = new Scanner(System.in);
+		/*		int a=7;
+		while(a>5 || a<=0){//pour eviter l'utilisateur de mettre joueurs virtuels plus de 6
+			System.out.println("Combien de joueur que vous voulez jouer avec (max 5 joueurs) ?");
+			a = scan.nextInt();
+			} 
+			setNbrJoueurs(a); */
+/*		String mode;
 			System.out.println("Choisissez le mode de jeu (Facile(F)/Difficile(D))? ");
 			mode = reponse.nextLine();
-		for (int i=1;i<listeJoueur.size();i++){
-		//	System.out.println("Mode Joueur " + (i+1));
-			switch (mode){
-			case ("F"):
-				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("f");
-			//	((JoueurVirtuel) listeJoueur.get(i)).setMode(new Defenssif());
-				
-				break;
-			case ("D"):
-				((JoueurVirtuel) listeJoueur.get(i)).setTypeDif("d");
-	//			((JoueurVirtuel) listeJoueur.get(i)).setMode(new Agressif());
-				
-				//reponse.close();
-				break;
-			}
-		}
+			setNiveau(mode);
 //		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
-			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à  jouer avec.");
-			System.out.print("Votre Divinité est ");
+			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à  jouer avec."); */
+	    Collections.shuffle(Joueur.divinite);	
+	    System.out.print("Votre Divinité est "); 
 			phy.piocheDivinite();
-			Main m1 = new Main();
-			phy.setLaMain(m1);
+			
 			for (int i=1;i<listeJoueur.size();i++){
 				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
@@ -225,10 +297,15 @@ public class Partie {
 			for (int i=0;i<listeJoueur.size();i++){
 				s.distribuerCartes(listeJoueur.get(i).getLaMain());
 			}
+			updateVue();
 			tourDeJeu(s);
+	//		phy.jouerSonTour(s);
+	//		phy.commencerTour();
 		
 		
 	}
+	
+	
 		
 	
 }

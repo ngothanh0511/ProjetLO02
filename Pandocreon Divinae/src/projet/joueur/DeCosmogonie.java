@@ -1,4 +1,7 @@
 package projet.joueur;
+
+import projet.vueGraphique.Principal;
+
 /**
  * Cette classe représente le dé de Cosmogonie
  * 
@@ -29,6 +32,7 @@ public class DeCosmogonie {
 		 resFace=face[0];//pour aggreger le nom du variable utilisÃ©
 		//System.out.println( resFace);
 		System.out.println("Resultat du lancement: face " + resFace);
+		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Resultat du lancement: face " + resFace);
 		//return resFace.name();
 		
 	}
