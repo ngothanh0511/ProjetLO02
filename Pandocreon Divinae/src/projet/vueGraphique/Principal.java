@@ -163,6 +163,7 @@ public class Principal extends JFrame implements Observer {
     
     private Principal(){
         super("  Jeu de carte - Pandocreon Divinae");
+        
         this.setSize(1400,750);
         setLocation(0,0);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -174,15 +175,13 @@ public class Principal extends JFrame implements Observer {
         //positionnement des composants
  //       GridBagLayout Gridbag = new GridBagLayout();
   //      GridBagConstraints Constraints = new GridBagConstraints();
-  //      JPanel pane = new JPanel();
+   //     JPanel pane = new JPanel();
   //      pane.setSize(300,750);
   //      pane.setLayout(Gridbag);
     	getContentPane().setLayout(null);
+       	
     	
-       	scroll.setBounds(732, 542, 17, 152);
-    	getContentPane().add(scroll);
     	
-    	JTextArea textArea = new JTextArea();
     	resume.setForeground(Color.RED);
     	resume.setBounds(768, 554, 435, 140);
     	getContentPane().add(resume);
@@ -220,18 +219,23 @@ public class Principal extends JFrame implements Observer {
     	lblRsum.setFont(new Font("Tahoma", Font.BOLD, 13));
     	lblRsum.setBounds(768, 528, 64, 22);
     	getContentPane().add(lblRsum);
+    	getContentPane().add(scroll);
+    	scroll.setBounds(new Rectangle(10, 554, 748, 140));
+    	//      getContentPane().add(Detail);
+    	      
+    	      
+    	//      Detail.setBounds(10, 541, 739, 152);
+    	      //      pane.setBackground(bg);
+    	            Detail.setFont(new Font("DialogInput",Font.BOLD,12));
+    	            Detail.setText("la partie va commencer :\n");
         Color bg = new Color(255,255,255);
-        getContentPane().add(Detail);
-        
-        
-        Detail.setBounds(10, 541, 739, 152);
-        //      pane.setBackground(bg);
-              Detail.setFont(new Font("DialogInput",Font.BOLD,12));
-              Detail.setText("la partie va commencer :\n");
+              
+              
+              
   /*      this.getContentPane().add(DefausserCarte);
         this.getContentPane().add(JouerCarte);
         this.getContentPane().add(Npartie);
-        this.getContentPane().add(Stop);
+        this.getContent Pane().add(Stop);
         this.getContentPane().add(TerminerSonTour);
         this.getContentPane().add(scroll); 
         
