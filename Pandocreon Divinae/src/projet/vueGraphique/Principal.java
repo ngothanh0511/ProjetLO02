@@ -23,7 +23,7 @@ public class Principal extends JFrame implements Observer {
 	
 	
 	/**
-	 * La méthode static qui retourne l'instance unique de la classe Partie
+	 * La mÃ©thode static qui retourne l'instance unique de la classe Partie
 	 * @return
 	 */
 	
@@ -32,9 +32,9 @@ public class Principal extends JFrame implements Observer {
     
     private JButton TerminerSonTour  =  new JButton("Passer tour");
     private JButton JouerCarte = new JButton("Jouer/Sacrifier carte");
-    JButton Stop      = new JButton("Arr�ter le jeu");
+    JButton Stop      = new JButton("Arrêter le jeu");
     JButton Npartie   = new JButton("Nouvelle Partie");
-    private JButton DefausserCarte = new JButton("D�fausser votre carte");
+    private JButton DefausserCarte = new JButton("Défausser votre carte");
 
     javax.swing.Timer T;
     JoueurPhysique P1;
@@ -64,13 +64,13 @@ public class Principal extends JFrame implements Observer {
 	
 	JoueurPhysiquePanel panel_bas;
 	/**
-	 * Attribut de la classe DomaineCentre permettant d'indiquer les Panel qui présente les informations du joueur virtuel.
+	 * Attribut de la classe DomaineCentre permettant d'indiquer les Panel qui prÃ©sente les informations du joueur virtuel.
 	 *
 	 * 
 	 */
 	JoueurVirtuelPanel[] panel_virtuel = new JoueurVirtuelPanel[6];
 	/**
-	 * Attribut de la classe DomaineCentre permettant d'indiquer les Panel qui présente des panels poubelles.
+	 * Attribut de la classe DomaineCentre permettant d'indiquer les Panel qui prÃ©sente des panels poubelles.
 	 *
 	 * 
 	 */
@@ -88,7 +88,7 @@ public class Principal extends JFrame implements Observer {
 	 */
 	TapisPanel panel_centre;
 	/**
-	 * Attribut de la classe DomaineCentre permettant d'indiquer le fond du jeu qui présente le saison en cour.
+	 * Attribut de la classe DomaineCentre permettant d'indiquer le fond du jeu qui prÃ©sente le saison en cour.
 	 *
 	 * 
 	 */
@@ -204,7 +204,7 @@ public class Principal extends JFrame implements Observer {
     	getContentPane().add(getTerminerSonTour());
     	
     	
-    	jpPanel.setBounds(10, 362, 1193, 159);
+    	jpPanel.setBounds(10, 339, 1193, 181);
     	getContentPane().add(jpPanel);
     	
     	Panel_haut.setBounds(10, 11, 1334, 198);
@@ -214,7 +214,7 @@ public class Principal extends JFrame implements Observer {
     	getContentPane().add(tapis);
     ///	getContentPane().add(); */
     	
-    	JLabel lblRsum = new JLabel("R�sum�");
+    	JLabel lblRsum = new JLabel("Résumé");
     	lblRsum.setForeground(Color.BLACK);
     	lblRsum.setFont(new Font("Tahoma", Font.BOLD, 13));
     	lblRsum.setBounds(768, 528, 64, 22);
@@ -402,7 +402,7 @@ public class Principal extends JFrame implements Observer {
             	controlleur.Button_on_click_DefausserCarte(e);
             }
         }); 
-        //gestion des �v�nements sur la fen�tre
+        //gestion des événements sur la fenétre
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 dispose();
