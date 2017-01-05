@@ -54,7 +54,7 @@ public class TapisPanel extends JPanel{
 		if(Tapis.getListeCartesCroyants().isEmpty()==false){
 		for (int i = 0; i < Tapis.getListeCartesCroyants().size(); i++) {
 			Carte carte = Tapis.getListeCartesCroyants().get(i);
-			CarteJV cartePanel= new CarteJV(carte);
+			CarteJP cartePanel= new CarteJP(carte);
 //			cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
 			this.add(cartePanel);
 		}
