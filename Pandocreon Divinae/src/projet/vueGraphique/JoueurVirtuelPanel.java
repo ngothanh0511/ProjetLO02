@@ -21,7 +21,7 @@ import projet.joueur.JoueurVirtuel;
 
 public class JoueurVirtuelPanel extends JPanel {
 	
-	
+		private static String lien;
 		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
@@ -63,7 +63,7 @@ public class JoueurVirtuelPanel extends JPanel {
 			nom.setFont(new Font("Arial", Font.BOLD,15));
 			nom.setSize(new Dimension(230, 30));
 			this.add(nom, BorderLayout.NORTH);
-	/*		JLabel nbPoint = new JLabel(" Points Prières: " + joueur.getMenhir()
+	/*		JLabel nbPoint = new JLabel(" Points PriÃ¨res: " + joueur.getMenhir()
 					+ "; Champ: " + joueur.getChamp() + "; Comptage: "
 					+ joueur.getComptage());
 			nbPoint.setFont(new Font("Arial", Font.BOLD,12));
@@ -73,15 +73,19 @@ public class JoueurVirtuelPanel extends JPanel {
 		}
 		public void drawCarteJoueur(JoueurVirtuel joueur) {
 			this.setLayout(new FlowLayout());
-			if(joueur.getLaMain().getListeCartesMain().isEmpty()==false){
+			/*if(joueur.getLaMain().getListeCartesMain().isEmpty()==false){
 			for (int i = 0; i < joueur.getLaMain().getListeCartesMain().size(); i++) {
 				Carte carte = joueur.getLaMain().getListeCartesMain().get(i);
 				CarteJV cartePanel= new CarteJV(carte);
-//				cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
-				this.add(cartePanel,BorderLayout.WEST); 
-				
+//				
+				//cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
+				lien=joueur.getJoueurDivinite();
+				this.add(cartePanel,BorderLayout.WEST);
 			}
-			}
+			}*/
+			
+			CarteJV carteDivin= new CarteJV(joueur.getJoueurDivinite());
+			this.add(carteDivin,BorderLayout.WEST);
 		}
 
 }
