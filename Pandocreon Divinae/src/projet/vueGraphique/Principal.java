@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*; 
 import javax.swing.border.*;
 
+import projet.cartes.Carte;
 import projet.cartes.Tapis;
 import projet.controlleur.Controlleur;
 import projet.joueur.JoueurPhysique;
@@ -50,6 +51,7 @@ public class Principal extends JFrame implements Observer {
     private Controlleur controlleur;
     JoueurPhysiquePanel jpPanel = new JoueurPhysiquePanel(P1, controlleur );
     TapisPanel tapis = new TapisPanel();
+    CarteTapis[] carteTapis = new CarteTapis[10];
     JoueurVirtuelPanel[] jvPanel = new JoueurVirtuelPanel[6];
     
     //////
@@ -136,6 +138,10 @@ public class Principal extends JFrame implements Observer {
     public void setAction(int value){
     	action = value;
     }
+    public CarteTapis[] getCarteTapis(){
+    	return carteTapis;
+    }
+    
     private static Principal instance;
     private JTextField textField;
     public static Principal getInstance() {
@@ -204,7 +210,7 @@ public class Principal extends JFrame implements Observer {
     	getContentPane().add(getTerminerSonTour());
     	
     	
-    	jpPanel.setBounds(10, 362, 1193, 159);
+    	jpPanel.setBounds(10, 339, 1193, 181);
     	getContentPane().add(jpPanel);
     	
     	Panel_haut.setBounds(10, 11, 1334, 198);
@@ -221,6 +227,7 @@ public class Principal extends JFrame implements Observer {
     	getContentPane().add(lblRsum);
     	getContentPane().add(scroll);
     	scroll.setBounds(new Rectangle(10, 554, 748, 140));
+    	            Detail.setTabSize(10);
     	//      getContentPane().add(Detail);
     	      
     	      
@@ -421,7 +428,7 @@ public class Principal extends JFrame implements Observer {
 		tapis.removeAll();
 		jpPanel.removeAll();
 		jpPanel.drawCarteJoueur(controlleur.getModel().getJPhysique());
-		tapis.drawCarteCroyants();
+		this.drawCarteCroyants();
 		this.setVisible(true);
 		resume.removeAll();
 		resume.setText(controlleur.info());
@@ -433,6 +440,7 @@ public class Principal extends JFrame implements Observer {
 			Panel_haut.add(jvPanel[i]);
 		}
 		}
+		
 		
 	//	resume.setFont(new Font("DialogInput",Font.BOLD,11));
 
@@ -472,7 +480,20 @@ public class Principal extends JFrame implements Observer {
         gbc.weighty = wy;
     }
     
-    
+    /**
+	 * Draw joueur.
+	 *
+	 * @param joueur
+	 *            the joueur
+	 */
+	public void drawCarteCroyants() {
+		if(Tapis.getListeCartesCroyants().isEmpty()==false){
+		for (int i = 0; i < Tapis.getListeCartesCroyants().size(); i++) {
+			carteTapis[i] = new CarteTapis(Tapis.getListeCartesCroyants().get(i));
+			tapis.add(carteTapis[i]);
+		}
+		}
+	}
      
     /**
      * enregistre une partie dans un fichier. 

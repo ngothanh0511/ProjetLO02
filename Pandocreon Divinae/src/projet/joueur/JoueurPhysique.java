@@ -153,7 +153,7 @@ public class JoueurPhysique extends Joueur{
 		Principal.getInstance().getJouerCarte().setEnabled(true);
 		Principal.getInstance().getDefausserCarte().setEnabled(true);
 		Principal.getInstance().getTerminerSonTour().setEnabled(true);
-		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+" \nVotre tour, Choisissez une action!");
+		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+" \n Votre tour, Choisissez une action!");
 		while(Partie.getInstance().getEstJoueSonTour()==false){
 		/*		Principal.getInstance().getJouerCarte().addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
@@ -328,6 +328,7 @@ public void commencerTour(){
 					}
 					else {
 						System.out.println("La carte que vous choissiez n'est pas utilisable!");
+						Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n La carte que vous choissiez n'est pas utilisable!");
 					}
 				}
 			}

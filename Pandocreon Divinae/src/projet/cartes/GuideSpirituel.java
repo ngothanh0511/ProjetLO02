@@ -1,10 +1,17 @@
 package projet.cartes;
 
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import projet.joueur.Joueur;
+import projet.joueur.Partie;
+import projet.vueGraphique.Principal;
 
 
 /**
@@ -46,43 +53,25 @@ public class GuideSpirituel extends Carte {
 		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
 			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
 		}
-		ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
-		PairGuideVsCroyants.add(this);
+		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Choisissez la carte Croyant que vous voulez récupérer!");
+
 		for (int k = 0;k<nbrCartesCroyants;k++){
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
 					+ " Si vous ne voulez pas rattacher une autre carte Croyants, tapez 0!");
-			int i;
-			i = scan.nextInt();
-			if (i==0){
-				break;
-			}
-			else{
-				for (int j =0; j< Tapis.getListeCartesCroyants().size(); j++){
-					
-					if (i== Tapis.getListeCartesCroyants().get(j).getIdCarte()){ 
-						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
-								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
-							PairGuideVsCroyants.add(Tapis.getListeCartesCroyants().get(j));
-							System.out.println("Vous venez de rattacher la carte Croyants c_"
-									+ Tapis.getListeCartesCroyants().get(j).getIdCarte());
-							Tapis.getListeCartesCroyants().remove(j);
-							nbrCartesCroyantsRattaches +=1;
-							
-						}
-					
-					else {
-						System.out.println("Votre carte Guide Spirituel ne peut pas rattacher cette carte Croyants! "
-							+ "Choisir la carte Croyants qui possède au moins un dogme en commun avec votre carte Guide Spirituel");
-					}
+			int R = JOptionPane.showConfirmDialog(null,"Choisissez une carte Croyant à récupérer?");
+            if(R == 0){
+			for(int i=0;i< Tapis.getListeCartesCroyants().size(); i++) {
+				Carte carte = Tapis.getListeCartesCroyants().get(i);
+				Principal.getInstance().getCarteTapis()[i].addMouseListener(new MouseAdapter(){
+			        public void mouseClicked(MouseEvent e) {
+			        	recupererCarteCroyant(joueur,carte.getIdCarte());
 				}
-				}
+			});	
 			}
+            }
+//			int i;
+//			i = scan.nextInt();
 		}
-		if(PairGuideVsCroyants.size()>1){
-		joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
-		}
-		joueur.calculerPtPrieres();
-		System.out.println("Vous avez " + joueur.getPtPriere() +" points Prières");
 		}
 		else if(joueur.getTypeJoueur()=="Joueur Virtuel"){
 			ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
@@ -107,10 +96,55 @@ public class GuideSpirituel extends Carte {
 				}
 			joueur.calculerPtPrieres();
 			System.out.println("Le Joueur "+joueur.getIdJoueur()+" a " + joueur.getPtPriere() +" points Prières");
+			if (nbrCartesCroyantsRattaches == 0){
+				estUtilisable = false;
+			}
 		}
+		
+		}
+		
+		public void recupererCarteCroyant(Joueur joueur, int i){
+			ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
+			PairGuideVsCroyants.add(this);
+			if (i==0){
+				try {
+					Thread.sleep(10);
+				} catch (InterruptedException e) {
+
+					e.printStackTrace();
+				}
+			}
+			else{
+				for (int j =0; j< Tapis.getListeCartesCroyants().size(); j++){
+					
+					if (i== Tapis.getListeCartesCroyants().get(j).getIdCarte()){ 
+						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
+								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
+							PairGuideVsCroyants.add(Tapis.getListeCartesCroyants().get(j));
+							System.out.println("Vous venez de rattacher la carte Croyants c_"
+									+ Tapis.getListeCartesCroyants().get(j).getIdCarte());
+							Tapis.getListeCartesCroyants().remove(j);
+							nbrCartesCroyantsRattaches +=1;
+							
+						}
+					
+					else {
+						System.out.println("Votre carte Guide Spirituel ne peut pas rattacher cette carte Croyants! "
+							+ "Choisir la carte Croyants qui possède au moins un dogme en commun avec votre carte Guide Spirituel");
+					}
+				}
+				}
+			}
+		
+		if(PairGuideVsCroyants.size()>1){
+		joueur.getLaMain().getlistePaireGuideVsCroyants().add(PairGuideVsCroyants);
+		}
+		joueur.calculerPtPrieres();
+		System.out.println("Vous avez " + joueur.getPtPriere() +" points Prières");
 		if (nbrCartesCroyantsRattaches == 0){
 			estUtilisable = false;
 		}
+		
 	}
 	
 	/**

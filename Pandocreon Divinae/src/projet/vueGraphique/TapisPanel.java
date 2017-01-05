@@ -34,30 +34,13 @@ public class TapisPanel extends JPanel{
 	 *            the control
 	 */
 	public TapisPanel() {
-
+		this.setLayout(new FlowLayout());
 		this.setBackground(new java.awt.Color(255, 255, 255));
 		this.setPreferredSize(DIMENSION_LARGE);
 		this.setMaximumSize(DIMENSION_LARGE);
 		this.setMinimumSize(DIMENSION_PETITE);
 		this.setOpaque(false);
-		drawCarteCroyants();
 	}
 
-	/**
-	 * Draw joueur.
-	 *
-	 * @param joueur
-	 *            the joueur
-	 */
-	public void drawCarteCroyants() {
-		this.setLayout(new FlowLayout());
-		if(Tapis.getListeCartesCroyants().isEmpty()==false){
-		for (int i = 0; i < Tapis.getListeCartesCroyants().size(); i++) {
-			Carte carte = Tapis.getListeCartesCroyants().get(i);
-			CarteJV cartePanel= new CarteJV(carte);
-//			cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
-			this.add(cartePanel);
-		}
-		}
-	}
+	
 }
