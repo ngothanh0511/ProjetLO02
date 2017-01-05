@@ -24,7 +24,7 @@ private static final long serialVersionUID = 1L;
 	protected static final Dimension DIMENSION_PETITE = new Dimension(50,65);
 	
 	/** Source d'image. */ 
-	private String source;
+	protected String source;
 	private Carte carte;
 	/**
 	 * Instantialiser un nouveau carteAllie panel.
@@ -35,19 +35,16 @@ private static final long serialVersionUID = 1L;
 		
 		
 		this.carte = carte;
-	//	if (carte== null) {
-			this.source = "images\\c0.jpg";
-	/*	}
-		else { 
-			int id = carte.getIdCarte();
-			this.source = "images\\c"+id+".jpg";
-		}*/
+		
 			
 	} 
 
 	/* (non-Javadoc)
 	 * @see javax.swing.JComponent#paintComponent(java.awt.Graphics)
 	 */
+	/*
+	 * methode pour afficher la carte
+	 * */
 	public void paintComponent(Graphics g) {
 		Image background = new ImageIcon(source).getImage();
 		g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
