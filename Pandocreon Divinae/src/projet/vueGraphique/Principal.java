@@ -112,6 +112,8 @@ public class Principal extends JFrame implements Observer {
     public int getNbrComponants(){
     	return nbrComponants;
     }
+    
+	
     public JButton getJouerCarte() {
 		return JouerCarte;
 	}

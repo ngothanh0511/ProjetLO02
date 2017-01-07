@@ -47,7 +47,7 @@ public class Controlleur {
         
      
 	public void Button_on_click_DefausserCarte(ActionEvent e){
-        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Choisissez la carte que vous voulez défausser! Sinon, choisissez Jouer/Sacrifier Carte ");
+        	vue.getDetail().setText(vue.getDetail().getText()+"\n Choisissez la carte que vous voulez défausser! Sinon, choisissez Jouer/Sacrifier Carte ");
             vue.getDefausserCarte().setEnabled(false);
         	vue.setAction(1);
             
@@ -55,7 +55,7 @@ public class Controlleur {
 	public void Button_on_click_JouerCarte(ActionEvent e){ 
  
         	model.getStockCarte().distribuerCartes(model.getJPhysique().getLaMain());
-        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Choisissez la carte que vous voulez jouer ou sacrifier! Si vous avez fini votre tour, choisissez Passer Tour ");
+        	vue.getDetail().setText(vue.getDetail().getText()+"\n  Choisissez la carte que vous voulez jouer ou sacrifier! \n Si vous avez fini votre tour, choisissez Passer Tour ");
         	vue.getJouerCarte().setEnabled(false);
         	vue.getDefausserCarte().setEnabled(false);
         	vue.setAction(2);

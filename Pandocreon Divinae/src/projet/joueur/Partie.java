@@ -1,4 +1,5 @@
 package projet.joueur;
+import projet.cartes.Carte;
 import projet.cartes.StockCarte;
 import projet.joueur.DeCosmogonie;
 import projet.vueGraphique.Principal;
@@ -43,6 +44,22 @@ public class Partie extends Observable  {
 	}
 	public boolean getEstJoueSonTour(){
 		return estJoueSonTour;
+	}
+	
+	private Carte carteChoisie;
+	public Carte getCarteChoisie(){
+		return carteChoisie;
+	}
+	public void setCarteChoisie(Carte carte){
+		carteChoisie = carte;
+	}
+	
+	private boolean clickCarteCroyant;
+    public boolean isClickCarteCroyant() {
+		return clickCarteCroyant;
+	}
+	public void setClickCarteCroyant(boolean clickCarteCroyant) {
+		this.clickCarteCroyant = clickCarteCroyant;
 	}
 	
 	private static Partie partie = new Partie();

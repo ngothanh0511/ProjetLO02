@@ -289,6 +289,7 @@ public void commencerTour(){
 	 */
 	public void choisirCarte( Carte c, StockCarte s){
 		int id= c.getIdCarte();
+		Partie.getInstance().setCarteChoisie(c);
 		boolean fin = false;
 /*		while (laMain.getListeCartesMain().size() >0){
 		informer();

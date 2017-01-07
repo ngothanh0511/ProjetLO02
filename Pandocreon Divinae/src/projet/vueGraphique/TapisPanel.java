@@ -24,7 +24,6 @@ public class TapisPanel extends JPanel{
 
 	/** The controlleur. */
 	private Controlleur controlleur;
-	StockCarte s = new StockCarte();
 	/**
 	 * Instantiates a new joueur actuel panel.
 	 *
@@ -42,25 +41,4 @@ public class TapisPanel extends JPanel{
 		this.setOpaque(false);
 	}
 
-<<<<<<< HEAD
-	
-=======
-	/**
-	 * Draw joueur.
-	 *
-	 * @param joueur
-	 *            the joueur
-	 */
-	public void drawCarteCroyants() {
-		this.setLayout(new FlowLayout());
-		if(Tapis.getListeCartesCroyants().isEmpty()==false){
-		for (int i = 0; i < Tapis.getListeCartesCroyants().size(); i++) {
-			Carte carte = Tapis.getListeCartesCroyants().get(i);
-			CarteJP cartePanel= new CarteJP(carte);
-//			cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
-			this.add(cartePanel);
-		}
-		}
-	}
->>>>>>> branch 'master' of https://github.com/ngothanh0511/ProjetLO02.git
 }

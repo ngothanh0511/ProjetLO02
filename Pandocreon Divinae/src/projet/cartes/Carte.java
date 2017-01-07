@@ -21,6 +21,14 @@ public abstract class   Carte {
 	protected boolean estSacrifiable;
 	protected boolean estAnnule= false;
 	protected boolean estFonctionnable = true;
+	protected boolean estChoisi = false;
+	
+	public void setEstChoisi(boolean value){
+		estChoisi = value;
+	}
+	public boolean getEstChoisi(){
+		return estChoisi;
+	}
 	/**
 	 * Méthode abstract qui affiche les attributes de la carte d'Action
 	 *
@@ -94,6 +102,7 @@ public abstract class   Carte {
 	public void setSacrifiable(boolean values){
 		estSacrifiable = values;
 	}
+
 	
 //	public int getNbrCroyants(){	
 //		return 0;

@@ -24,6 +24,7 @@ public class GuideSpirituel extends Carte {
 	private Integer nbrCartesCroyantsRattaches =0; // le nombre de cartes Croyants qu'elle rattache en ce moment
 	private String [] dogmes= new String[2];
 	private Integer nbrCartesCroyants;
+	
 	/**
 	 * Constructeur par défaut d'une carte Guide Spirituel
 	 * @param nom: nom de la carte
@@ -56,22 +57,25 @@ public class GuideSpirituel extends Carte {
 		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Choisissez la carte Croyant que vous voulez récupérer!");
 
 		for (int k = 0;k<nbrCartesCroyants;k++){
+			Partie.getInstance().setClickCarteCroyant(false) ;
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
 					+ " Si vous ne voulez pas rattacher une autre carte Croyants, tapez 0!");
-			int R = JOptionPane.showConfirmDialog(null,"Choisissez une carte Croyant à récupérer?");
-            if(R == 0){
-			for(int i=0;i< Tapis.getListeCartesCroyants().size(); i++) {
-				Carte carte = Tapis.getListeCartesCroyants().get(i);
-				Principal.getInstance().getCarteTapis()[i].addMouseListener(new MouseAdapter(){
-			        public void mouseClicked(MouseEvent e) {
-			        	recupererCarteCroyant(joueur,carte.getIdCarte());
-				}
-			});	
-			}
-            }
+	//		int R = JOptionPane.showConfirmDialog(null,"Choisissez une carte Croyant à récupérer?");
+     //       if(R == 0){
+		
+            
+            
+ //       	Partie.getInstance().setClickCarteCroyant(false);
 //			int i;
 //			i = scan.nextInt();
+//		}
 		}
+	/*	for(int j=0; j<Tapis.getListeCartesCroyants().size();j++){
+			if(Tapis.getListeCartesCroyants().get(j).getEstChoisi()){
+				int id= Tapis.getListeCartesCroyants().get(j).getIdCarte();
+				recupererCarteCroyant(joueur,id);
+			}
+		} */
 		}
 		else if(joueur.getTypeJoueur()=="Joueur Virtuel"){
 			ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
@@ -104,6 +108,7 @@ public class GuideSpirituel extends Carte {
 		}
 		
 		public void recupererCarteCroyant(Joueur joueur, int i){
+			if(this.nbrCartesCroyantsRattaches<this.nbrCartesCroyants){
 			ArrayList<Carte> PairGuideVsCroyants = new ArrayList<Carte>();
 			PairGuideVsCroyants.add(this);
 			if (i==0){
@@ -144,7 +149,13 @@ public class GuideSpirituel extends Carte {
 		if (nbrCartesCroyantsRattaches == 0){
 			estUtilisable = false;
 		}
-		
+		Partie.getInstance().updateVue();
+			}
+			else{ 
+				System.out.println("Votre carte Guide Spirituel ne peut plus rattacher des cartes Croyants! ");
+				Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Votre carte Guide Spirituel ne peut plus rattacher des cartes Croyants!");
+
+			}
 	}
 	
 	/**
