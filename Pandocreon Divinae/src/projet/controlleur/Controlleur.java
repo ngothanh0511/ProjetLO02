@@ -1,15 +1,12 @@
 package projet.controlleur;
 
+
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
 
 import javax.swing.JOptionPane;
 
-import projet.cartes.Carte;
-import projet.cartes.StockCarte;
+
 import projet.cartes.Tapis;
 import projet.joueur.Partie;
 import projet.vueGraphique.Debut;
@@ -20,7 +17,6 @@ public class Controlleur {
 	private Partie model;
 	private Principal vue;
 	private Thread t;
-	private StockCarte s;
 
 	public Controlleur() {
 		
@@ -42,12 +38,14 @@ public class Controlleur {
             Debut D = new Debut(this);
             D.setVisible(true);
         }
+	
+	
     
         	
         
      
 	public void Button_on_click_DefausserCarte(ActionEvent e){
-        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Choisissez la carte que vous voulez défausser! Sinon, choisissez Jouer/Sacrifier Carte ");
+        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Choisissez la carte que vous voulez dÃ©fausser! Sinon, choisissez Jouer/Sacrifier Carte ");
             vue.getDefausserCarte().setEnabled(false);
         	vue.setAction(1);
             
@@ -68,7 +66,7 @@ public class Controlleur {
 				Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
 				Tapis.getListeCartesCroyantsIndisponible().remove(i);
         	}
-        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Vous avez terminé votre tour! ");
+        	vue.getDetail().setText(vue.getDetail().getText()+"    \n  Vous avez terminÃ© votre tour! ");
 			model.setEstJoueSonTour(true);
 
 /*			model.getJPhysique().seta(model.getJPhysique().geta()+1);
@@ -78,10 +76,10 @@ public class Controlleur {
         }
 	
 	public String info(){
-		StringBuffer sb= new StringBuffer(" Vous :                  Divinité "+this.getModel().getJPhysique().getJoueurDivinite()+"       Rang :"+Partie.getNumRang(this.getModel().getJPhysique())+"       Points Prières: "+ this.getModel().getJPhysique().getPtPriere()
+		StringBuffer sb= new StringBuffer(" Vous :                  DivinitÃ© "+this.getModel().getJPhysique().getJoueurDivinite()+"       Rang :"+Partie.getNumRang(this.getModel().getJPhysique())+"       Points PriÃ¨res: "+ this.getModel().getJPhysique().getPtPriere()
 				+" \n Points d'Action :   "+this.getModel().getJPhysique().getPtActionJour()+" JOUR     "+this.getModel().getJPhysique().getPtActionNuit()+" NUIT     "+this.getModel().getJPhysique().getPtActionNeant()+" NEANT\n" );
 		for (int i=1; i<this.getModel().getListeJoueur().size();i++){
-			sb.append("\n Joueur "+this.getModel().getListeJoueur().get(i).getIdJoueur()+": Divinité "+this.getModel().getListeJoueur().get(i).getJoueurDivinite()+"        Rang:"+Partie.getNumRang(this.getModel().getListeJoueur().get(i))+"    Points Prières: "+ this.getModel().getListeJoueur().get(i).getPtPriere());
+			sb.append("\n Joueur "+this.getModel().getListeJoueur().get(i).getIdJoueur()+": DivinitÃ© "+this.getModel().getListeJoueur().get(i).getJoueurDivinite()+"        Rang:"+Partie.getNumRang(this.getModel().getListeJoueur().get(i))+"    Points PriÃ¨res: "+ this.getModel().getListeJoueur().get(i).getPtPriere());
 		}
 		return sb.toString();
 	}
