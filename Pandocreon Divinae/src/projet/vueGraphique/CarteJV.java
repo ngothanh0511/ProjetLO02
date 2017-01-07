@@ -24,7 +24,7 @@ private static final long serialVersionUID = 1L;
 	
 	/** Source d'image. */ 
 	protected String source;
-	//private Carte carte;
+	private Carte carte;
 	/**
 	 * Instantialiser un nouveau carteAllie panel.
 	 *
@@ -38,6 +38,15 @@ private static final long serialVersionUID = 1L;
 		this.source = "images\\"+nomDivinite+".jpg";
 		
 	}
+	public CarteJV(Carte carte) {
+		
+		//super(carte);
+		int id = carte.getIdCarte();
+		this.setPreferredSize(DIMENSION_LARGE);
+		this.setMaximumSize(DIMENSION_LARGE);
+		this.setMinimumSize(DIMENSION_PETITE);
+		this.source = "images\\c"+id+".jpg";
+		}
 	
 	public void paintComponent(Graphics g) {
 		Image background = new ImageIcon(source).getImage();
