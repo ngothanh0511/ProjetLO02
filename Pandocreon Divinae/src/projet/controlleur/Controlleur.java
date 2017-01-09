@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import projet.cartes.Tapis;
 import projet.joueur.Partie;
+
 import projet.vueGraphique.Debut;
 import projet.vueGraphique.Principal;
 
@@ -17,6 +18,7 @@ public class Controlleur {
 
 	private Partie model;
 	private Principal vue;
+	
 	private Thread t;
 
 	public Controlleur() {
@@ -91,10 +93,12 @@ public class Controlleur {
             
 	 public static void main(String arg[]){    
 		 Controlleur c = new Controlleur();
+		
 		 c.init();	
+		
 	    }    
         
-	 public void init(){
+	 public void init(){ 
 		 
 	        this.model = Partie.getInstance();
 			if (!this.isReadyToPlay()) {
@@ -118,10 +122,15 @@ public class Controlleur {
 				this.model.commencer();
 			}
 	 }
+	 
+	 
 	public Partie getModel() {
 		return model;  
 	}
 
+	public void setModel(Partie partie){
+		model = partie;
+	}
 	public Thread getThread() {
 		return t;
 	}
@@ -131,6 +140,12 @@ public class Controlleur {
 	public void setReadyToPlay(boolean readyToPlay) {
 		this.readyToPlay = readyToPlay;
 	}
+
+
+
+
+
+
 
 	
 }

@@ -77,6 +77,9 @@ public class Partie extends Observable implements Serializable {
 	public static Partie getInstance(){
 		return partie;
 	}
+	public void setInstance(Partie instance){
+		partie = instance;
+	}
 	/**
 	 * Setter de l'attribute rangJoueur
 	 */
@@ -149,6 +152,10 @@ public class Partie extends Observable implements Serializable {
 		
 		return rep;
 		
+	}
+	
+	public int getNbrJoueur(){
+		return nbrJoueurs;
 	}
 	/**
 	 * Setter de l'attribute nbrJoueurs

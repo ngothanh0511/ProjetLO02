@@ -151,13 +151,19 @@ public class Debut extends JFrame{
     }
     
    
-    public static Partie charger(String s) throws IOException{
+    public  void charger(String s) throws IOException{
         Partie obj = null;
         try{
             ObjectInputStream load = new ObjectInputStream(new FileInputStream(s));
             obj = (Partie) load.readObject();
             load.close();
             System.out.println(obj);
+            P = Principal.getInstance();
+            obj.setInstance(obj);
+            obj.addObserver(P);
+            controlleur.setModel(obj);
+            obj.updateVue();
+        	P.setVisible(true);
         }catch(IOException e){
             e.printStackTrace();
             System.out.println("Impossible de charger");
@@ -165,7 +171,7 @@ public class Debut extends JFrame{
         catch(Exception e){
             e.printStackTrace();
         }
-        return obj;
+        
     }
     
     /**
@@ -185,7 +191,7 @@ public class Debut extends JFrame{
             
             this.setVisible(false);   
             this.dispose();
-     /*       int R = JOptionPane.showConfirmDialog(null,"voulez vous charger une partie?");
+ /*           int R = JOptionPane.showConfirmDialog(null,"voulez vous charger une partie?");
             if(R == 0){
                 S = JOptionPane.showInputDialog(null,"Entrez votre partie sous forme 11112222....(au min 20 chiffre 1-5)");
                 try {
@@ -194,11 +200,10 @@ public class Debut extends JFrame{
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-                P = Principal.getInstance();
-            	P.setVisible(true);
-            	controlleur.setReadyToPlay(true);
+                
+        //    	controlleur.setReadyToPlay(true);
             }
-            else{ */
+            else{  */
             	this.setNbrJoueur();
             	P = Principal.getInstance();
             	P.setVisible(true);
@@ -211,7 +216,7 @@ public class Debut extends JFrame{
 
             	}
             	controlleur.setReadyToPlay(true);
- //       }
+ //      }
         }
         if(source == btnQuit){
             this.setVisible(false);   

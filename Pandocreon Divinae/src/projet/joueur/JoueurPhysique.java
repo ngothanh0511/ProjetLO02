@@ -1,9 +1,6 @@
 package projet.joueur;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
@@ -172,7 +169,7 @@ public class JoueurPhysique extends Joueur{
 				e.printStackTrace();
 			}
 		}
-		int id;
+//		int id;
 		
 	/*	while (laMain.getListeCartesMain().size()>0){
 			/*for(int i=0;i<Partie.listeJoueur.size();i++){
@@ -211,7 +208,7 @@ public class JoueurPhysique extends Joueur{
 	public void choisirCarte( Carte c, StockCarte s){
 		int id= c.getIdCarte();
 		Partie.getInstance().setCarteChoisie(c);
-		boolean fin = false;
+//		boolean fin = false;
 /*		while (laMain.getListeCartesMain().size() >0){
 		informer();
 		do{
@@ -583,7 +580,7 @@ public class JoueurPhysique extends Joueur{
 								}
 							}
 						}
-						System.out.println("Toutes les cartes Croyants d'origine Néant du joueur "+Partie.listeJoueur.get(i).getIdJoueur()+" ont été sacrifiées");
+						System.out.println("Toutes les cartes Croyants d'origine Neant du joueur "+Partie.listeJoueur.get(i).getIdJoueur()+" ont été sacrifiées");
 					}
 					break;
 				}
