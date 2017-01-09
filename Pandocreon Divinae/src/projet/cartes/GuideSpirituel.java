@@ -54,8 +54,8 @@ public class GuideSpirituel extends Carte {
 		for (int i=0; i< Tapis.getListeCartesCroyants().size();i++){
 			System.out.println(Tapis.getListeCartesCroyants().get(i).afficherCarte());
 		}
-		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Choisissez la carte Croyant que vous voulez récupérer!");
-
+//		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Choisissez la carte Croyant que vous voulez récupérer!");
+		JOptionPane.showMessageDialog(null,"Choisissez les cartes Croyant que vous voulez récupérer!");
 		for (int k = 0;k<nbrCartesCroyants;k++){
 			Partie.getInstance().setClickCarteCroyant(false) ;
 			System.out.println("Choisir la carte Croyant que vous voulez récupérer!"
@@ -126,16 +126,20 @@ public class GuideSpirituel extends Carte {
 						if ((Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[0]))
 								|| (Arrays.asList(Tapis.getListeCartesCroyants().get(j).dogmes).contains(this.dogmes[1]))){
 							PairGuideVsCroyants.add(Tapis.getListeCartesCroyants().get(j));
-							System.out.println("Vous venez de rattacher la carte Croyants c_"
-									+ Tapis.getListeCartesCroyants().get(j).getIdCarte());
+							System.out.println("Vous venez de rattacher la carte Croyants "
+									+ Tapis.getListeCartesCroyants().get(j).getNom());
+							JOptionPane.showMessageDialog(null,"Vous venez de rattacher la carte Croyants "
+									+ Tapis.getListeCartesCroyants().get(j).getNom());
 							Tapis.getListeCartesCroyants().remove(j);
 							nbrCartesCroyantsRattaches +=1;
-							
+							Partie.getInstance().updateVue();
 						}
 					
 					else {
 						System.out.println("Votre carte Guide Spirituel ne peut pas rattacher cette carte Croyants! "
 							+ "Choisir la carte Croyants qui possède au moins un dogme en commun avec votre carte Guide Spirituel");
+						JOptionPane.showMessageDialog(null,"Votre carte Guide Spirituel ne peut pas rattacher cette carte Croyants! "
+								+ "Choisir la carte Croyants qui possède au moins un dogme en commun avec votre carte Guide Spirituel");
 					}
 				}
 				}
@@ -153,7 +157,7 @@ public class GuideSpirituel extends Carte {
 			}
 			else{ 
 				System.out.println("Votre carte Guide Spirituel ne peut plus rattacher des cartes Croyants! ");
-				Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n Votre carte Guide Spirituel ne peut plus rattacher des cartes Croyants!");
+				JOptionPane.showMessageDialog(null," Votre carte Guide Spirituel ne peut plus rattacher des cartes Croyants!");
 
 			}
 	}

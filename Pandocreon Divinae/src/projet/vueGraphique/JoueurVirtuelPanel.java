@@ -79,28 +79,12 @@ public class JoueurVirtuelPanel extends JPanel {
 			//nom.setSize(new Dimension(230, 30));
 			//this.add(nom, BorderLayout.NORTH);
 			this.add(getVoirCarte(), BorderLayout.WEST);
-	/*		JLabel nbPoint = new JLabel(" Points Prières: " + joueur.getMenhir()
-					+ "; Champ: " + joueur.getChamp() + "; Comptage: "
-					+ joueur.getComptage());
-			nbPoint.setFont(new Font("Arial", Font.BOLD,12));
-			nbPoint.setSize(new Dimension(230, 30));
-			this.add(nbPoint, BorderLayout.SOUTH); */
+	
 	
 		}
 		
 		public void drawCarteJoueur(JoueurVirtuel joueur) {
 			this.setLayout(new FlowLayout());
-			/*if(joueur.getLaMain().getListeCartesMain().isEmpty()==false){
-			for (int i = 0; i < joueur.getLaMain().getListeCartesMain().size(); i++) {
-				Carte carte = joueur.getLaMain().getListeCartesMain().get(i);
-				CarteJV cartePanel= new CarteJV(carte);
-//				
-				//cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
-				lien=joueur.getJoueurDivinite();
-				this.add(cartePanel,BorderLayout.WEST);
-			}
-			}*/
-			
 			CarteJV carteDivin= new CarteJV(joueur.getJoueurDivinite());
 			this.add(carteDivin,BorderLayout.WEST);
 		}
@@ -122,8 +106,6 @@ public class JoueurVirtuelPanel extends JPanel {
 					for(int j=0; j<jv.getLaMain().getlistePaireGuideVsCroyants().get(i).size();j++){
 						Carte carte = jv.getLaMain().getlistePaireGuideVsCroyants().get(i).get(j);
 						CarteJV cartePanel= new CarteJV(carte);
-						//cartePanel.addMouseListener(controlleur.jouerCarteAllie(carte));
-						//lien=jv.getJoueurDivinite();
 						jf.getContentPane().add(cartePanel);
 					}
 					

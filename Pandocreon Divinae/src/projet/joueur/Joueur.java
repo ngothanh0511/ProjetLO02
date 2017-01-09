@@ -17,7 +17,7 @@ import projet.strategy.Strategy;
 public abstract class Joueur {
 
 	protected int id;
-	private String nom;
+	protected String nom;
 	protected static List<String> divinite = Arrays.asList("Romtec", "Gorpa", "Shingua", "Gwengbelen", "PuiTara",
 			"Llewella", "Killinstred", "Yarstur", "Drinded", "Brewalen");
 	protected String originDivin;
@@ -303,6 +303,15 @@ f	 */
 	public abstract CarteCroyants choisirCarteCroyantsASacrifier();
 	public abstract void informer();
 	public abstract void choisirCarte(Carte c,StockCarte s);
+	public String getNom(){
+		if(this instanceof JoueurVirtuel ){
+		return "Joueur "+this.id;
+		}
+		else{
+			return "Vous";
+		}
+	}
+	
 
 }
 

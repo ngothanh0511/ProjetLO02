@@ -8,6 +8,7 @@ import javax.swing.border.*;
 import projet.cartes.Carte;
 import projet.cartes.Tapis;
 import projet.controlleur.Controlleur;
+import projet.joueur.Joueur;
 import projet.joueur.JoueurPhysique;
 import projet.joueur.JoueurVirtuel;
 import projet.joueur.Partie;
@@ -33,9 +34,9 @@ public class Principal extends JFrame implements Observer {
     
     private JButton TerminerSonTour  =  new JButton("Passer tour");
     private JButton JouerCarte = new JButton("Jouer/Sacrifier carte");
-    JButton Stop      = new JButton("Arrêter le jeu");
+    JButton Stop      = new JButton("Quitter le jeu");
     JButton Npartie   = new JButton("Nouvelle Partie");
-    private JButton DefausserCarte = new JButton("Défausser votre carte");
+    private JButton DefausserCarte = new JButton("Defausser votre carte");
 
     javax.swing.Timer T;
     JoueurPhysique P1;
@@ -53,6 +54,8 @@ public class Principal extends JFrame implements Observer {
     TapisPanel tapis = new TapisPanel();
     CarteTapis[] carteTapis = new CarteTapis[10];
     JoueurVirtuelPanel[] jvPanel = new JoueurVirtuelPanel[6];
+    ArrayList<Object> data= new ArrayList<Object>();
+    String title[] = {"Rang","Joueur","Divinite","Points Prieres","Action Jour","Action Nuit","Action Neant"};
     
     //////
     
@@ -143,9 +146,22 @@ public class Principal extends JFrame implements Observer {
     public CarteTapis[] getCarteTapis(){
     	return carteTapis;
     }
-    
+    public TapisPanel getTapis(){
+    	return tapis;
+    }
+    public JoueurPhysiquePanel getJPPanel(){
+    	return jpPanel;
+    }
+    public JPanel getPanelHaut(){
+    	return Panel_haut;
+    }
+    public JTextArea getResume(){
+    	return resume;
+    }
+
     private static Principal instance;
     private JTextField textField;
+    private JTable table;
     public static Principal getInstance() {
     	if (instance == null) {
 			instance = new Principal();
@@ -171,7 +187,7 @@ public class Principal extends JFrame implements Observer {
     
     private Principal(){
         super("  Jeu de carte - Pandocreon Divinae");
-        
+
         this.setSize(1400,750);
         setLocation(0,0);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -191,11 +207,11 @@ public class Principal extends JFrame implements Observer {
     	
     	
     	resume.setForeground(Color.RED);
-    	resume.setBounds(768, 554, 435, 140);
+    	resume.setBounds(768, 570, 435, 140);
     	getContentPane().add(resume);
     	
-    	Npartie.setBounds(1213, 591, 131, 41);
-    	getContentPane().add(Npartie);
+   /* 	Npartie.setBounds(1213, 591, 131, 41);
+    	getContentPane().add(Npartie);  */
     	
     	
     	Stop.setBounds(1213, 653, 131, 41);
@@ -212,23 +228,23 @@ public class Principal extends JFrame implements Observer {
     	getContentPane().add(getTerminerSonTour());
     	
     	
-    	jpPanel.setBounds(10, 339, 1193, 181);
+    	jpPanel.setBounds(10, 362, 1193, 185);
     	getContentPane().add(jpPanel);
     	
-    	Panel_haut.setBounds(10, 11, 1334, 198);
+    	Panel_haut.setBounds(10, 11, 1334, 170);
     	getContentPane().add(Panel_haut);
     	
-    	tapis.setBounds(10, 220, 1193, 120);
+    	tapis.setBounds(10, 178, 1193, 185);
     	getContentPane().add(tapis);
     ///	getContentPane().add(); */
     	
-    	JLabel lblRsum = new JLabel("Résumé");
+    	JLabel lblRsum = new JLabel("Resume");
     	lblRsum.setForeground(Color.BLACK);
     	lblRsum.setFont(new Font("Tahoma", Font.BOLD, 13));
-    	lblRsum.setBounds(768, 528, 64, 22);
+    	lblRsum.setBounds(768, 543, 64, 22);
     	getContentPane().add(lblRsum);
     	getContentPane().add(scroll);
-    	scroll.setBounds(new Rectangle(10, 554, 748, 140));
+    	scroll.setBounds(new Rectangle(10, 570, 748, 140));
     	            Detail.setTabSize(10);
     	//      getContentPane().add(Detail);
     	      
@@ -237,100 +253,13 @@ public class Principal extends JFrame implements Observer {
     	      //      pane.setBackground(bg);
     	            Detail.setFont(new Font("DialogInput",Font.BOLD,12));
     	            Detail.setText("la partie va commencer :\n");
+    	            
+    	            
         Color bg = new Color(255,255,255);
               
               
               
-  /*      this.getContentPane().add(DefausserCarte);
-        this.getContentPane().add(JouerCarte);
-        this.getContentPane().add(Npartie);
-        this.getContent Pane().add(Stop);
-        this.getContentPane().add(TerminerSonTour);
-        this.getContentPane().add(scroll); 
-        
- /*       buildConstraints(Constraints,0,0,1,1,50,30);
-        Constraints.fill = GridBagConstraints.NONE;
-        Jp1.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(Jp1, Constraints);
-        pane.add(Jp1);
-        
-        buildConstraints(Constraints,1,0,1,1,50,0);
-        Constraints.fill = GridBagConstraints.NONE;
-        Jp2.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(Jp2, Constraints);
-        pane.add(Jp2);
-        
-        buildConstraints(Constraints,0,1,1,1,0,5);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Gridbag.setConstraints(Lj1, Constraints);
-        pane.add(Lj1);
-        
-        buildConstraints(Constraints,1,1,1,1,0,0);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Gridbag.setConstraints(Lj2, Constraints);
-        pane.add(Lj2); */
-        
-/*        
-         buildConstraints(Constraints,0,2,2,1,0,30);
-        Constraints.fill = GridBagConstraints.BOTH;
-   //     Tj1.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(jpPanel, Constraints);
-        pane.add(jpPanel);
-        
-        buildConstraints(Constraints,0,1,2,1,0,30);
-        Constraints.fill = GridBagConstraints.BOTH;
-   //     Tj1.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(tapis, Constraints);
-        pane.add(tapis);
-        
-  /*      buildConstraints(Constraints,1,2,1,1,0,0);
-        Constraints.fill = GridBagConstraints.NONE;
-        Tj2.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(Tj2, Constraints);
-        pane.add(Tj2); 
-        
-        buildConstraints(Constraints,2,4,1,1,0,5);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Constraints.anchor = GridBagConstraints.CENTER;
-        TerminerSonTour.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(TerminerSonTour, Constraints);
-        pane.add(TerminerSonTour);
-        
-        buildConstraints(Constraints,1,4,1,1,0,0); 
-        Constraints.fill = GridBagConstraints.BOTH;
-        Constraints.anchor = GridBagConstraints.CENTER;
-        JouerCarte.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(JouerCarte, Constraints);
-        pane.add(JouerCarte);
-        
-        buildConstraints(Constraints,0,4,1,1,0,5); //
-        Constraints.fill = GridBagConstraints.BOTH;
-        Constraints.anchor = GridBagConstraints.CENTER;
-        DefausserCarte.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(DefausserCarte, Constraints);
-        pane.add(DefausserCarte);
-        
-        buildConstraints(Constraints,3,4,1,1,0,0);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Constraints.anchor = GridBagConstraints.CENTER;
-        Stop.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(Stop, Constraints);
-        pane.add(Stop);
-        
-        buildConstraints(Constraints,4,4,2,1,0,2);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Constraints.anchor = GridBagConstraints.CENTER;
-        Npartie.setBorder(new LineBorder(Color.black));
-        Gridbag.setConstraints(Npartie, Constraints);
-        pane.add(Npartie);
-        
-        buildConstraints(Constraints,0,5,2,1,0,21);
-        Constraints.fill = GridBagConstraints.BOTH;
-        Gridbag.setConstraints(scroll, Constraints);
-        pane.add(scroll);
-        this.setContentPane(pane);
-        */
-  
+ 
         
        
         
@@ -390,11 +319,11 @@ public class Principal extends JFrame implements Observer {
             }
         });
         
-        Npartie.addActionListener(new java.awt.event.ActionListener() {
+  /*      Npartie.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 controlleur.Button_on_click_NPartie(e);
             }
-        });
+        }); */
         JouerCarte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	controlleur.Button_on_click_JouerCarte(e);
@@ -411,7 +340,9 @@ public class Principal extends JFrame implements Observer {
             	controlleur.Button_on_click_DefausserCarte(e);
             }
         }); 
-        //gestion des événements sur la fenétre
+        
+        
+        //gestion des evenements sur la fenetre
         this.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 dispose();
@@ -423,10 +354,9 @@ public class Principal extends JFrame implements Observer {
         
         
     }
+    
      
     public void initComposant() {
-
-	//	joueurVirtuelPanel.removeAll();
 		tapis.removeAll();
 		jpPanel.removeAll();
 		jpPanel.drawCarteJoueur(controlleur.getModel().getJPhysique());
@@ -442,52 +372,8 @@ public class Principal extends JFrame implements Observer {
 			Panel_haut.add(jvPanel[i]);
 		}
 		}
-		
-		
-	//	resume.setFont(new Font("DialogInput",Font.BOLD,11));
-
-/*		BGPanel panel = new BGPanel("images\\bg.jpg");
-		panel.setLayout(null);
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-	/*	if (controlleur.getModel().getManche().isDebuterMancheAvancee() == true) {
-			String[] choix = { "Carte Allie", "2 Menhirs" };
-			JOptionPane jop = new JOptionPane();
-			int rang = jop.showOptionDialog(null,
-					"Veuillez indiquer votre choix !", "Choix !",
-					JOptionPane.YES_NO_CANCEL_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, choix, choix[0]);
-			controlleur.getModel().getListJoueur().get(0).setChoixAllie(rang);
-			controlleur.getModel().getManche()
-					.distribuerCarteAllie(controlleur.getModel());
-
-		} */
-
-		
-
-	/*	if (controlleur.getModel().isTerminerPartie() == true) {
-			JOptionPane jop = new JOptionPane();
-			ImageIcon image2 = new ImageIcon("images\\result.jpg");
-			ArrayList<String> nom = controlleur.getModel().getGagnant();
-			jop.showMessageDialog(null, "Gagnant " + nom, "Resultat",
-					JOptionPane.PLAIN_MESSAGE, image2);
-		} */
 	} 
-    void buildConstraints(GridBagConstraints gbc, int gx, int gy,int gw, int gh, int wx, int wy){
-        gbc.gridx = gx;
-        gbc.gridy = gy;
-        gbc.gridwidth = gw;
-        gbc.gridheight = gh;
-        gbc.weightx = wx;
-        gbc.weighty = wy;
-    }
     
-    /**
-	 * Draw joueur.
-	 *
-	 * @param joueur
-	 *            the joueur
-	 */
 	public void drawCarteCroyants() {
 		if(Tapis.getListeCartesCroyants().isEmpty()==false){
 		for (int i = 0; i < Tapis.getListeCartesCroyants().size(); i++) {
@@ -495,30 +381,8 @@ public class Principal extends JFrame implements Observer {
 			tapis.add(carteTapis[i]);
 		}
 		}
+		else{ tapis.removeAll();}
 	}
-     
-    /**
-     * enregistre une partie dans un fichier. 
-     */
- /*   public void EnregisterPartie(){
-        try{
-            File f = new File("save/"+J.getFichier());
-            FileWriter fw = new FileWriter(f);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(Detail.getText());
-            bw.close();
-            fw.close();
-        }catch(IOException e){
-    
-        }
-    } 
-    /**
-     * lire une partie.
-     * S est une chaine quelconque.
-     * renvois null si save/S.bjc n'existe pas.
-     */
-       
-  
 
 	@Override
 	public void update(Observable o, Object arg) {

@@ -111,9 +111,7 @@ public class JoueurVirtuel extends Joueur {
 	 * Retourner le nom du joueur
 	 * @return
 	 */
-	public String getNom(){
-		return "Joueur "+this.id;
-	}
+	
 	
 	/**
 	 * Affichage des informations des joueur virtuels

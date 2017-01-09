@@ -11,7 +11,7 @@ import java.util.Collections;
 public class StockCarte {
 	protected static ArrayList <Carte> stock = new ArrayList <Carte>();
 	/**
-	 * Constructeur par dÃ©faut de la classe StockCarte
+	 * Constructeur par defaut de la classe StockCarte
 	 * A la construction, le stock Carte contient 80 cartes d'Action
 	 */
 	public StockCarte(){
@@ -25,14 +25,14 @@ public class StockCarte {
 		CarteCroyants c_8 = new CarteCroyants("Travailleurs", 8, "Croyant", "Jour",new String[] {"Hunmain", "Chaos", "Mystique"}, 2, "F_4");
 		CarteCroyants c_9 = new CarteCroyants("Ermite", 9, "Croyant", "Jour",new String[] {"Chaos", "Nature", "Mystique"}, 1, "F_5");
 		CarteCroyants c_10 = new CarteCroyants("Ermite", 10, "Croyant", "Jour",new String[] {"Symboles", "Nature", "Mystique"}, 1, "F_5");
-		CarteCroyants c_11 = new CarteCroyants("IntÃ©gristes", 11, "Croyant", "Jour",new String[] {"Hunmain", "Nature", "Chaos"}, 1, "F_5");
+		CarteCroyants c_11 = new CarteCroyants("Integristes", 11, "Croyant", "Jour",new String[] {"Hunmain", "Nature", "Chaos"}, 1, "F_5");
 		CarteCroyants c_12 = new CarteCroyants("Guerriers Saints", 12, "Croyant", "Jour",new String[] {"Symboles", "Nature", "Mystique"}, 4, "F_6");
 		CarteCroyants c_13 = new CarteCroyants("Diplomates", 13, "Croyant", "Jour",new String[] {"Hunmain", "Chaos", "Symboles"}, 4, "F_7");
-		CarteCroyants c_14 = new CarteCroyants("DÃ©mons", 14, "Croyant", "Nuit",new String[] {"Hunmain", "Nature", "Mystique"}, 2, "F_1");
-		CarteCroyants c_15 = new CarteCroyants("DÃ©mons", 15, "Croyant", "Nuit",new String[] {"Hunmain", "Chaos", "Mystique"}, 2, "F_1");
-		CarteCroyants c_16 = new CarteCroyants("DÃ©mons", 16, "Croyant", "Nuit",new String[] {"Symboles", "Chaos", "Mystique"}, 2, "F_1");
-		CarteCroyants c_17 = new CarteCroyants("DÃ©mons", 17, "Croyant", "Nuit",new String[] {"Symboles", "Nature", "Mystique"}, 2, "F_1");
-		CarteCroyants c_18 = new CarteCroyants("DÃ©mons", 18, "Croyant", "Nuit",new String[] {"Chaos", "Nature", "Mystique"}, 2, "F_1");
+		CarteCroyants c_14 = new CarteCroyants("Demons", 14, "Croyant", "Nuit",new String[] {"Hunmain", "Nature", "Mystique"}, 2, "F_1");
+		CarteCroyants c_15 = new CarteCroyants("Demons", 15, "Croyant", "Nuit",new String[] {"Hunmain", "Chaos", "Mystique"}, 2, "F_1");
+		CarteCroyants c_16 = new CarteCroyants("Demons", 16, "Croyant", "Nuit",new String[] {"Symboles", "Chaos", "Mystique"}, 2, "F_1");
+		CarteCroyants c_17 = new CarteCroyants("Demons", 17, "Croyant", "Nuit",new String[] {"Symboles", "Nature", "Mystique"}, 2, "F_1");
+		CarteCroyants c_18 = new CarteCroyants("Demons", 18, "Croyant", "Nuit",new String[] {"Chaos", "Nature", "Mystique"}, 2, "F_1");
 		CarteCroyants c_19 = new CarteCroyants("Alchimistes", 19, "Croyant", "Nuit",new String[] {"Symboles", "Nature", "Chaos"}, 2, "F_2");
 		CarteCroyants c_20 = new CarteCroyants("Alchimistes", 20, "Croyant", "Nuit",new String[] {"Chaos", "Nature", "Mystique"}, 2, "F_3");
 		CarteCroyants c_21 = new CarteCroyants("Alchimistes", 21, "Croyant", "Nuit",new String[] {"Symboles", "Nature", "Chaos"}, 2, "F_4");
@@ -46,11 +46,11 @@ public class StockCarte {
 		CarteCroyants c_29 = new CarteCroyants("Esprits", 29, "Croyant", "Neant",new String[] {"Symboles", "Chaos", "Mystique"}, 2, "F_1");
 		CarteCroyants c_30 = new CarteCroyants("Esprits", 30, "Croyant", "Neant",new String[] {"Symboles", "Nature", "Mystique"}, 2, "F_1");
 		CarteCroyants c_31 = new CarteCroyants("Esprits", 31, "Croyant", "Neant",new String[] {"Nature", "Chaos", "Mystique"}, 2, "F_1");
-		CarteCroyants c_32 = new CarteCroyants("AliÃ©nÃ©s", 32, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Symboles"}, 2, "F_2");
-		CarteCroyants c_33 = new CarteCroyants("AliÃ©nÃ©s", 33, "Croyant", "Neant",new String[] {"Hunmain", "Nature", "Symboles"}, 2, "F_3");
-		CarteCroyants c_34 = new CarteCroyants("AliÃ©nÃ©s", 34, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Mystique"}, 2, "F_4");
+		CarteCroyants c_32 = new CarteCroyants("Alies", 32, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Symboles"}, 2, "F_2");
+		CarteCroyants c_33 = new CarteCroyants("Alies", 33, "Croyant", "Neant",new String[] {"Hunmain", "Nature", "Symboles"}, 2, "F_3");
+		CarteCroyants c_34 = new CarteCroyants("Alies", 34, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Mystique"}, 2, "F_4");
 		CarteCroyants c_35 = new CarteCroyants("Revenant", 35, "Croyant", "Neant",new String[] {"Hunmain", "Nature", "Mystique"}, 1, "F_7");
-		CarteCroyants c_36 = new CarteCroyants("RÃ©volutionnaires", 36, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Symboles"}, 1, "F_5");
+		CarteCroyants c_36 = new CarteCroyants("Revolutionnaires", 36, "Croyant", "Neant",new String[] {"Hunmain", "Chaos", "Symboles"}, 1, "F_5");
 		CarteCroyants c_37 = new CarteCroyants("Nibillistes", 37, "Croyant", "Neant",new String[] {"Symboles", "Chaos", "Mystique"}, 4, "F_10");
 		GuideSpirituel c_38 = new GuideSpirituel("Martyr", 38, "GuideSpirituel", "Jour",new String[] {"Hunmain", "Nature"}, 2,"F_11"); 
 		GuideSpirituel c_39 = new GuideSpirituel("Martyr", 39, "GuideSpirituel", "Nuit",new String[] {"Hunmain", "Symboles"}, 2, "F_11"); 
@@ -72,10 +72,10 @@ public class StockCarte {
 		GuideSpirituel c_55 = new GuideSpirituel("Sorcier", 55, "GuideSpirituel", "Nuit",new String[] {"Mystique", "Symboles"}, 3, "F_18"); 
 		GuideSpirituel c_56 = new GuideSpirituel("Tyran", 56, "GuideSpirituel", "Neant",new String[] {"Chaos", "Symboles"}, 3, "F_19"); 
 		GuideSpirituel c_57 = new GuideSpirituel("Messie", 57, "GuideSpirituel", "Jour",new String[] {"Hunmain", "Mystique"}, 3, "F_20"); 
-		DeusEx c_58= new DeusEx("ColÃ¨re Divine", 58, "DeusEx", "Jour", "F_21");
-		DeusEx c_59= new DeusEx("ColÃ¨re Divine", 59, "DeusEx", "Nuit", "F_21");
+		DeusEx c_58= new DeusEx("Colere Divine", 58, "DeusEx", "Jour", "F_21");
+		DeusEx c_59= new DeusEx("Colere Divine", 59, "DeusEx", "Nuit", "F_21");
 		DeusEx c_60= new DeusEx("Stase", 60, "DeusEx", "Jour", "F_23");
-		DeusEx c_61= new DeusEx("Ordre CÃ©leste", 61, "DeusEx", "Jour", "F_23");
+		DeusEx c_61= new DeusEx("Ordre Ceeste", 61, "DeusEx", "Jour", "F_23");
 //		DeusEx c_62= new DeusEx("Fourberie", 62, "DeusEx", "Nuit", "F_16");
 		DeusEx c_63= new DeusEx("Diversion", 63, "DeusEx", "Nuit", "F_4");
 		DeusEx c_64= new DeusEx("Concentration", 64, "DeusEx", "Neant", "F_23");
@@ -185,7 +185,7 @@ public class StockCarte {
 		return stock;
 	}
 	/**
-	 * Compléter la main de joueur à  7 cartes
+	 * Completer la main de joueur à  7 cartes
 	 */
 	public  void  distribuerCartes(Main laMain){
 		Collections.shuffle(getStock());

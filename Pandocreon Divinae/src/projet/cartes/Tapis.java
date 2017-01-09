@@ -1,6 +1,8 @@
 package projet.cartes;
 
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 /**
  * La classe Tapis représente le tapis du jeu
  * 
@@ -18,7 +20,7 @@ public class Tapis {
 	 */
 	public static void recevoirCartes(CarteCroyants c){
 		ListeCartesCroyantsIndisponible.add(c);
-		System.out.println("La carte c_ "+ c.getIdCarte() +" est bien ajouté au centre de la table!");
+		
 	}
 	/**
 	 * Getter de l'attribute ListeCartesCroyants

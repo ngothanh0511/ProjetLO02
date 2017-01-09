@@ -4,6 +4,13 @@ import projet.cartes.StockCarte;
 import projet.joueur.DeCosmogonie;
 import projet.vueGraphique.Principal;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,8 +20,8 @@ import java.util.Scanner;
 /**
  * Cette classe représente la partie qui générer le jeu
  */
-public class Partie extends Observable  {
-
+public class Partie extends Observable implements Serializable {
+	static private final long serialVersionUID = 6L;
 	static Scanner scan = new Scanner(System.in);
 	protected static int nbrJoueurs=0;
 	protected static int tours=1;
@@ -128,7 +135,7 @@ public class Partie extends Observable  {
 	 * Getter de l'attribute rangJoueur
 	 * @return
 	 */
-	public static ArrayList<Joueur> getRangJoueur(){
+	public ArrayList<Joueur> getRangJoueur(){
 		return rangJoueur;
 	}
 	
@@ -220,12 +227,7 @@ public class Partie extends Observable  {
 			listeJoueur.remove(0);
 			updateVue();
 		}
-/*		boolean b = phy.getEstJoueSonTour();
-		System.out.println(b);
-		phy.setEstJoueSonTour(false);
-		boolean a = phy.getEstJoueSonTour();
-		System.out.println(a); */
-		
+
 		listeJoueur.add(listeJoueur.get(0));
 		listeJoueur.remove(0);
 		updateVue();
@@ -242,7 +244,7 @@ public class Partie extends Observable  {
 			}
 		}
 		tours+=1;
-		System.out.println("----------------------------------------Récapitulatif du tour---------------------------------------");
+		System.out.println("----------------------------------------Recapitulatif du tour---------------------------------------");
 		for(int i=0;i<listeJoueur.size();i++){
 			if(listeJoueur.get(i).typeJoueur=="Joueur Virtuel"){
 			System.out.println("");
@@ -254,7 +256,7 @@ public class Partie extends Observable  {
 		System.out.println("-----------------------------------------------------------------------------------------------------");
 		System.out.println("");
 		if(tours==25){//c'est pour arreter le jeu sinon ça va être trop long
-			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagné le jeu!! Felicitations!!!");
+			System.out.println(" Le jouer "+getGagnant().getIdJoueur() +" a gagne le jeu!! Felicitations!!!");
 			System.exit(1);
 		}
 		
@@ -304,11 +306,11 @@ public class Partie extends Observable  {
 //		System.out.println(((JoueurVirtuel) listeJoueur.get(1)).getTypeDif());
 			System.out.println("Bonjour, "+ JoueurPhysique.setNom()+ " vous avez choisi " + nbrJoueurs + " joueurs virtuels à  jouer avec."); */
 	    Collections.shuffle(Joueur.divinite);	
-	    System.out.print("Votre Divinité est "); 
+	    System.out.print("Votre Divinite est "); 
 			phy.piocheDivinite();
 			
 			for (int i=1;i<listeJoueur.size();i++){
-				System.out.print("Divinité de Joueur_"+listeJoueur.get(i).id +" est ");
+				System.out.print("Divinite de Joueur_"+listeJoueur.get(i).id +" est ");
 				listeJoueur.get(i).piocheDivinite();
 			}
 			for (int i=0;i<listeJoueur.size();i++){
@@ -322,7 +324,23 @@ public class Partie extends Observable  {
 		
 	}
 	
+	public void sauvegarder(String s) throws FileNotFoundException, IOException
+    {
+        try{
+            ObjectOutputStream save = new ObjectOutputStream(new FileOutputStream(s));
+            save.writeObject(this);
+            save.close();
+        } catch (IOException e){
+            e.printStackTrace();
+            System.out.println("Impossible de sauvegarder");
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+	
 	
 		
 	
+
 }

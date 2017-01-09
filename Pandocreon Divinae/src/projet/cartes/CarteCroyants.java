@@ -1,6 +1,10 @@
 package projet.cartes;
 
+import javax.swing.JOptionPane;
+
 import projet.joueur.Joueur;
+import projet.joueur.JoueurPhysique;
+import projet.joueur.Partie;
 
 /**
  * La classe CarteCroyants représente les cartes Croyants dans le jeu
@@ -36,6 +40,11 @@ public class CarteCroyants extends Carte {
 	  */
 	public void activerFonctionCarte(Joueur joueur, StockCarte s){
 		Tapis.recevoirCartes(this);
+		System.out.println("La carte Croyant "+ this.getNom() +" est bien ajouté au centre de la table!");
+		if(joueur instanceof JoueurPhysique){
+		JOptionPane.showMessageDialog(null,"La carte Croyant "+ this.getNom() +" est bien ajouté au centre de la table!");
+		Partie.getInstance().updateVue();
+	}
 	}
 	/**
 	 * Constructeur par défaut d'une carte Croyants

@@ -8,6 +8,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.JOptionPane;
+
 import projet.cartes.*;
 import projet.vueGraphique.Principal;
 
@@ -45,16 +47,23 @@ public class JoueurPhysique extends Joueur{
 		a = value;
 	}
 	static Scanner scan = new Scanner(System.in);
-	static Scanner nom = new Scanner(System.in);
+//	static Scanner nom = new Scanner(System.in);
 	//private static int nbrJoueurs;
 	/**
 	 * Le joueur physique saisit son nom
 	 * @return
 	 */
-	public static String setNom(){
+/*	public static String setNom(){
 		System.out.println("Mettez votre nom : ");
 		return nom.nextLine();
 		
+	} */
+	
+	public void setNom(String nom){
+		this.nom = nom;
+	}
+	public String getNom(){
+		return this.nom;
 	}
 	/**
 	 * Setter de l'attribue estJoueSonTour
@@ -154,28 +163,8 @@ public class JoueurPhysique extends Joueur{
 		Principal.getInstance().getDefausserCarte().setEnabled(true);
 		Principal.getInstance().getTerminerSonTour().setEnabled(true);
 		Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+" \n Votre tour, Choisissez une action!");
-		while(Partie.getInstance().getEstJoueSonTour()==false){
-		/*		Principal.getInstance().getJouerCarte().addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	            	Principal.getInstance().getControlleur().Button_on_click_JouerCarte(e);
-	            }
-	        });
-			Principal.getInstance().getTerminerSonTour().addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	    //        	Principal.getInstance().getControlleur().Button_on_click_TerminerSonTour(e);
-	      //      	Principal.getInstance().getTerminerSonTour().setEnabled(true);
-	           	for (int i = 0; i< Tapis.getListeCartesCroyantsIndisponible().size();i++){
-	    				Tapis.getListeCartesCroyants().add(Tapis.getListeCartesCroyantsIndisponible().get(i));
-	    				Tapis.getListeCartesCroyantsIndisponible().remove(i);
-	            	}
-	            	Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"    \n  Vous avez termin� votre tour! ");
-	    			Partie.getInstance().setEstJoueSonTour(true);              }
-	        });
-			Principal.getInstance().getDefausserCarte().addActionListener(new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	            	Principal.getInstance().getControlleur().Button_on_click_DefausserCarte(e);
-	            }
-	        });  */
+		JOptionPane.showMessageDialog(null,"Votre tour, Choisissez une action!");
+		while(!Partie.getInstance().getEstJoueSonTour()){ 
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
@@ -211,79 +200,11 @@ public class JoueurPhysique extends Joueur{
 		s.distribuerCartes(laMain);
 		choisirCarte(s); */
 		
-		/// GRAPHIQUE
-/*		if (estJoueSonTour==false){
-		//	Partie.getInstance().updateVue();
-			Principal.getInstance().setVisible(true);
-		}
-		else {
-			passerTour();
-	} */
+		
 		
 	}
 	
-public void commencerTour(){
-	DeCosmogonie de = new DeCosmogonie();
-	System.out.println("***********************************Tour " + Partie.tours+"*************************");
-	System.out.println("Lancement le d� de Cosmogonie...");
-	Collections.shuffle(Arrays.asList(de.face));
-	de.resultatLancement();
-	String resLance= de.getFace();
-	for (int i=0;i<(Partie.getInstance().getListeJoueur().size());i++){
-		de.donnerPtAction(resLance, Partie.getInstance().getListeJoueur().get(i)); 
-	}
-	for(int j=0;j<Partie.getInstance().getListeJoueur().size();j++){
-		if(Partie.getInstance().getListeJoueur().get(0).getTypeJoueur()=="Joueur Physique"){
-			break;
-		}
-		Partie.getInstance().getListeJoueur().get(0).jouerSonTour(Partie.getInstance().getStockCarte());
-		Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
-		Partie.getInstance().getListeJoueur().remove(0);
-		a++;
-		}
-		jouerSonTour(Partie.getInstance().getStockCarte());
-}
-	public void terminerTour(){
-		estJoueSonTour = false;
-		Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
-		Partie.getInstance().getListeJoueur().remove(0);
-		a=0;
-	for(int j=0;j<Partie.getInstance().getListeJoueur().size();j++){
-		Partie.getInstance().getListeJoueur().get(j).calculerPtPrieres();
-		Partie.getInstance().getListeJoueur().get(j).peutRecevoirPtAction = true;
-		for(int k=0; k<Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().size();k++){
-			for(int h=0;h<Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().get(k).size();h++){
-				Partie.getInstance().getListeJoueur().get(j).getLaMain().getlistePaireGuideVsCroyants().get(k).get(h).setSacrifiable(true);
-			}
-		}
-	}
-	Partie.setRangJoueur();
-	Partie.tours+=1;
-	}
-	public void passerTour(){
- 		for(int i=0;i<Partie.getInstance().getListeJoueur().size();i++){
- 			if(a==Partie.getInstance().getListeJoueur().size()){
- 				terminerTour();
- 				commencerTour();
-				break;
-			}
- 			if(Partie.getInstance().getListeJoueur().get(0).getTypeJoueur()=="Joueur Physique"){
- 				break;
- 			}
-			Partie.getInstance().getListeJoueur().get(0).jouerSonTour(Partie.getInstance().getStockCarte());
-			Partie.getInstance().getListeJoueur().add(Partie.getInstance().getListeJoueur().get(0));
-			Partie.getInstance().getListeJoueur().remove(0);
-			a++;
-			if(a==Partie.getInstance().getListeJoueur().size()){
-				
-			/// RÃ©initialiser Carte.estSacrifiable = true
-			terminerTour();
-			commencerTour();
-				break;
-			}
-		}
-		jouerSonTour(Partie.getInstance().getStockCarte());
-	}
+
 	/** 
 	 * Le joueur choisit la carte d'Action � jouer
 	 */
@@ -329,7 +250,7 @@ public void commencerTour(){
 					}
 					else {
 						System.out.println("La carte que vous choissiez n'est pas utilisable!");
-						Principal.getInstance().getDetail().setText(Principal.getInstance().getDetail().getText()+"\n La carte que vous choissiez n'est pas utilisable!");
+						JOptionPane.showMessageDialog(null,"La carte que vous choissiez n'est pas utilisable!");
 					}
 				}
 			}
@@ -477,7 +398,7 @@ public void commencerTour(){
 			for (int i=0; i< Partie.listeJoueur.size();i++){
 				if( a == Partie.listeJoueur.get(i).getIdJoueur()){
 					Partie.listeJoueur.get(i).afficherListePairGuideVsCroyants();
-					System.out.println("Mettez l'ID de la carte Guide Spirituel qui contient les cartes Croyants seront défaussées:");
+					System.out.println("Mettez l'ID de la carte Guide Spirituel qui contient les cartes Croyants seront defaussees:");
 					int b;
 					b = scan.nextInt();
 					for (int k=0; k<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();k++){
@@ -558,7 +479,7 @@ public void commencerTour(){
 					System.out.println(Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().get(j).get(k).afficherCarte());
 						}
 					}
-					System.out.println("Mettez l'ID de la carte Croyants que vous voulez bénéficer sa capacité spéciale:");
+					System.out.println("Mettez l'ID de la carte Croyants que vous voulez beneficer sa capacite speciale:");
 					int b;
 					b = scan.nextInt();
 					for (int j=0;j<Partie.listeJoueur.get(i).getLaMain().getlistePaireGuideVsCroyants().size();j++){
@@ -579,20 +500,22 @@ public void commencerTour(){
 				Partie.listeJoueur.get(i).peutRecevoirPtAction= false;
 			}
 			}
-			System.out.println("Jusqu'à la fin du tour, plus aucun joueur ne reçoit de points d'Action");
+			System.out.println("Jusqu'a� la fin du tour, plus aucun joueur ne recoit de points d'Action");
 			break;
 		case "F_11":
 			if(Partie.listeJoueur.size()>3){
 				if(Partie.getEliminant()!= null){
 				if(Partie.getEliminant().typeJoueur=="Joueur Physique"){
-					System.out.println("Vous êtes éliminé car le joueur qui gagne le moins points de Prières");
+					System.out.println("Vous etes elimine car le joueur qui gagne le moins points de Prieres");
+					JOptionPane.showMessageDialog(null,"Une carte Apocalypse est joue !"+ "\nVous etes elimine car le joueur qui gagne le moins points de Prieres");
 					Partie.listeJoueur.remove(Partie.getEliminant()); 
 					Partie.rangJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs-=1;
 					System.exit(1);
 				}
 				else if(Partie.getEliminant().typeJoueur=="Joueur Virtuel"){
-					System.out.println("Le Joueur_"+Partie.getEliminant().id+" est éliminé car il est le joueur qui gagne le moins points de Prières");
+					System.out.println("Le Joueur_"+Partie.getEliminant().id+" est elimine car il est le joueur qui gagne le moins points de Prieres");
+					JOptionPane.showMessageDialog(null,"Une carte Apocalypse est joue !"+"\nLe Joueur_"+Partie.getEliminant().id+"est elimine car il est le joueur qui gagne le moins points de Prieres");
 					Partie.listeJoueur.remove(Partie.getEliminant());
 					Partie.nbrJoueurs -=1;
 					s.getStock().add(carte);
@@ -610,33 +533,36 @@ public void commencerTour(){
 			else if(Partie.listeJoueur.size()<4){
 				if(Partie.getGagnant()!= null){
 				if(Partie.getGagnant().typeJoueur=="Joueur Physique"){
-					System.out.println("Félicitation! Vous êtes gagné !");
+					System.out.println("Felicitation! Vous etes gagne !");
+					JOptionPane.showMessageDialog(null,"Felicitation! Vous etes gagne !");
 				}
 				else if(Partie.getGagnant().typeJoueur=="Joueur Virtuel"){
-					System.out.println("Joueur_"+Partie.getGagnant().id+" est gagné car il est le joueur qui gagne le plus points Prières.");
+					System.out.println("Joueur_"+Partie.getGagnant().id+" est gagne car il est le joueur qui gagne le plus points Prieres.");
+					JOptionPane.showMessageDialog(null,"Une carte Apocalypse est joue!"+"\nJoueur_"+Partie.getGagnant().id+" est gagne car il est le joueur qui gagne le plus points Prieres.");
 				}
 				System.exit(1);
 				}
-				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le plus points de Prières ");}
+				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le plus points de Prieres ");
+				JOptionPane.showMessageDialog(null,"La carte n'a pas effect car il n'y pas le joueur qui gagne le plus points de Prieres ");}
 			}
 			break;
 		case "F_12":
-			System.out.println("Choisir l'origine pour les points Action gagnés (Jour,Nuit,Neant):");
+			System.out.println("Choisir l'origine pour les points Action gagnes (Jour,Nuit,Neant):");
 			for(int i=0;i<laMain.getlistePaireGuideVsCroyants().size();i++){
 				if(laMain.getlistePaireGuideVsCroyants().get(i).contains(carte)){
 					Integer pt= laMain.getlistePaireGuideVsCroyants().get(i).size()-1;
 					String origine = scan.nextLine();
 					if(origine=="Jour"){
 						ptActionJour+= pt;
-						System.out.println("Vous avez reçu "+pt+"points d'Action Jour");
+						System.out.println("Vous avez recu "+pt+"points d'Action Jour");
 					}
 					else if (origine=="Nuit"){
 						ptActionNuit+=pt;
-						System.out.println("Vous avez reçu "+pt+"points d'Action Nuit");
+						System.out.println("Vous avez recu "+pt+"points d'Action Nuit");
 					}
 					else if(origine == "Neant"){
 						ptActionNeant += pt;
-						System.out.println("Vous avez reçu "+pt+"points d'Action Néant");
+						System.out.println("Vous avez recu "+pt+"points d'Action Neant");
 					}
 					break;
 				
@@ -890,29 +816,29 @@ public void commencerTour(){
 			case "Influence Jour":
 				if(carteJouee.getOrigine()=="Nuit"|| carteJouee.getOrigine()=="Neant"){
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacite speciale de la carte "+carteJouee.getNom()+" est annule");
 				}
 				break;
 			case "Influence Nuit":
 				if(carteJouee.getOrigine()=="Jour"|| carteJouee.getOrigine()=="Neant"){
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacite speciale de la carte "+carteJouee.getNom()+" est annule");
 				}
 				break;
 			case "Influence Neant":
 				if(carteJouee.getOrigine()=="Jour"|| carteJouee.getOrigine()=="Nuit"){
 					carteJouee.setAnnule(true);
-					System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+					System.out.println("La capacite speciale de la carte "+carteJouee.getNom()+" est annule");
 				}
 				break;
 			case "Influence Nulle":
 				carteJouee.setAnnule(true);
-				System.out.println("La capacité spéciale de la carte "+carteJouee.getNom()+" est annuléé");
+				System.out.println("La capacite speciale de la carte "+carteJouee.getNom()+" est annule");
 				break;
 			} 
 		case "F_29":
-			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le dé de Cosmogonie. Sur Jour, le Guide adverse est sacrifié, sur Nuit le votre est sacrifié, sur Néant rien ne se passe.");
-			System.out.println("Lancement du dé....");
+			System.out.println("Choisissez un des Guides Spirituels d'un autre joueur, et l'un des votres. Lancez le de Cosmogonie. Sur Jour, le Guide adverse est sacrifie, sur Nuit le votre est sacrifie, sur Neant rien ne se passe.");
+			System.out.println("Lancement du de Cosmogonie....");
 			try {
 				TimeUnit.SECONDS.sleep(2);
 			} catch (InterruptedException e) {

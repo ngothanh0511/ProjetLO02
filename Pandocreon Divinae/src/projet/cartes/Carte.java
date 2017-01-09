@@ -201,9 +201,9 @@ public abstract class   Carte {
 				break;
 			case "Apocalypse":
 				Partie.setRangJoueur();
-				int rang = Partie.getRangJoueur().indexOf(this);
-				if (Partie.getRangJoueur().size() > 3) {
-					if(rang==Partie.getRangJoueur().size()-1){
+				int rang = Partie.getInstance().getRangJoueur().indexOf(this);
+				if (Partie.getInstance().getRangJoueur().size() > 3) {
+					if(rang==Partie.getInstance().getRangJoueur().size()-1){
 						estUtilisable=false;
 					}
 					else{
