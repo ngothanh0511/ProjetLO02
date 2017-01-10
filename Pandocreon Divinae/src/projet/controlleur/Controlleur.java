@@ -1,16 +1,20 @@
 package projet.controlleur;
 
 
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-
+import projet.cartes.Carte;
 import projet.cartes.Tapis;
+import projet.joueur.JoueurPhysique;
 import projet.joueur.Partie;
-
+import projet.vueGraphique.CarteJP;
 import projet.vueGraphique.Debut;
 import projet.vueGraphique.Principal;
 
@@ -80,6 +84,28 @@ public class Controlleur {
 
 			
         }
+	
+	public void Button_on_click_voirCarte(ActionEvent e){
+		//this.setLayout(new FlowLayout());
+		JoueurPhysique jp= model.getJPhysique();
+		JFrame jf = new JFrame();
+		jf.setSize(new Dimension(900, 300));
+        jf.getContentPane().setLayout(new FlowLayout());
+        
+        
+		if(jp.getLaMain().getlistePaireGuideVsCroyants().isEmpty()==false){
+			for (int i = 0; i < jp.getLaMain().getlistePaireGuideVsCroyants().size(); i++) {
+				
+				for(int j=0; j<jp.getLaMain().getlistePaireGuideVsCroyants().get(i).size();j++){
+					Carte carte = jp.getLaMain().getlistePaireGuideVsCroyants().get(i).get(j);
+					CarteJP cartePanel= new CarteJP(carte);
+					jf.getContentPane().add(cartePanel);
+				}
+				
+			}
+		}
+		jf.setVisible(true);
+    }   
 	
 	
 	public String info(){

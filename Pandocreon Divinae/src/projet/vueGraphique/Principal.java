@@ -37,6 +37,7 @@ public class Principal extends JFrame implements Observer {
     JButton Stop      = new JButton("Quitter le jeu");
     JButton Npartie   = new JButton("Nouvelle Partie");
     private JButton DefausserCarte = new JButton("Defausser votre carte");
+    private JButton voirCarte= new JButton("VOUS");
 
     javax.swing.Timer T;
     JoueurPhysique P1;
@@ -227,8 +228,12 @@ public class Principal extends JFrame implements Observer {
     	getTerminerSonTour().setBounds(1213, 354, 131, 41);
     	getContentPane().add(getTerminerSonTour());
     	
+    	voirCarte.setBounds(10, 429, 80, 29);
+    	getContentPane().add(voirCarte);
+		
     	
-    	jpPanel.setBounds(10, 362, 1193, 185);
+    	
+    	jpPanel.setBounds(100, 362, 1103, 185);
     	getContentPane().add(jpPanel);
     	
     	Panel_haut.setBounds(10, 11, 1334, 170);
@@ -253,6 +258,8 @@ public class Principal extends JFrame implements Observer {
     	      //      pane.setBackground(bg);
     	            Detail.setFont(new Font("DialogInput",Font.BOLD,12));
     	            Detail.setText("la partie va commencer :\n");
+    	            
+    	            
     	            
     	            
         Color bg = new Color(255,255,255);
@@ -338,6 +345,12 @@ public class Principal extends JFrame implements Observer {
         DefausserCarte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
             	controlleur.Button_on_click_DefausserCarte(e);
+            }
+        }); 
+        
+        voirCarte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	controlleur.Button_on_click_voirCarte(e);
             }
         }); 
         
