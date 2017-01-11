@@ -524,7 +524,9 @@ public class JoueurPhysique extends Joueur{
 					Partie.getInstance().tourDeJeu(s);
 				}
 				}
-				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le moins points de Prières ");}
+				else{ System.out.println("La carte n'a pas effect car il n'y pas le joueur qui gagne le moins points de Prieres ");
+				JOptionPane.showMessageDialog(null,"La carte n'a pas effect car il n'y pas le joueur qui gagne le moins points de Prieres ");
+				}
 				
 			}
 			else if(Partie.listeJoueur.size()<4){

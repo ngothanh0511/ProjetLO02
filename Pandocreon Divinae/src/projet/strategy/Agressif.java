@@ -36,7 +36,7 @@ public class Agressif implements Strategy{
 		int a=0;
 		for(int i=0;i< joueur.getLaMain().getListeCartesMain().size();i++){	
 			Carte c= joueur.getLaMain().getListeCartesMain().get(i);
-			if(c.getType()=="Apocalypse"){//il va prendre le premier carte deusex trouvÃ© dans la liste
+			if(c.getType()=="Apocalypse"){
 				c.getUtilisable(joueur);
 				if (c.utilisee()==true){
 						id= c.getIdCarte();
@@ -48,7 +48,7 @@ public class Agressif implements Strategy{
 		if(a==0){
 		for(int i=0;i< joueur.getLaMain().getListeCartesMain().size();i++){	
 			Carte c= joueur.getLaMain().getListeCartesMain().get(i);
-			if(c.getType()=="DeusEx"){//il va prendre le premier carte deusex trouvÃ© dans la liste
+			if(c.getType()=="DeusEx"){
 				c.getUtilisable(joueur);
 				if (c.utilisee()==true){
 						id= c.getIdCarte();
@@ -60,7 +60,7 @@ public class Agressif implements Strategy{
 		if(a==0){
 		for(int i=0;i< joueur.getLaMain().getListeCartesMain().size();i++){	
 			Carte c= joueur.getLaMain().getListeCartesMain().get(i);
-			if(c.getType()=="GuideSpirituel"){//il va prendre le premier carte deusex trouvÃ© dans la liste
+			if(c.getType()=="GuideSpirituel"){
 				c.getUtilisable(joueur);
 				if (c.utilisee()==true){
 						id= c.getIdCarte();
